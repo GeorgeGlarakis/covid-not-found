@@ -1,0 +1,29 @@
+docker network create --driver=bridge covid
+
+docker build -t my-nginx .
+
+docker run  --name postgres \
+            -e "POSTGRES_USER=root" \
+            -e "POSTGRES_PASSWORD=root" \
+            -v ~/postgres:/var/lib/postgresql/data \
+            --network="covid" \
+            --network-alias="postgres.docker" \
+            --hostname="postgres.docker" \
+            -d postgres
+
+docker run  --name pgadmin \
+            -e "PGADMIN_DEFAULT_EMAIL=glarakis@taxy.io" \
+            -e "PGADMIN_DEFAULT_PASSWORD=1234" \
+            --network="covid" \
+            --network-alias="pgadmin.docker" \
+            --hostname="pgadmin.docker" \
+            -d dpage/pgadmin4
+
+docker run --name nginx \
+            -p 8080:80 \
+            -p 8081:1200 \
+            -v ~/nginx:/docker \
+            --network="covid" \
+            --network-alias="nginx.docker" \
+            --hostname="nginx.docker"  \
+            -d my-nginx
