@@ -19,6 +19,13 @@ docker run  --name pgadmin \
             --hostname="pgadmin.docker" \
             -d dpage/pgadmin4
 
+docker run  --name covid \
+            -v ~/covid-not-found:/docker/covid-not-found \
+            --network="covid" \
+            --network-alias="covid.docker" \
+            --hostname="covid.docker" \
+            -d php:7.1-fpm-alpine
+
 docker run --name nginx \
             -p 8080:80 \
             -p 8081:1200 \
