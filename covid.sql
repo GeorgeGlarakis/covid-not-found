@@ -1,78 +1,66 @@
 CREATE DATABASE covid;
+USE covid;
 
-BEGIN TRANSACTION;
+START TRANSACTION;
 
-CREATE TABLE IF NOT EXISTS public.users
+CREATE TABLE IF NOT EXISTS users
 (
-    user_id serial NOT NULL,
-    name character varying(100),
-    surname character varying(100),
-    email character varying(100) NOT NULL,
-    password text NOT NULL,
-    is_admin boolean NOT NULL DEFAULT false,
+    user_id INTEGER NOT NULL AUTO_INCREMENT,
+    name VARCHAR(100),
+    surname VARCHAR(100),
+    email VARCHAR(100) NOT NULL,
+    password TEXT NOT NULL,
+    is_admin BOOLEAN NOT NULL DEFAULT 0,
     PRIMARY KEY (user_id)
 );
 
-CREATE TABLE IF NOT EXISTS public.pois
+CREATE TABLE IF NOT EXISTS pois
 (
-    poi_id character(27) NOT NULL,
-    name text,
-    address text,
-    rating integer,
-    rating_n integer,
-    populartimes text,
+    poi_id CHAR(27) NOT NULL,
+    name TEXT,
+    address TEXT,
+    latitude FLOAT,
+    longitude FLOAT,
+    rating INTEGER,
+    rating_n INTEGER,
+    populartimes TEXT,
     PRIMARY KEY (poi_id)
 );
 
-CREATE TABLE IF NOT EXISTS public.coords
+CREATE TABLE IF NOT EXISTS types
 (
-    poi_id character(27) NOT NULL,
-    latitude real NOT NULL,
-    longitude real NOT NULL,
-    PRIMARY KEY (poi_id),
-    CONSTRAINT poi_id FOREIGN KEY (poi_id)
-    REFERENCES public.pois (poi_id)
-);
-
-CREATE TABLE IF NOT EXISTS public.types
-(
-    type_id serial NOT NULL,
-    name text NOT NULL,
+    type_id INTEGER NOT NULL AUTO_INCREMENT,
+    name TEXT NOT NULL,
     PRIMARY KEY (type_id)
 );
 
-CREATE TABLE IF NOT EXISTS public.pois_type
+CREATE TABLE IF NOT EXISTS pois_type
 (
-    poi_id character(27) NOT NULL,
-    type_id integer NOT NULL,
+    poi_id CHAR(27) NOT NULL,
+    type_id INTEGER NOT NULL,
     PRIMARY KEY (poi_id, type_id),
-    CONSTRAINT poi_id FOREIGN KEY (poi_id)
-    REFERENCES public.pois (poi_id),
-    CONSTRAINT type_id FOREIGN KEY (type_id)
-    REFERENCES public.types (type_id)
+    FOREIGN KEY (poi_id)    REFERENCES pois (poi_id),
+    FOREIGN KEY (type_id)    REFERENCES types (type_id)
 );
 
-CREATE TABLE IF NOT EXISTS public.visits
+CREATE TABLE IF NOT EXISTS visits
 (
-    visit_id serial NOT NULL,
-    user_id integer NOT NULL,
-    poi_id character(27) NOT NULL,
-    visit_time timestamp without time zone DEFAULT '2020-01-01 00:00:00-00',
+    visit_id INTEGER NOT NULL AUTO_INCREMENT,
+    user_id INTEGER NOT NULL,
+    poi_id CHAR(27) NOT NULL,
+    visit_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (visit_id),
-    CONSTRAINT poi_id FOREIGN KEY (poi_id)
-    REFERENCES public.pois (poi_id),
-    CONSTRAINT user_id FOREIGN KEY (user_id)
-    REFERENCES public.users (user_id)
+    FOREIGN KEY (poi_id)    REFERENCES pois (poi_id),
+    FOREIGN KEY (user_id)    REFERENCES users (user_id)
 );
 
-CREATE TABLE IF NOT EXISTS public.covid_cases
+CREATE TABLE IF NOT EXISTS covid_cases
 (
-    case_id serial NOT NULL,
-    user_id integer NOT NULL,
-    date date DEFAULT '2020-01-01',
+    case_id INTEGER NOT NULL AUTO_INCREMENT,
+    user_id INTEGER NOT NULL,
+    date DATE DEFAULT '2020-01-01',
     PRIMARY KEY (case_id),
-    CONSTRAINT user_id FOREIGN KEY (user_id)
-    REFERENCES public.users (user_id)
+    FOREIGN KEY (user_id)    REFERENCES users (user_id)
 );
 
 --  COMMIT
