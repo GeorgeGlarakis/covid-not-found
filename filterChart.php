@@ -39,7 +39,7 @@
   </head>
   <body>
     <div class="chartMenu">
-      <p>WWW.CHARTJS3.COM (Chart JS 3.8.0)</p> 
+      <p>WELCOME to Covid Not Found </p> 
     </div>
     <div class="chartCard">
       <div class="chartBox">
@@ -101,11 +101,11 @@
 
     funciton filterDate(){
       new Date'2022-07-15 GMT+0200'
-      const start1=document.getElementById('start').value;
+      const start1= new Date(document.getElementById('start').value);
       const start=start1.setHours(0,0,0,0);
-      const end1=document.getElementById('start').value;
+      const end1= new Date(document.getElementById('end').value);
       const end=end1.setHours(0,0,0,0);
-      const end = document.getElementById('end').value;
+      
 
       const filterDates = convertedDates.filter(date => date >= start && date <= end) //starting date < finishing date
       myChart.config.data.labels = filterDates;
