@@ -16,8 +16,8 @@
         }
 
         #map {
-            width: 100%;
-            height: 100vh;
+            width: 30%;
+            height: 30vh;
         }
 
         .coordinate {
@@ -52,7 +52,7 @@
 
 <script>
     // Map initialization 
-    var map = L.map('map').setView([28.3949, 84.1240], 8);
+    var map = L.map('map').setView([38.285332192, 21.785163], 8);
 
 
 
