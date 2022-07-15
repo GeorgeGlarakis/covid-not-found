@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leaflet Tutorial</title>
+    <title>leaflet</title>
 
     <!-- leaflet css  -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
@@ -16,8 +16,8 @@
         }
 
         #map {
-            width: 30%;
-            height: 30vh;
+            width: 60%;
+            height: 70vh;
         }
 
         .coordinate {
@@ -52,7 +52,7 @@
 
 <script>
     // Map initialization 
-    var map = L.map('map').setView([38.285332192, 21.785163], 8);
+    var map = L.map('map').setView([38.29037783868629, 21.79569292607424], 18);
 
 
 
@@ -66,15 +66,15 @@
     osm.addTo(map);
     // map.addLayer(osm)
 
-    // water color 
-    var watercolor = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}', {
-        attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        subdomains: 'abcd',
-        minZoom: 1,
-        maxZoom: 16,
-        ext: 'jpg'
-    });
-    // watercolor.addTo(map)
+    // // water color 
+    // var watercolor = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}', {
+    //     attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    //     subdomains: 'abcd',
+    //     minZoom: 1,
+    //     maxZoom: 16,
+    //     ext: 'jpg'
+    // });
+    // // watercolor.addTo(map)
 
     // dark map 
     var dark = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
@@ -108,14 +108,14 @@
 
 
     /*==============================================
-                        MARKER
+        RED MARKER
     ================================================*/
     var myIcon = L.icon({
         iconUrl: 'img/red_marker.png',
         iconSize: [40, 40],
     });
     var singleMarker = L.marker([28.3949, 84.1240], { icon: myIcon, draggable: true });
-    var popup = singleMarker.bindPopup('This is the Nepal. ' + singleMarker.getLatLng()).openPopup()
+    var popup = singleMarker.bindPopup('This is You. ' + singleMarker.getLatLng()).openPopup()
     popup.addTo(map);
 
     var secondMarker = L.marker([29.3949, 83.1240], { icon: myIcon, draggable: true });
@@ -124,7 +124,7 @@
 
 
     /*==============================================
-                GEOJSON
+                IMPLEMENT GEOJSON
     ================================================*/
     var pointData = L.geoJSON(pointJson).addTo(map)
     var lineData = L.geoJSON(lineJson).addTo(map)
@@ -176,10 +176,6 @@
         console.log('lat: ' + e.latlng.lat, 'lng: ' + e.latlng.lng)
     })
 
-
-    /*==============================================
-                    STYLE CUSTOMIZATION
-    ================================================*/
 
 
 </script>
