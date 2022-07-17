@@ -4,31 +4,74 @@
         <meta charset="utf-8">
         <title>Covid</title> 
         <!-- <link rel="stylesheet" href="css/style.css"> -->
-        <script type="text/javascript" src="/javascript/insertscripts.js"></script>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"        
+                integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+                crossorigin="anonymous"></script>
+		<script	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+		
     </head>
 
     <body>
         <!-- Upload File -->
         <div>
-            <input type="file"  id="jsonfileinput" />
 
+
+            Upload a JSON file with POI info: <input type="file" id="jsonfileinput" name="jsonfileinput" />
+            <butoon id="save">Save</butoon>
 
             <script defer type="text/javascript">
-                document.getElementById("jsonfileinput").addEventListener("change", insert(this));
+                
+                $(document).ready(function () {
+
+                    $('#save').click(function () {
+                        var file_to_read = document.getElementById("jsonfileinput").files[0];
+                        var fileread = new FileReader();
+                        var myJSON;
+
+                        fileread.readAsText(file_to_read);
+                        fileread.onload = function() {
+                            myJSON = JSON.parse(fileread.result);
+                            console.log(myJSON);                        
+                        }
+
+                        fileread.onloadend = function() {
+                            var sendfile = JSON.stringify(myJSON);
+
+                            var options = {
+                                url: "data.php",
+                                dataType: "text",
+                                type: "POST",
+                                data: {
+                                    pois: sendfile 
+                                }, 
+                                success: function( data, status, xhr ) {
+                                    // console.log(data)
+                                    // if(xhr.status === 301) {
+                                        alert(xhr.getAllResponseHeaders('location'));
+                                    // }
+                                    
+                                    // window.location.href = response.location;
+                                },
+                                error: function( xhr, status, error ) {
+                                    console.log(error)
+                                }
+                            };
+
+                            $.ajax( options );
+
+                        }
+                        fileread.onerror = function() {
+                            console.log(fileread.error);
+                        }
+
+                    });
+
+                })              
+
             </script>
-            <!-- <script defer type="text/javascript">
-                document.getElementById("jsonfileinput").addEventListener("change", function() {
-                    var file_to_read = document.getElementById("jsonfileinput").files[0];
-                    var fileread = new FileReader();
-                    fileread.onload = function(e) {
-                        var content = e.target.result;
-                        var intern = JSON.parse(content); // parse json 
-                        console.log(intern[2]); // You can index every object
-                    };
-                    fileread.readAsText(file_to_read);
-                });
-            </script> -->
         </div>
 
     </body>
 </html>
+
