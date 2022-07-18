@@ -39,16 +39,16 @@
                             var sendfile = JSON.stringify(myJSON);
 
                             var options = {
-                                url: "data.php",
+                                url: "insert_pois.php",
                                 dataType: "text",
                                 type: "POST",
                                 data: {
                                     pois: sendfile 
                                 }, 
                                 success: function( data, status, xhr ) {
-                                    // console.log(data)
+                                    console.log(data)
                                     // if(xhr.status === 301) {
-                                        alert(xhr.getAllResponseHeaders('location'));
+                                        // alert(xhr.getAllResponseHeaders('location'));
                                     // }
                                     
                                     // window.location.href = response.location;
