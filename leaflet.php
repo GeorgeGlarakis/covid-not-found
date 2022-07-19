@@ -64,17 +64,17 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         });
         osm.addTo(map);
-        // map.addLayer(osm)
+        map.addLayer(osm)
 
-        // // water color 
-        // var watercolor = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}', {
-        //     attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        //     subdomains: 'abcd',
-        //     minZoom: 1,
-        //     maxZoom: 16,
-        //     ext: 'jpg'
-        // });
-        // // watercolor.addTo(map)
+        // water color 
+        var watercolor = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}', {
+            attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            subdomains: 'abcd',
+            minZoom: 1,
+            maxZoom: 16,
+            ext: 'jpg'
+        });
+        watercolor.addTo(map)
 
         // dark map 
         var dark = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
@@ -114,7 +114,7 @@
             iconUrl: 'img/red_marker.png',
             iconSize: [40, 40],
         });
-        var singleMarker = L.marker([28.3949, 84.1240], { icon: myIcon, draggable: true });
+        var singleMarker = L.marker([38.29037783868629, 21.79569292607424], { icon: myIcon, draggable: true });
         var popup = singleMarker.bindPopup('This is You. ' + singleMarker.getLatLng()).openPopup()
         popup.addTo(map);
 
