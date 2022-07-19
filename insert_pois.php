@@ -3,8 +3,8 @@
 	include "database_conn.php";
 
 	header('Content-Type: text/plain');
-	$test = utf8_encode($_POST['pois']);
-	$data = json_decode($test);
+	$file = utf8_encode($_POST['pois']);
+	$data = json_decode($file);
 
 	foreach($data as $tmp_poi) {
 		insert_poi($tmp_poi, $conn);	
@@ -36,7 +36,6 @@
 			if(strpos($err, 'Duplicate entry') == true){
 				mysqli_stmt_close($stmt);
 				update_poi($tmp_poi, $conn);
-				insert_types($tmp_poi, $conn);
 			} else{
 				mysqli_stmt_close($stmt);
 				echo "[SQL Failed]";

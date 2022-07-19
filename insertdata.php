@@ -15,10 +15,9 @@
     <body>
         <!-- Upload File -->
         <div>
-
-
             Upload a JSON file with POI info: <input type="file" id="jsonfileinput" name="jsonfileinput" />
-            <butoon id="save">Save</butoon>
+
+            <button id="save">Save</button>
 
             <script defer type="text/javascript">
                 
@@ -38,7 +37,7 @@
                         fileread.onloadend = function() {
                             var sendfile = JSON.stringify(myJSON);
 
-                            var options = {
+                            $.ajax( {
                                 url: "insert_pois.php",
                                 dataType: "text",
                                 type: "POST",
@@ -56,10 +55,7 @@
                                 error: function( xhr, status, error ) {
                                     console.log(error)
                                 }
-                            };
-
-                            $.ajax( options );
-
+                            });
                         }
                         fileread.onerror = function() {
                             console.log(fileread.error);
