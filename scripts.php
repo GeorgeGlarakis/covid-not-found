@@ -1,9 +1,9 @@
 <!-- Chart1 -->
    <div>
       <?php
-//   $total_website_views = total_views($conn); // Returns total website views
-  $total_website_views = 5;
-  echo "<strong>Total Website Views:</strong> " . $total_website_views;
+//   $total_visits = total_views($conn); // Returns total website views
+  $total_visits = 50;
+  echo "<strong>Total Visits:</strong> " . $total_visits;
   ?>
 </div>
 
@@ -11,8 +11,8 @@
    <div>
          <?php
    //   $total_proved_cases = total_cases($conn); // Returns total confirmed cases
-   $total_proved_cases = 12;
-   echo "<strong>Total Proved Cases:</strong> " . $total_proved_cases;
+   $total_confirmed_cases = 12;
+   echo "<strong>Total Proved Cases:</strong> " . $total_confirmed_cases;
    ?>
    </div>
 
@@ -21,7 +21,7 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title>How to Create Dynamic Chart in PHP using Chart.js</title>
+		<title>Statistics depict in Charts</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<script	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
@@ -29,9 +29,9 @@
 	</head>
 	<body>
 		<div class="container">
-			<h2 class="text-center mt-4 mb-3">How to Create Dynamic Chart in PHP using Chart.js</a></h2>
+			<h2 class="text-center mt-4 mb-3">Statistics depict in Pie Charts</a></h2>
 
-			<div class="card">
+			<!-- <div class="card">
 				<div class="card-header">Sample Survey</div>
 				<div class="card-body">
 					<div class="form-group">
@@ -54,7 +54,9 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
+		
+
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-4">
@@ -70,14 +72,16 @@
 				<div class="col-md-4">
 					<div class="card mt-4">
 						<div class="card-header">Doughnut Chart</div>
-						<div class="card-body">
-							<div class="chart-container pie-chart">
-								<canvas id="doughnut_chart"></canvas>
-							</div>
+							<div class="card-body">
+								<div class="chart-container pie-chart">
+									<canvas id="doughnut_chart"></canvas>
+							1</div>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-4">
+					
+				
+				<!-- <div class="col-md-4">
 					<div class="card mt-4 mb-4">
 						<div class="card-header">Bar Chart</div>
 						<div class="card-body">
@@ -87,7 +91,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</body>
 </html>

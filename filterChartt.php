@@ -39,7 +39,7 @@
   </head>
   <body>
     <div class="chartMenu">
-      <p>WWW.CHARTJS3.COM (Chart JS 3.8.0)</p>
+      <p>WELCOME to Covid Not Found</p>
     </div>
     <div class="chartCard">
       <div class="chartBox">
@@ -67,7 +67,7 @@
     const data = {
       labels: dates,
       datasets: [{
-        label: 'Weekly Sales',
+        label: 'Proved Cases',
         data: datapoints,
         backgroundColor: [
           'rgba(255, 26, 104, 0.2)'          
