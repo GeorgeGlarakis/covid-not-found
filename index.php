@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,16 +31,21 @@
 <?php>
     include_once 'header.php';
 <?>
+=======
+>>>>>>> 894c95e38949026267b770684727a0ac501eb2a2
 
     <section class="index-intro">
         <h1>Welcome to Admin's Main Page</h1>
     </section>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     <section class="index-categories">
     
 >>>>>>> 126ccdc (admin dashboard is ready)
 =======
+=======
+>>>>>>> 894c95e38949026267b770684727a0ac501eb2a2
     <?php
         if(isset($_POST['btn-u'])){
             echo 'You just clicked Upload button';
@@ -56,5 +62,9 @@
         <input type="submit" name="btn-e" value ="Edit"> 
         <input type="submit" name="btn-dd" value ="Delete Data"> 
     </form>
+<<<<<<< HEAD
       
 >>>>>>> eff02e3 (insert/edit/delete buttons)
+=======
+      
+>>>>>>> 894c95e38949026267b770684727a0ac501eb2a2
