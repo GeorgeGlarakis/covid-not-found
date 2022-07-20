@@ -1,6 +1,6 @@
 <?php
 
-	include "database_conn.php";
+	include "/database_conn.php";
 
 	header('Content-Type: text/plain');
 	$file = utf8_encode($_POST['pois']);

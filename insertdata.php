@@ -38,21 +38,16 @@
                             var sendfile = JSON.stringify(myJSON);
 
                             $.ajax( {
-                                url: "insert_pois.php",
+                                url: "insert_pois.inc.php",
                                 dataType: "text",
                                 type: "POST",
                                 data: {
                                     pois: sendfile 
                                 }, 
-                                success: function( data, status, xhr ) {
-                                    console.log(data)
-                                    // if(xhr.status === 301) {
-                                        // alert(xhr.getAllResponseHeaders('location'));
-                                    // }
-                                    
-                                    // window.location.href = response.location;
+                                success: function( response ) {
+                                    console.log(response)
                                 },
-                                error: function( xhr, status, error ) {
+                                error: function( error ) {
                                     console.log(error)
                                 }
                             });
