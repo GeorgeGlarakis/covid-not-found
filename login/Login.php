@@ -1,31 +1,111 @@
 <!-- <?php
     include_once 'header.php';
-    ?> -->
+?> -->
     
     <section class="login-form">
         <h2>Log In</h2>
         <div calss="singup-form-form">
-            <form action="login.inc.php"  method="post">
-             <input type="text" name="name" placeholder="Username/Email...">
-             <input type="password" name="pwd" placeholder="Password...">
-             <button type="submit" name="submit">Log In</button>
-           </form> 
+            <input type="text" id="login-email" placeholder="Email...">
+            <input type="password" id="login-pwd" placeholder="Password...">
+            <button id="login-submit">Log In</button>
         </div> 
     </section>
 
     <section class="register-form">
         <div class="register-form">
             <h2>Register</h2>
-            <form action="includes/register.inc.php" method="post">
-                <input type="text" name="name" placeholder="Full name...">
-                <input type="text" name="username" placeholder="Username...">
-                <input type="password" name="password" placeholder="Password...">
-                <input type="password" name="password-conf" placeholder="Password Confirmation...">
-                <button type="submit" name="submit">Register</button>
-            </form> 
+            <input type="text" id="register-name" placeholder="Name...">
+            <input type="text" id="register-surname" placeholder="Surname...">
+            <input type="text" id="register-email" placeholder="Email...">
+            <input type="password" id="register-password" placeholder="Password...">
+            <input type="password" id="register-password-conf" placeholder="Password Confirmation...">
+            <button id="register-submit">Register</button>
         </div>
     </section>
+
+    <section class="logout">
+        <br>
+        <button id="logout">Log out</button>
+        <br>
+        <p id="test"> </p>
+
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"        
+                integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+                crossorigin="anonymous"></script>
+	<script	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+		
+
+    <script defer type="text/javascript">
+                
+        $(document).ready(function () {
+
+            $('#login-submit').click(function () {
+                var email = document.getElementById("login-email").value;
+                var password = document.getElementById("login-pwd").value;
+
+                $.ajax( {
+                    url: "includes/login.inc.php",
+                    dataType: "text",
+                    type: "POST",
+                    data: {
+                        login: JSON.stringify({ 
+                            email: email,
+                            password: password
+                        })
+                    }, 
+                    success: function( response ) {
+                        // window.location = "../index.php"
+                        $('#test').html(response)
+                    },
+                    error: function( error ) {
+                        console.log(error)
+                    }
+                });
+            });
+
+            $('#register-submit').click(function () {
+                var name = document.getElementById("register-name").value;
+                var surname = document.getElementById("register-surname").value;
+                var email = document.getElementById("register-email").value;
+                var password = document.getElementById("register-password").value;
+                var password_conf = document.getElementById("register-password-conf").value;
+
+                $.ajax( {
+                    url: "includes/login.inc.php",
+                    dataType: "text",
+                    type: "POST",
+                    data: {
+                        register: JSON.stringify({ 
+                            name: name,
+                            surname: surname,
+                            email: email,
+                            password: password,
+                            password_conf: password_conf
+                        })
+                    }, 
+                    success: function( response ) {
+                        $('#test').html(response)
+                    },
+                    error: function( error ) {
+                        console.log(error)
+                    }
+                });
+            });
+
+            // $('#login-submit').click(function () {
+            //     //<?php 
+            //         // session_unset();
+            //         // session_destroy();
+            //         // redirect to homepage
+            //     //?>
+            // })
+
+        })              
+
+    </script>
     
-    <!-- <?php
-        include_once 'footer.php'
-    ?> -->
+<!-- <?php
+    include_once 'footer.php'
+?> -->
