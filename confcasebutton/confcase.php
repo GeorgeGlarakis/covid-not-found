@@ -1,11 +1,7 @@
 <!-- <?php
     include_once 'header.php';
     ?> -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"        
-                integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-                crossorigin="anonymous"></script>
-	<script	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
-		
+    	
 
         <section class="confcase-date">
             <h2>Confirm a case</h2>
@@ -17,39 +13,35 @@
         <br>
         <p id="test"> </p>
             
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"        
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+	<script	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+	
+    <script defer type="text/javascript">
+                
+        $(document).ready(function () {
+            $('#confcase-submit').click(function () {
+                var date = document.getElementById("confcase-date").value;
+                var user_id = 1;
 
-        <script defer type="text/javascript">
-                    
-            $(document).ready(function () {
-    
-                $('#confcase-submit').click(function () {
-                    var date = document.getElementById("confcase-date").value;
-                    var user_id = 1;
-                    
-                    console.log (date)
-    
-                    $.ajax( {
-                        url: "confcase.inc.php",
-                        dataType: "text",
-                        type: "POST",
-                        data: {
-                            confcase: JSON.stringify({ 
-                                date: date,
-                                user_id: user_id
-                            })
-                        }, 
-                        success: function( response ) {
-                            // window.location = "../index.php"
-                            $('#test').html(response)
-                        },
-                        error: function( error ) {
-                            console.log(error)
-                        }
-                    });
+                $.ajax( {
+                    url: "confcase.inc.php",
+                    dataType: "text",
+                    type: "POST",
+                    data: {
+                        confcase: JSON.stringify({ 
+                            date: date,
+                            user_id: user_id
+                        })
+                    }, 
+                    success: function( response ) { $('#test').html(response) },
+                    error: function( error ) { console.log(error) }
                 });
             });
-        </script>
+        });
+    </script>
         
-    <!-- <?php
-        include_once 'footer.php'
-    ?> -->
+<!-- <?php
+    include_once 'footer.php'
+?> -->

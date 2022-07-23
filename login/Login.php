@@ -46,7 +46,7 @@
                 var password = document.getElementById("login-pwd").value;
 
                 $.ajax( {
-                    url: "includes/login.inc.php",
+                    url: "login.inc.php",
                     dataType: "text",
                     type: "POST",
                     data: {
@@ -55,13 +55,8 @@
                             password: password
                         })
                     }, 
-                    success: function( response ) {
-                        // window.location = "../index.php"
-                        $('#test').html(response)
-                    },
-                    error: function( error ) {
-                        console.log(error)
-                    }
+                    success: function( response ) { $('#test').html(response) },
+                    error: function( error ) { console.log(error) }
                 });
             });
 
@@ -85,25 +80,11 @@
                             password_conf: password_conf
                         })
                     }, 
-                    success: function( response ) {
-                        $('#test').html(response)
-                    },
-                    error: function( error ) {
-                        console.log(error)
-                    }
+                    success: function( response ) { $('#test').html(response) },
+                    error: function( error ) { console.log(error) }
                 });
             });
-
-            // $('#login-submit').click(function () {
-            //     //<?php 
-            //         // session_unset();
-            //         // session_destroy();
-            //         // redirect to homepage
-            //     //?>
-            // })
-
-        })              
-
+        })           
     </script>
     
 <!-- <?php
