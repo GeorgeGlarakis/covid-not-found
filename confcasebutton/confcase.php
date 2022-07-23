@@ -14,10 +14,12 @@
     
                 $('#confcase-submit').click(function () {
                     var date = document.getElementById("confcase-date").value;
+                    
+                    console.log (date)
     
                     $.ajax( {
-                        url: "includes/confcase.inc.php",
-                        dataType: "date",
+                        url: "confcase.inc.php",
+                        dataType: "text",
                         type: "POST",
                         data: {
                             confcase: JSON.stringify({ 
@@ -33,6 +35,7 @@
                         }
                     });
                 });
+            });
         </script>
         
     <!-- <?php
