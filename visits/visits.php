@@ -8,7 +8,7 @@
 		
 
         <section class="confcase-date">
-            <h2>Confirm a case</h2>
+            <h2>Confirm a visit</h2>
             <div class="confcase-date-date">
                 <input type="date" id="confcase-date">
                 <button id="confcase-submit">Confirm case</button>

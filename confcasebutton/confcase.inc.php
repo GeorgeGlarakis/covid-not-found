@@ -1,22 +1,28 @@
 <?php
 
-include "../../database_conn.php";
+include "../database_conn.php";
 
 header('Content-Type: text/plain');
 
 if (isset($_POST['confcase'])) {
     
 	$recived = utf8_encode($_POST['confcase']);
-    $confcase_crd = json_decode($recived);
-    $date = $confcase_crd->date;
-   // $user_id = $confcase_crd->user_id;
+    $confcase = json_decode($recived);
+    $date = $confcase->date;
+    $user_id = $confcase->user_id;
 
-    // require_once '/database_conn.php';
-    // require_once 'functions.inc.php';
+    $insert_confcase = "INSERT INTO covid_cases (user_id, date)
+                    VALUES ('$user_id', '$date');";
 
-    if (emptyInputLogin($date) !== false) {
-            echo '[ERROR] emptyinput';
-            exit();
+    try {
+        $stmt = mysqli_stmt_init($conn);
+        mysqli_stmt_prepare($stmt, $insert_confcase);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        echo "[SQL Success]";
     }
-    loginUser($conn, $email, $password);
+    catch (Exception $err) {
+        echo "[SQL Failed]";
+        die;
+    }
 }
