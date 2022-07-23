@@ -5,7 +5,7 @@
         <section class="confcase-date">
             <h2>Confirm a case</h2>
             <div class="confcase-date-date">
-                <input type="date" id="user-id">
+                <input type="date" id="confcase-date">
                 <button id="confcase-submit">Confirm case</button>
 
         <script defer type="text/javascript">
@@ -16,7 +16,7 @@
                     var date = document.getElementById("confcase-date").value;
     
                     $.ajax( {
-                        url: "includes/login.inc.php",
+                        url: "includes/confcase.inc.php",
                         dataType: "date",
                         type: "POST",
                         data: {
