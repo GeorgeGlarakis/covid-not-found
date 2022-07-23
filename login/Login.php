@@ -4,7 +4,7 @@
     
     <section class="login-form">
         <h2>Log In</h2>
-        <div calss="singup-form-form">
+        <div class="singup-form-form">
             <input type="text" id="login-email" placeholder="Email...">
             <input type="password" id="login-pwd" placeholder="Password...">
             <button id="login-submit">Log In</button>
