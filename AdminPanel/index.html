@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bootstrap 5 Simple Admin Dashboard</title>
+    <title>Admin Panel</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
     <link rel="stylesheet" href="style-sidebar.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
@@ -103,35 +103,56 @@
                 <div class="row my-4">
                     <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-4">
                         <div class="card">
-                            <h5 class="card-header">Total Visits</h5>
+							<h5 class="card-header">Total Visits</h5>
                             <div class="card-body">
-                              <div class="chart-container pie-chart">
-                                <canvas id="pie_chart"></canvas>
-                                <p class="card-text text">These are the total visits.</p>
-                              </div>
+                            	<div class="chart-container">
+                                	<h1 id="chart-1"></h1>                                	
+                              	</div>
+								<div class="row">
+									<div class="col-8 col-md-8 col-lg-8">
+										<p class="card-text text">These are the total visits.</p>		
+									</div>
+									<div class="col-4 col-md-4 col-lg-4 d-flex align-items-end justify-content-end">
+										<button id="refresh-chart-1">Refresh</button>
+									</div>
+							  	</div>							  
                             </div>
                         </div>
                     </div>
                     <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-4">
-                      <div class="card">
-                          <h5 class="card-header">Confirmed Cases</h5>
-                          <div class="card-body">
-                            <div class="chart-container pie-chart">
-                              <canvas id="pie_chart"></canvas>
-                              <p class="card-text text">These are the total Confirmed Cases.</p>
-                            </div>
-                            
-                          </div>
-                      </div>
-                  </div>
+                      	<div class="card">
+                          	<h5 class="card-header">Confirmed Cases</h5>
+						  
+                          	<div class="card-body">
+                        		<div class="chart-container">
+									<h1 id="chart-2"></h1>
+                            	</div>
+								<div class="row">
+									<div class="col-8 col-md-8 col-lg-8">
+										<p class="card-text text">These are the total Confirmed Cases.</p>		
+									</div>
+									<div class="col-4 col-md-4 col-lg-4 d-flex align-items-end justify-content-end">
+										<button id="refresh-chart-2">Refresh</button>
+									</div>
+							  	</div>                            
+                          	</div>
+                      	</div>
+                    </div>
                     <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-4">
                         <div class="card">
                             <h5 class="card-header">Total Visits of Confirmed Cases</h5>
                             <div class="card-body">
-                              <div class="chart-container pie-chart">
-                                <canvas id="pie_chart"></canvas>
-                                <p class="card-text text">Total visitors found covid positive.</p>
-                              </div>
+                              	<div class="chart-container">
+                                	<h1 id="chart-3"></h1>
+                              	</div>
+								<div class="row">
+									<div class="col-8 col-md-8 col-lg-8">
+										<p class="card-text text">Total visitors found covid positive.</p>		
+									</div>
+									<div class="col-4 col-md-4 col-lg-4 d-flex align-items-end justify-content-end">
+										<button id="refresh-chart-3">Refresh</button>
+									</div>
+							  	</div>
                             </div>
                         </div>
                     </div>
@@ -141,10 +162,17 @@
                     <div class="card">
                         <h5 class="card-header">POIs' Categories</h5>
                         <div class="card-body">
-                          <div class="chart-container pie-chart">
-                            <canvas id="pie_chart"></canvas>
-                            <p class="card-text text">These are the POIs categorized.</p>
-                          </div>
+                          	<div class="chart-container pie-chart">
+                            	<canvas id="chart-4"></canvas>
+                          	</div>
+							<div class="row">
+								<div class="col-8 col-md-8 col-lg-8">
+									<p class="card-text text">These are the POIs categorized.</p>		
+								</div>
+								<div class="col-4 col-md-4 col-lg-4 d-flex align-items-end justify-content-end">
+									<button id="refresh-chart-4">Refresh</button>
+								</div>
+							</div>
                         </div>
                     </div>
                   </div>   
@@ -152,10 +180,17 @@
                     <div class="card">
                         <h5 class="card-header">POIs' Categories</h5>
                         <div class="card-body">
-                          <div class="chart-container pie-chart">
-                            <canvas id="pie_chart"></canvas>
-                            <p class="card-text text">POIs categorized between 7-14 days.</p>
-                          </div>
+                          	<div class="chart-container">
+                            	<canvas id="chart-5"></canvas>
+                        	</div>
+							<div class="row">
+								<div class="col-8 col-md-8 col-lg-8">
+									<p class="card-text text">POIs categorized between 7-14 days.</p>		
+								</div>
+								<div class="col-4 col-md-4 col-lg-4 d-flex align-items-end justify-content-end">
+									<button id="refresh-chart-5">Refresh</button>
+								</div>
+							</div>
                         </div>
                     </div>
                   </div>
@@ -166,16 +201,22 @@
                       <h5 class="card-header">Daily Diagram</h5>
                       <div class="card-body">
                         <div class="chartCard">
-                          <div class="chartBox">
-                              <canvas id="myChart"></canvas>
+                          	<div class="chartBox">
+                              	<canvas id="myChart"></canvas>
                       
-                              Start: <input id="start" type="date" min="2022-01-01" max="2022-12-31"> 
-                              End: <input id="end" type="date" min="2022-01-01" max="2022-12-31">
-                              <button onclick="filterDate()">Filter</button><br>
-                            
-                          </div>
-                            <p class="card-text text">Visitors or Confirmed Cases per day.</p>
+                              	Start: <input id="start" type="date" min="2022-01-01" max="2022-12-31"> 
+                              	End: <input id="end" type="date" min="2022-01-01" max="2022-12-31">
+                              	<button onclick="filterDate()">Filter</button><br>
+                          	</div>
                         </div>
+						<div class="row">
+							<div class="col-8 col-md-8 col-lg-8">
+								<p class="card-text text">Visitors or Confirmed Cases per day.</p>		
+							</div>
+							<div class="col-4 col-md-4 col-lg-4 d-flex align-items-end justify-content-end">
+								<button id="refresh-chart-6">Refresh</button>
+							</div>
+						</div>
                       </div>
                     </div>
                   </div>
@@ -194,8 +235,16 @@
                               <button onclick="filterDate()">Filter</button><br>
                             
                           </div>
-                          <p class="card-text text">Visitors or Confirmed Cases per hour.</p>
+                          
                         </div>
+						<div class="row">
+							<div class="col-8 col-md-8 col-lg-8">
+								<p class="card-text text">Visitors or Confirmed Cases per hour.</p>		
+							</div>
+							<div class="col-4 col-md-4 col-lg-4 d-flex align-items-end justify-content-end">
+								<button id="refresh-chart-7">Refresh</button>
+							</div>
+						</div>
                       </div>
                     </div>
                   </div>
@@ -224,183 +273,379 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-    
-    <!-- Bar Chart Charts 6/7 -->
-    <script defer type="text/javascript">
-
-      const dates = ['2022-07-16','2022-07-17','2022-07-18','2022-07-19','2022-07-20','2022-07-21','2022-07-22'];
-         
-         const datapoints = [18, 12, 6, 9, 12, 3, 9];
-        
-         console.log(new Date('2022-07-16'))
-         const convertedDates = dates.map(date => new Date(date).setHours(0,0,0,0));
-         console.log(convertedDates)
-      
-         const data = {
-           labels: dates,
-           datasets: [{
-             label: 'Proved Cases',
-             data: datapoints,
-             backgroundColor: [
-               'rgba(255, 26, 104, 0.2)'          
-             ],
-             borderColor: [
-               'rgba(255, 26, 104, 1)'          
-             ],
-             borderWidth: 1
-           }]
-         };
-      
-         // config 
-         const config = {
-           type: 'bar',
-           data,
-           options: {
-             scales: {
-               x: {
-                 type:'time',
-                 time:{
-                    unit:'day'
-                 }            
-               },
-               y: {
-                 beginAtZero: true
-               }
-             }
-           }
-         };
-      
-         // render init block
-         const myChart = new Chart(
-           document.getElementById('myChart'),
-           config
-         );
-      
-         function filterDate(){
-      
-             const start1 = new Date(document.getElementById('start').value);
-             const start = start1.setHours(0,0,0,0);
-             console.log(start)
-             const end1 = new Date(document.getElementById('end').value);
-             const end = end1.setHours(0,0,0,0);
-             console.log(end)
-      
-             const filterDates = convertedDates.filter(date => date >=start && date <= end)
-             myChart.config.data.labels = filterDates;
-      
-             const startArray = convertedDates.indexOf(filterDates[0])
-             const endArray = convertedDates.indexOf(filterDates[filterDates.length-1])
-             const copydatapoints = [...datapoints];
-             copydatapoints.splice(endArray + 1, filterDates.length);
-             copydatapoints.splice(0,startArray);
-             console.log(copydatapoints)
-             myChart.config.data.datasets[0].data = copydatapoints;
-             myChart.update();
-         }
-      
-         </script>
-
-         <!-- Pie Chart -->
-         <script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<script	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 	
-          $(document).ready(function(){
-          
-            $('#submit_data').click(function(){
-          
-              var language = $('input[name=programming_language]:checked').val();
-          
-              $.ajax({
-                url:"data.php",
-                method:"POST",
-                data:{action:'insert', language:language},
-                beforeSend:function()
-                {
-                  $('#submit_data').attr('disabled', 'disabled');
-                },
-                success:function(data)
-                {
-                  $('#submit_data').attr('disabled', false);
-          
-                  $('#programming_language_1').prop('checked', 'checked');
-          
-                  $('#programming_language_2').prop('checked', false);
-          
-                  $('#programming_language_3').prop('checked', false);
-          
-                  alert("Your Feedback has been send...");
-          
-                  makechart();
-                }
-              })
-          
-            });
-          
-            makechart();
-          
-            function makechart()
-            {
-              $.ajax({
-                url:"data.php",
-                method:"POST",
-                data:{action:'fetch'},
-                dataType:"JSON",
-                success:function(data)
-                {
-                  var language = [];
-                  var total = [];
-                  var color = [];
-          
-                  for(var count = 0; count < data.length; count++)
-                  {
-                    language.push(data[count].language);
-                    total.push(data[count].total);
-                    color.push(data[count].color);
-                  }
-          
-                  var chart_data = {
-                    labels:language,
-                    datasets:[
-                      {
-                        label:'Vote',
-                        backgroundColor:color,
-                        color:'#fff',
-                        data:total
-                      }
-                    ]
-                  };
-          
-                  var options = {
-                    responsive:true,
-                    scales:{
-                      yAxes:[{
-                        ticks:{
-                          min:0
-                        }
-                      }]
-                    }
-                  };
-          
-                  var group_chart1 = $('#pie_chart');
-          
-                  var graph1 = new Chart(group_chart1, {
-                    type:"pie",
-                    data:chart_data
-                  });
+	<script>
+		window.onload = function() {
+			// populate charts
+			update_chart_1();
+			update_chart_2();
+			update_chart_3();
+			update_chart_4();
+		}
 
-                  var group_chart1 = $('#pie_chart');
-                  
-                  var graph1 = new Chart(group_chart1, {
-                    type:"pie",
-                    data:chart_data
-          });
-          
-                
-                }
-              })
-            }
-          
-          });
-          
-          </script>
+
+		$(document).ready(function() {
+			// create resfresh buttons
+			$('#refresh-chart-1').click(function() {
+				update_chart_1();
+			});
+			$('#refresh-chart-2').click(function() {
+				update_chart_2();
+			});
+			$('#refresh-chart-3').click(function() {
+				update_chart_3();
+			});
+			$('#refresh-chart-4').click(function() {
+				update_chart_4();
+			});
+			$('#refresh-chart-5').click(function() {
+				update_chart_5();
+			});
+			$('#refresh-chart-6').click(function() {
+				update_chart_6();
+			});
+			$('#refresh-chart-7').click(function() {
+				update_chart_7();
+			});			
+		})
+
+		function update_chart_1() {
+			$.ajax({
+				url:"admincharts.inc.php",
+				method:"POST",
+				data:{ chart1: null },
+				dataType:"text",
+
+				success: function( response ) {
+					if (response.includes("error")) {
+						let error = JSON.parse(response);
+                    	console.log(error.error);
+					}
+					else if (response.includes("total_visits")) {
+						let value = JSON.parse(response).total_visits;
+						document.getElementById("chart-1").innerHTML = value;
+					}
+					else { console.log("Wrong response!"); }
+				},
+				error: function( xhr, ajaxOptions, thrownError ) {
+                	console.log("AJAX Error:" + xhr.status)
+                	console.log("Thrown Error:" + thrownError)
+            	}
+			});
+		}
+
+		function update_chart_2() {
+			$.ajax({
+				url:"admincharts.inc.php",
+				method:"POST",
+				data:{ chart2: null },
+				dataType:"text",
+
+				success: function( response ) {
+					if (response.includes("error")) {
+						let error = JSON.parse(response);
+                    	console.log(error.error);
+					}
+					else if (response.includes("covid_cases")) {
+						let value = JSON.parse(response).covid_cases;
+						document.getElementById("chart-2").innerHTML = value;
+					}
+					else { console.log("Wrong response!"); }
+				},
+				error: function( xhr, ajaxOptions, thrownError ) {
+                	console.log("AJAX Error:" + xhr.status)
+                	console.log("Thrown Error:" + thrownError)
+            	}
+			});
+		}
+
+		function update_chart_3() {
+			$.ajax({
+				url:"admincharts.inc.php",
+				method:"POST",
+				data:{ chart3: null },
+				dataType:"text",
+
+				success: function( response ) {
+					if (response.includes("error")) {
+						let error = JSON.parse(response);
+                    	console.log(error.error);
+					}
+					else if (response.includes("covid_visits")) {
+						let value = JSON.parse(response).covid_visits;
+						document.getElementById("chart-3").innerHTML = value;
+					}
+					else { console.log("Wrong response!"); }
+				},
+				error: function( xhr, ajaxOptions, thrownError ) {
+                	console.log("AJAX Error:" + xhr.status)
+                	console.log("Thrown Error:" + thrownError)
+            	}
+			});
+		}
+
+		function update_chart_4() {
+			$.ajax({
+				url:"admincharts.inc.php",
+				method:"POST",
+				data:{ chart4: null },
+				dataType:"text",
+				
+				function( response ) {
+					if (response.includes("error")) {
+						let error = JSON.parse(response);
+                    	console.log(error.error);
+					}
+					else if (response.includes("visits")) {
+						create_pie_chart('#chart-4', JSON.parse(response));
+					}
+					else { console.log("Wrong response!"); }
+				},
+				error: function( xhr, ajaxOptions, thrownError ) {
+                	console.log("AJAX Error:" + xhr.status)
+                	console.log("Thrown Error:" + thrownError)
+            	}					
+			})
+		}
+
+		function update_chart_5() {
+			$.ajax({
+				url:"admincharts.inc.php",
+				method:"POST",
+				data:{ chart5: null },
+				dataType:"text",
+				
+				function( response ) {
+					if (response.includes("error")) {
+						let error = JSON.parse(response);
+                    	console.log(error.error);
+					}
+					else if (response.includes("visits")) {
+						create_pie_chart('#chart-5', JSON.parse(response));
+					}
+					else { console.log("Wrong response!"); }
+				},
+				error: function( xhr, ajaxOptions, thrownError ) {
+                	console.log("AJAX Error:" + xhr.status)
+                	console.log("Thrown Error:" + thrownError)
+            	}					
+			})
+		}
+
+		function create_pie_chart(chart_id, data) {
+			var type = [];
+			var visits = [];
+			var color = [];
+
+			for(var count = 0; count < data.length; count++) {
+				type.push(data[count].type);
+				visits.push(data[count].visits);
+				color.push(data[count].color);
+			}
+
+			var chart_data = {
+				labels:type,
+				datasets:[{
+					label:'Vote',
+					backgroundColor:color,
+					color:'#fff',
+					data:vitits
+				}]
+			};
+
+			var options = {
+				responsive:true,
+				scales:{
+					yAxes:[{
+						ticks:{
+							min:0
+						}
+					}]
+				}
+			};
+
+			var group_chart1 = $(chart_id);
+			var graph1 = new Chart(group_chart1, {
+				type:"pie",
+				data:chart_data
+			});
+		}
+	</script>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- Bar Chart Charts 6/7 -->
+	<script defer type="text/javascript">
+
+		const dates = ['2022-07-16','2022-07-17','2022-07-18','2022-07-19','2022-07-20','2022-07-21','2022-07-22'];
+
+		const datapoints = [18, 12, 6, 9, 12, 3, 9];
+
+		const convertedDates = dates.map(date => new Date(date).setHours(0,0,0,0));
+
+		const data = {
+			labels: dates,
+			datasets: [{
+				label: 'Proved Cases',
+				data: datapoints,
+				backgroundColor: [
+					'rgba(255, 26, 104, 0.2)'          
+				],
+				borderColor: [
+					'rgba(255, 26, 104, 1)'          
+				],
+				borderWidth: 1
+			}]
+		};
+
+		// config 
+		const config = {
+			type: 'bar',
+			data,
+			options: {
+				scales: {
+					x: {
+						type:'time',
+						time:{
+							unit:'day'
+						}            
+					},
+					y: {
+						beginAtZero: true
+					}
+				}
+			}
+		};
+
+		// render init block
+		const myChart = new Chart(
+			document.getElementById('myChart'),
+			config
+		);
+
+		function filterDate(){
+
+			const start1 = new Date(document.getElementById('start').value);
+			const start = start1.setHours(0,0,0,0);
+			console.log(start)
+			const end1 = new Date(document.getElementById('end').value);
+			const end = end1.setHours(0,0,0,0);
+			console.log(end)
+
+			const filterDates = convertedDates.filter(date => date >=start && date <= end)
+			myChart.config.data.labels = filterDates;
+
+			const startArray = convertedDates.indexOf(filterDates[0])
+			const endArray = convertedDates.indexOf(filterDates[filterDates.length-1])
+			const copydatapoints = [...datapoints];
+			copydatapoints.splice(endArray + 1, filterDates.length);
+			copydatapoints.splice(0,startArray);
+			console.log(copydatapoints)
+			myChart.config.data.datasets[0].data = copydatapoints;
+			myChart.update();
+		}
+
+	</script>
+
+	<!-- Pie Chart -->
+	<script>
+
+		$(document).ready(function(){
+
+
+			$('#submit_data').click(function(){
+
+				var language = $('input[name=programming_language]:checked').val();
+
+				// $.ajax({
+				// 	url:"data.php",
+				// 	method:"POST",
+				// 	data:{action:'insert', language:language},
+				// 	beforeSend:function() {
+				// 		$('#submit_data').attr('disabled', 'disabled');
+				// 	},
+				// 	success:function(data) {
+				// 		$('#submit_data').attr('disabled', false);
+				// 		$('#programming_language_1').prop('checked', 'checked');
+				// 		$('#programming_language_2').prop('checked', false);
+				// 		$('#programming_language_3').prop('checked', false);
+				// 		alert("Your Feedback has been send...");
+				// 		makechart();
+				// 	}
+				// })
+
+			});
+
+			makechart();
+
+			function makechart() {
+				// $.ajax({
+				// 	url:"data.php",
+				// 	method:"POST",
+				// 	data:{ action:'fetch' },
+				// 	dataType:"JSON",
+
+				// 	success:function(data) {
+				// 		var language = [];
+				// 		var total = [];
+				// 		var color = [];
+
+				// 		for(var count = 0; count < data.length; count++) {
+				// 			language.push(data[count].language);
+				// 			total.push(data[count].total);
+				// 			color.push(data[count].color);
+				// 		}
+
+				// 		var chart_data = {
+				// 			labels:language,
+				// 			datasets:[{
+				// 				label:'Vote',
+				// 				backgroundColor:color,
+				// 				color:'#fff',
+				// 				data:total
+				// 			}]
+				// 		};
+
+				// 		var options = {
+				// 			responsive:true,
+				// 			scales:{
+				// 				yAxes:[{
+				// 					ticks:{
+				// 						min:0
+				// 					}
+				// 				}]
+				// 			}
+				// 		};
+
+				// 		var group_chart1 = $('#pie_chart');
+				// 		var graph1 = new Chart(group_chart1, {
+				// 			type:"pie",
+				// 			data:chart_data
+				// 		});
+				// 	}
+				// })
+			}
+		});
+	</script>
 </body>
 </html>
