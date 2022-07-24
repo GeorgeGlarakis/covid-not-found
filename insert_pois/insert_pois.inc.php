@@ -1,6 +1,6 @@
 <?php
 
-	include "/database_conn.php";
+	include "../database_conn.php";
 
 	header('Content-Type: text/plain');
 	$file = utf8_encode($_POST['pois']);
@@ -42,7 +42,6 @@
 				die;
 			}
 		}    	
-
 	}
 
 	function insert_types($tmp_poi, $conn) {
@@ -57,15 +56,14 @@
 										WHERE name = '$type';";
 			
 			try {
-				$stmt = mysqli_stmt_init($conn);
-			
+				$stmt = mysqli_stmt_init($conn);			
 				mysqli_stmt_prepare($stmt, $select_type);
 				mysqli_stmt_execute($stmt);
 
 				$resultData = mysqli_stmt_get_result($stmt);
 				$row = mysqli_fetch_assoc($resultData);
 		
-				IF ($row['COUNT(*)'] == 0){
+				if ($row['COUNT(*)'] == 0){
 					mysqli_stmt_prepare($stmt, $insert_type);
 					mysqli_stmt_execute($stmt);
 				}

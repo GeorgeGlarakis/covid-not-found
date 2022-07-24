@@ -1,6 +1,6 @@
 <?php
 
-include "../../database_conn.php";
+include "../database_conn.php";
 
 header('Content-Type: text/plain');
 
@@ -10,9 +10,6 @@ if (isset($_POST['login'])) {
     $login_crd = json_decode($recived);
     $email = $login_crd->email;
     $password = $login_crd->password;
-
-    // require_once '/database_conn.php';
-    // require_once 'functions.inc.php';
 
     if (emptyInputLogin($email, $password) !== false) {
             echo '[ERROR] emptyinput';
