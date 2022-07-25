@@ -49,6 +49,7 @@ CREATE TABLE IF NOT EXISTS visits
     user_id INTEGER NOT NULL,
     poi_id CHAR(27) NOT NULL,
     visit_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    estimation INT NOT NULL,
     PRIMARY KEY (visit_id),
     FOREIGN KEY (poi_id)    REFERENCES pois (poi_id),
     FOREIGN KEY (user_id)    REFERENCES users (user_id)
