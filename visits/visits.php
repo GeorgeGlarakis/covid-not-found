@@ -7,11 +7,11 @@
 	<script	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 		
 
-        <section class="confcase-date">
+        <section class="visits">
             <h2>Confirm a visit</h2>
-            <div class="confcase-date-date">
-                <input type="date" id="confcase-date">
-                <button id="confcase-submit">Confirm case</button>
+            <div class="visits-bolean">
+                <input type="boolean" id="visits">
+                <button id="visits-submit">Confirm case</button>
             </div>
         </section>
         <br>
@@ -22,19 +22,19 @@
                     
             $(document).ready(function () {
     
-                $('#confcase-submit').click(function () {
-                    var date = document.getElementById("confcase-date").value;
+                $('#visits-submit').click(function () {
+                    var boolean = document.getElementById("visits").value;
                     var user_id = 1;
                     
                     console.log (date)
     
                     $.ajax( {
-                        url: "confcase.inc.php",
+                        url: "visits.inc.php",
                         dataType: "text",
                         type: "POST",
                         data: {
                             confcase: JSON.stringify({ 
-                                date: date,
+                                boolean: boolean,
                                 user_id: user_id
                             })
                         }, 
