@@ -7,11 +7,11 @@
 	<script	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 		
 
-        <section class="visits">
+        <section class="visits-int">
             <h2>Confirm a visit</h2>
-            <div class="visits-bolean">
-                <input type="boolean" id="visits">
-                <button id="visits-submit">Confirm case</button>
+            <div class="visits-int-int">
+                <input type="number" id="visits-estimation" name="estimation">
+                <button id="visits-submit">Confirm visit</button>
             </div>
         </section>
         <br>
@@ -23,19 +23,21 @@
             $(document).ready(function () {
     
                 $('#visits-submit').click(function () {
-                    var boolean = document.getElementById("visits").value;
+                    var estimation = document.getElementById("visits-estimation").value;
                     var user_id = 1;
+                    var poi_id = "ChIJ4e-5v05JXhMRDZp4UgNSSqg";
+                    //visit_time apo db
                     
-                    console.log (date)
     
                     $.ajax( {
                         url: "visits.inc.php",
                         dataType: "text",
                         type: "POST",
                         data: {
-                            confcase: JSON.stringify({ 
-                                boolean: boolean,
-                                user_id: user_id
+                            visits: JSON.stringify({ 
+                                user_id: user_id,
+                                poi_id: poi_id,
+                                estimation: estimation
                             })
                         }, 
                         success: function( response ) {
