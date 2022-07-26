@@ -172,7 +172,7 @@
             let popupText = name + "<br>" + address + "<br>Rating: " + rating + 
                         "<br>Crowd Prediction: " + pred.first_hour + " " + pred.second_hour +
                         "<br>Crowd Estimation: " + estim +
-                        '<br><input type="button" id="'+ poi_id +'" class="mybuttons" value="'+poi_id+'"></input>';
+                        '<br><input type="button" id="'+ poi_id +'" class="mybuttons" value="Register Visit"></input>';
             
             markers[key] = new L.marker([lat, lng], {icon: marker_color})
                                 .bindPopup(popupText)
