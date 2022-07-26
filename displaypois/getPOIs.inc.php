@@ -123,4 +123,42 @@ if (isset($_POST['search'])) {
     die;
 }
 
+if (isset($_POST['estimation'])) {
+
+    $poi_id = $_POST['estimation'];
+
+    date_default_timezone_set("Europe/Athens");
+    $current_time =  date_create()->format('Y-m-d H:i:s');
+    
+    $get_est = "SELECT estimation FROM visits
+        WHERE poi_id = '$poi_id' AND visit_time > date_sub('$current_time', INTERVAL 2 HOUR);";
+
+    try {
+        $stmt = mysqli_stmt_init($conn);
+        mysqli_stmt_prepare($stmt, $get_est);
+        mysqli_stmt_execute($stmt);
+
+        $resultData = mysqli_stmt_get_result($stmt);
+        $row = mysqli_fetch_assoc($resultData);
+        $i=0;
+        $estim=0;
+        if (!$row) { echo json_encode(['estimation' => 'No recent visits!']);  }
+        else { 
+            while($row){
+                $i++;
+                $estim += $row["estimation"];
+            } 
+            $estim = $estim / $i;
+            echo json_encode(['estimation' => $estim]);
+        }                
+        mysqli_stmt_close($stmt);
+    }
+    catch (Exception $err) {
+        $error = array(['error' => '[SQL Failed]'.$err]);
+        echo json_encode($error);
+        die;
+    }
+
+}
+
 ?>
