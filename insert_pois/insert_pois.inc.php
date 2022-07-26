@@ -3,12 +3,18 @@
 	include "../database_conn.php";
 
 	header('Content-Type: text/plain');
-	$file = utf8_encode($_POST['pois']);
-	$data = json_decode($file);
 
-	foreach($data as $tmp_poi) {
-		insert_poi($tmp_poi, $conn);	
+	if (isset($_POST['login'])) {
+		$file = utf8_encode($_POST['pois']);
+		$data = json_decode($file);
+
+		foreach($data as $tmp_poi) {
+			insert_poi($tmp_poi, $conn);	
+		}
 	}
+
+	if (isset($_POST['login'])) { delete_all($conn); }
+
 
 	function insert_poi($tmp_poi, $conn) {
 		$tmp_id = $tmp_poi->id;
@@ -101,13 +107,16 @@
 	}
 
 	function delete_all($conn) {
-		$delete_all = "DELETE * FROM pois";
+		$delete_all = "DELETE * FROM poi_types;
+						DELETE * FROM visits;
+						DELETE * FROM pois;";
 
 		try {
 			$stmt = mysqli_stmt_init($conn);
 			mysqli_stmt_prepare($stmt, $delete_all);
 			mysqli_stmt_execute($stmt);
 			mysqli_stmt_close($stmt);
+			echo "Deleted Successfully!";
 		}
 		catch (Exception $err) {
 			echo $err;

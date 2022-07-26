@@ -18,6 +18,7 @@
             Upload a JSON file with POI info: <input type="file" id="jsonfileinput" name="jsonfileinput" />
 
             <button id="save">Save</button>
+            <button id="delete">Delete ALL DATA</button>
         </div>
 
         <script defer type="text/javascript">            
@@ -50,6 +51,20 @@
                     fileread.onerror = function() {
                         console.log(fileread.error);
                     }
+
+                });
+
+                $('#delete').click(function () {
+                        
+                    $.ajax( {
+                        url: "insert_pois.php",
+                        dataType: "text",
+                        type: "POST",
+                        data: { delete: null }, 
+                        success: function( response ) { console.log(response) },
+                        error: function( error ) { console.log(error) }
+                    });
+                      
 
                 });
 
