@@ -1,3 +1,8 @@
+<?php session_start();
+$_SESSION["user_id"] = 1;
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,6 +32,10 @@
     </div>
 
     <div id="map"></div>
+
+    <div class="popup">Click me!
+        <span class="popuptext" id="myPopup">Popup text...</span>
+    </div>
     
 </body>
 </html>
@@ -86,6 +95,7 @@
 <!-- Search for POIs nearby -->
 <script>
     var pois;
+    var user_id ='<?php echo $_SESSION["user_id"];?>';
 
     $(document).ready(function () {
 
@@ -172,13 +182,15 @@
             let popupText = name + "<br>" + address + "<br>Rating: " + rating + 
                         "<br>Crowd Prediction: " + pred.first_hour + " " + pred.second_hour +
                         "<br>Crowd Estimation: " + estim +
+                        '<br>Your crowd estimation: <input type="number" id="estimation_'+ poi_id +'">' +
                         '<br><input type="button" id="'+ poi_id +'" class="mybuttons" value="Register Visit"></input>';
             
             markers[key] = new L.marker([lat, lng], {icon: marker_color})
                                 .bindPopup(popupText)
                                 .on("popupopen", function() {
                                     $('.mybuttons').click(function () {
-                                        console.log(this.id);
+                                        var estimation = $('#estimation_' + this.id).val();
+                                        register_visit(user_id, this.id, estimation);
                                     });
                                 });
             ;       
@@ -236,6 +248,25 @@
         return result;
     }
 
-    function register_visit( poi_id ) {}
+    function register_visit( user_id, poi_id, estimation ) {
+        $.ajax( {
+            url: "../visits/visits.inc.php",
+            dataType: "text",
+            type: "POST",
+            data: {
+                visits: JSON.stringify({ 
+                    user_id: user_id,
+                    poi_id: poi_id,
+                    estimation: estimation
+                })
+            }, 
+            success: function( response ) {
+                alert(response);
+            },
+            error: function( error ) {
+                console.log(error)
+            }
+        });
+    }
 
 </script>
