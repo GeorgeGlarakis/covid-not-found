@@ -1,3 +1,8 @@
+<?php session_start();
+$_SESSION["user_id"] = 1;
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,6 +13,8 @@
 
     <!-- leaflet css  -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
+    <link rel="stylesheet" href="leaflet.awesome-markers.css">
 
     <style>
         #map {
@@ -25,13 +32,31 @@
     </div>
 
     <div id="map"></div>
+
+    <div class="popup">Click me!
+        <span class="popuptext" id="myPopup">Popup text...</span>
+    </div>
     
 </body>
 </html>
 
 <!-- leaflet.js  -->
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="leaflet.awesome-markers.js"></script>
 <script>
+    var blueMarker = L.AwesomeMarkers.icon({
+        markerColor: 'blue'
+    });
+    var greenMarker = L.AwesomeMarkers.icon({
+        markerColor: 'green'
+    });
+    var orangeMarker = L.AwesomeMarkers.icon({
+        markerColor: 'orange'
+    });
+    var redMarker = L.AwesomeMarkers.icon({
+        markerColor: 'red'
+    });
+
     // Map initialization 
     var map = L.map('map').setView([38.29037783868629, 21.79569292607424], 12);
     var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
@@ -52,7 +77,7 @@
 
         if(mylocation) { map.removeLayer(mylocation) }
 
-        mycoords = L.marker([lat, lng]).bindPopup("My Location")
+        mycoords = L.marker([lat, lng], {icon: blueMarker}).bindPopup("My Location")
         mycircle = L.circle([lat, lng], {radius: accuracy})
 
         var mylocation = L.featureGroup([mycoords, mycircle]).addTo(map)
@@ -70,6 +95,7 @@
 <!-- Search for POIs nearby -->
 <script>
     var pois;
+    var user_id ='<?php echo $_SESSION["user_id"];?>';
 
     $(document).ready(function () {
 
@@ -135,24 +161,112 @@
     }
 
     function display_pois( poi_res ) {
-        var markers = [];
+        let markers = [];
         Object.entries(poi_res).forEach(([key, value]) => {
-            var poi_id = value.poi_id;
-            var name = value.name;
-            var address = value.address;
-            var lat = value.lat;
-            var lng = value.lng;
-            var rating = value.rating;
-            var rating_n = value.rating_n;
-            var populartimes = value.populartimes;
+            let poi_id = value.poi_id;
+            let name = value.name;
+            let address = value.address;
+            let lat = value.lat;
+            let lng = value.lng;
+            let rating = value.rating;
+            let rating_n = value.rating_n;
+            let populartimes = value.populartimes;
 
-            var popupText = name + "<br>" + address + "<br>Rating: " + rating;
+            let pred = crowd_prediction(JSON.parse(populartimes));
+            let marker_color;
+            if (pred.first_hour < 33) { marker_color = greenMarker; }
+            else if (pred.first_hour > 32 && pred.first_hour < 66) { marker_color = orangeMarker; }
+            else { marker_color = redMarker; }
+            let estim = get_estimation(poi_id);            
+
+            let popupText = name + "<br>" + address + "<br>Rating: " + rating + 
+                        "<br>Crowd Prediction: " + pred.first_hour + " " + pred.second_hour +
+                        "<br>Crowd Estimation: " + estim +
+                        '<br>Your crowd estimation: <input type="number" id="estimation_'+ poi_id +'">' +
+                        '<br><input type="button" id="'+ poi_id +'" class="mybuttons" value="Register Visit"></input>';
             
-            markers[key] = new L.marker([lat, lng]).bindPopup(popupText);       
+            markers[key] = new L.marker([lat, lng], {icon: marker_color})
+                                .bindPopup(popupText)
+                                .on("popupopen", function() {
+                                    $('.mybuttons').click(function () {
+                                        var estimation = $('#estimation_' + this.id).val();
+                                        register_visit(user_id, this.id, estimation);
+                                    });
+                                });
+            ;       
+
         })
 
         pois = L.layerGroup(markers);
         map.addLayer(pois);
 
     }
+
+    function crowd_prediction( populartimes ) {
+        const timeElapsed = Date.now();
+        const today = new Date(timeElapsed);
+        var current_day = today.getDay();
+        if (current_day == 0) { current_day = 6; }  // Our JSON starts the week from Monday
+            else { current_day--; }                 // but .getDay() function starts from Sunday
+        const current_time = today.getHours();
+        let weekday, hours;
+        Object.entries(populartimes).forEach(([key, value]) => {
+            if (current_day == key) {
+                weekday = value.name;
+                hours = value.data;                
+            } 
+        })
+
+        return {
+            "first_hour":hours[current_time+1], 
+            "second_hour":hours[current_time+2]
+        };         
+    }
+
+    function get_estimation( poi_id ) {
+        $.ajax({
+            url:"getPOIs.inc.php",
+            method:"POST",
+            data:{ estimation: poi_id },
+            dataType:"text",
+            async: false,
+
+            success: function( response ) {
+                if (response.includes("error")) {
+                    result = JSON.parse(response).error;
+                }
+                else if (response.includes("estimation")) {
+                    result = JSON.parse(response).estimation;
+                }
+            },
+            error: function( xhr, ajaxOptions, thrownError ) {
+                console.log("AJAX Error:" + xhr.status)
+                console.log("Thrown Error:" + thrownError)
+                result = "Error!";
+            }
+        });
+        return result;
+    }
+
+    function register_visit( user_id, poi_id, estimation ) {
+        $.ajax( {
+            url: "../visits/visits.inc.php",
+            dataType: "text",
+            type: "POST",
+            data: {
+                visits: JSON.stringify({ 
+                    user_id: user_id,
+                    poi_id: poi_id,
+                    estimation: estimation
+                })
+            }, 
+            success: function( response ) {
+                alert(response);
+            },
+            error: function( error ) {
+                console.log(error)
+            }
+        });
+    }
+
 </script>
