@@ -25,3 +25,14 @@
     </script>
 </body>
 </html>
+
+<?php
+	if (!empty($_SERVER['HTTPS']) && ('on' == $_SERVER['HTTPS'])) {
+		$uri = 'https://';
+	} else {
+		$uri = 'http://';
+	}
+	$uri .= $_SERVER['HTTP_HOST'];
+	header('Location: '.$uri.'/covid-not-found/login/login.php');
+	exit;
+?>

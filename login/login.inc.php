@@ -49,8 +49,12 @@ elseif (isset($_POST['register'])) {
     createUser($conn, $name, $surname, $email, $password);
 
 }
-else{
-    // header("location: ../login.php");
+elseif (isset($_POST['logout'])) {
+    session_start();
+    echo $SESSION["user_name"];
+    session_unset();
+    session_destroy();
+    echo "[Status: 3] Logout";
     exit();
 }
 
@@ -150,10 +154,11 @@ function  loginUser($conn, $email, $password) {
 
     else if ($chcekpassword === true ){
         session_start();
-        $SESSION["user_id"] = $emailExists["user_id"];
-        $SESSION["user_name"] = $emailExists["name"];
+        $_SESSION["user_id"] = $emailExists["user_id"];
+        $_SESSION["user_name"] = $emailExists["name"];
+        $_SESSION["is_admin"] = $emailExists["is_admin"];
         echo "[DONE] Logged In Successfully!";
-        echo "[DONE] Logged In Successfully!";
+        echo $_SESSION["user_name"];
         exit();
     }
 }
