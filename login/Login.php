@@ -1,16 +1,16 @@
-<!-- <?php
+<?php
     // session_start();
     if(isset($_SESSION['user_id'])) {
         // echo "User ID is set!";
         if (isset($_SESSION['is_admin']) &&  $_SESSION['is_admin'] == 1) {
             // echo "IS ADMIN is set!";
-            header('Location: '.$uri.'/covid-not-found/AdminPanel/index.html');
+            header('Location: '.$uri.'/covid-not-found/AdminPanel/admin.php');
         } else {
             // echo "Plain User";
             header('Location: '.$uri.'/covid-not-found/displaypois/map.php');
         }
     }
-?> -->
+?>
 
     
     <section class="login-form">
@@ -77,7 +77,7 @@
                                 // echo "User ID is set!";
                                 if (isset($_SESSION["is_admin"]) && $_SESSION["is_admin"] == 1) {
                                     // echo "IS ADMIN is set!";
-                                    header('Location: '.$uri.'/covid-not-found/AdminPanel/index.html');
+                                    header('Location: '.$uri.'/covid-not-found/AdminPanel/admin.php');
                                 } else {
                                     // echo "Plain User";
                                     header('Location: '.$uri.'/covid-not-found/displaypois/map.php');

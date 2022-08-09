@@ -51,7 +51,7 @@ elseif (isset($_POST['register'])) {
 }
 elseif (isset($_POST['logout'])) {
     session_start();
-    echo $SESSION["user_name"];
+    echo $_SESSION["user_name"];
     session_unset();
     session_destroy();
     echo "[Status: 3] Logout";

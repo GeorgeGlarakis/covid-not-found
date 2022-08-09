@@ -56,6 +56,7 @@ $(document).ready(function () {
 
     name.addEventListener("keypress", function(event) {
         if (event.key === "Enter") {
+
             type.value = '';
             if (pois) { map.removeLayer(pois); }
             var bounds = map.getBounds(); 
@@ -89,7 +90,7 @@ function getPOIs( bounds, search_by, value ) {
     }
 
     $.ajax( {
-        url: "getPOIs.inc.php",
+        url: "../includes/getPOIs.inc.php",
         dataType: "text",
         type: "POST",
         data: {
@@ -178,7 +179,7 @@ function crowd_prediction( populartimes ) {
 // Get User's estimation
 function get_estimation( poi_id ) {
     $.ajax({
-        url:"getPOIs.inc.php",
+        url:"../includes/getPOIs.inc.php",
         method:"POST",
         data:{ estimation: poi_id },
         dataType:"text",

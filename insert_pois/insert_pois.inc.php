@@ -4,7 +4,7 @@
 
 	header('Content-Type: text/plain');
 
-	if (isset($_POST['login'])) {
+	if (isset($_POST['pois'])) {
 		$file = utf8_encode($_POST['pois']);
 		$data = json_decode($file);
 
@@ -13,7 +13,7 @@
 		}
 	}
 
-	if (isset($_POST['login'])) { delete_all($conn); }
+	if (isset($_POST['delete'])) { delete_all($conn); }
 
 
 	function insert_poi($tmp_poi, $conn) {
