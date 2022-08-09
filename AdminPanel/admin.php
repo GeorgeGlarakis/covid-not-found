@@ -6,7 +6,6 @@
     <title>Admin Panel</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
     <link rel="stylesheet" href="style-sidebar.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
 </head>
 <body>
     <nav class="navbar navbar-light bg-light p-3">
@@ -220,7 +219,7 @@
 				</div>
                 
                 
-                  <div class="col-12 col-md-12 mb-4 mb-lg-0 col-lg-12 my-4">
+                <div class="col-12 col-md-12 mb-4 mb-lg-0 col-lg-12 my-4">
                     <div class="card">
                       <h5 class="card-header">Hourly Diagram</h5>
                       <div class="card-body">
@@ -246,24 +245,9 @@
 						</div>
                       </div>
                     </div>
-                  </div>
-                
-
-
-                <footer class="pt-5 d-flex justify-content-between">
-                    <span>Copyright © 2019-2020 <a href="https://themesberg.com">Themesberg</a></span>
-                    <ul class="nav m-0">
-                        <li class="nav-item">
-                          <a class="nav-link text-secondary" aria-current="page" href="#">Privacy Policy</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link text-secondary" href="#">Terms and conditions</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link text-secondary" href="#">Contact</a>
-                        </li>
-                    </ul>
-                </footer>
+                </div>
+            
+				<?php include_once '../footer.php' ?>
             </main>
         </div>
     </div>

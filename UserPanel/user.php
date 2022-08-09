@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Panel</title>
+
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
     <link rel="stylesheet" href="../static_css/style-sidebar.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
 
 	<!-- leaflet css  -->
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
@@ -15,6 +16,7 @@
     <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
     <link rel="stylesheet" href="../static_css/leaflet.awesome-markers.css">
 
+	<!-- Configure Map Height -->
 	<style>
 		#map { height: 80vh; }
 	</style>
@@ -121,7 +123,7 @@
 						<p id="test"> </p>
 				</div>
 
-				<div class="col-12 col-md-12 col-lg-12 m-3"></div>
+				<div class="col-12 col-md-12 col-lg-12 m-3">
 					<div class="card">
 						<h5 class="card-header">Daily Diagram</h5>
 						<div class="card-body">
@@ -130,29 +132,14 @@
 							</div>
 						</div>
 					</div>
-				</div>			
+				</div>
 
-                <footer class="pt-5 d-flex justify-content-between">
-                    <span>Copyright © 2019-2020 <a href="https://themesberg.com">Themesberg</a></span>
-                    <ul class="nav m-0">
-                        <li class="nav-item">
-                          <a class="nav-link text-secondary" aria-current="page" href="#">Privacy Policy</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link text-secondary" href="#">Terms and conditions</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link text-secondary" href="#">Contact</a>
-                        </li>
-                    </ul>
-                </footer>
+                <?php include_once '../footer.php' ?>
             </main>
         </div>
     </div>
 
+	<?php include '../requirements.php'; ?>
+	
 </body>
 </html>
-
-<?php
-    include '../requirements.php';
-?>
