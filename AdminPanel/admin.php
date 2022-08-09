@@ -24,7 +24,7 @@
         <div class="col-12 col-md-5 col-lg-8 d-flex align-items-center justify-content-md-end mt-3 mt-md-0">
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-                  Hello, John Doe
+                   Hello, <!--<i>?php echo $_SESSION["user_name"]; ?></i> -->
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="user_menu">
                   <li><a class="dropdown-item" href="#">Settings</a></li>
@@ -193,20 +193,20 @@
                   </div>
                 </div>
                 
-                  <div class="col-12 col-md-12 mb-4 mb-lg-0 col-lg-12">
-                    <div class="card">
-                      <h5 class="card-header">Daily Diagram</h5>
-                      <div class="card-body">
-                        <div class="chartCard">
-                          	<div class="chartBox">
-                              	<canvas id="myChart"></canvas>
+				<div class="col-12 col-md-12 mb-4 mb-lg-0 col-lg-12">
+					<div class="card">
+						<h5 class="card-header">Daily Diagram</h5>
+						<div class="card-body">
+						<div class="chartCard">
+							<div class="chartBox">
+								<canvas id="myChart"></canvas>
 							</div>
 							<div>
-                              	Start: <input id="start" type="date" min="2022-01-01" max="2022-12-31"> 
-                              	End: <input id="end" type="date" min="2022-01-01" max="2022-12-31">
-                              	<button onclick="filterDate()">Filter</button><br>
-                          	</div>
-                        </div>
+								Start: <input id="start" type="date" min="2022-01-01" max="2022-12-31"> 
+								End: <input id="end" type="date" min="2022-01-01" max="2022-12-31">
+								<button onclick="filterDate()">Filter</button><br>
+							</div>
+						</div>
 						<div class="row">
 							<div class="col-8 col-md-8 col-lg-8">
 								<p class="card-text text">Visitors or Confirmed Cases per day.</p>		
@@ -215,9 +215,9 @@
 								<button id="refresh-chart-6">Refresh</button>
 							</div>
 						</div>
-                      </div>
-                    </div>
-                  </div>
+						</div>
+					</div>
+				</div>
                 
                 
                   <div class="col-12 col-md-12 mb-4 mb-lg-0 col-lg-12 my-4">
