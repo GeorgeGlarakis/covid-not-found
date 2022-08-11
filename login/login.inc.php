@@ -157,8 +157,11 @@ function  loginUser($conn, $email, $password) {
         $_SESSION["user_id"] = $emailExists["user_id"];
         $_SESSION["user_name"] = $emailExists["name"];
         $_SESSION["is_admin"] = $emailExists["is_admin"];
-        echo "[DONE] Logged In Successfully!";
-        echo $_SESSION["user_name"];
+        if ($_SESSION["is_admin"] == 1) {
+            echo "[ADMIN] Logged In Successfully!";
+        } else {
+            echo "[DONE] Logged In Successfully!";
+        }
         exit();
     }
 }

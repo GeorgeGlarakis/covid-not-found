@@ -32,9 +32,6 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
         </div>
-        <div class="col-12 col-md-4 col-lg-2">
-            <input class="form-control form-control-dark" type="text" placeholder="Search" aria-label="Search">
-        </div>
         <div class="col-12 col-md-5 col-lg-8 d-flex align-items-center justify-content-md-end mt-3 mt-md-0">
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
@@ -104,35 +101,29 @@
                 </div>
             </nav>
             <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                      <li class="breadcrumb-item"><a href="#">Home</a></li>
-                      <li class="breadcrumb-item active" aria-current="page">Overview</li>
-                    </ol>
-                </nav>
                 <h1 class="h2">Dashboard</h1>
-                <p>This is the homepage of a simple admin interface which is part of a tutorial written on Themesberg</p>
+                <p>Please Search by Name or Type the Point that you are intrestied in:</p>
                 
-				<div class="row">
-					<div class="col-12 col-md-6 col-lg-4">
-						<input class="form-control form-control-dark" type="text" placeholder="Search by Name" id="searchbyname">
-					</div>
-					<div class="col-12 col-md-6 col-lg-4 d-flex align-items-end justify-content-end">
-						<input class="form-control form-control-dark" type="text" placeholder="Search by Type" id="searchbytype">
-					</div>
-						<p id="test"> </p>
-				</div>
+                <div class="row">
+                  <div class="col-12 col-md-6 col-lg-4">
+                    <input class="form-control form-control-dark" type="text" placeholder="Search by Name" id="searchbyname">
+                  </div>
+                  <div class="col-12 col-md-6 col-lg-4 d-flex align-items-end justify-content-end">
+                    <input class="form-control form-control-dark" type="text" placeholder="Search by Type" id="searchbytype">
+                  </div>
+                    <p id="test"> </p>
+                </div>
 
-				<div class="col-12 col-md-12 col-lg-12 m-3">
-					<div class="card">
-						<h5 class="card-header">Daily Diagram</h5>
-						<div class="card-body">
-							<div class="chartCard">
-								<div id="map"></div>								
-							</div>
-						</div>
-					</div>
-				</div>
+                <div class="col-12 col-md-12 col-lg-12 m-3">
+                  <div class="card">
+                    <h5 class="card-header">Daily Diagram</h5>
+                    <div class="card-body">
+                      <div class="chartCard">
+                        <div id="map"></div>								
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
                 <?php include_once '../footer.php' ?>
             </main>

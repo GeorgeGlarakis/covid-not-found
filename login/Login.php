@@ -68,9 +68,12 @@
                     }, 
                     success: function( response ) { 
                         $('#test').html(response)
-                        if (response.includes("[DONE] Logged In Successfully!")){
+                        if (response.includes("[DONE] Logged In Successfully!")) {
                             window.location.replace("/covid-not-found/UserPanel/user.php")
                         }  
+                        else if (response.includes("[ADMIN] Logged In Successfully!")) {
+                            window.location.replace("/covid-not-found/AdminPanel/admin.php")
+                        } 
                         // ?php
                         //     session_start();
                         //     if(isset($_SESSION['user_id'])) {
@@ -132,6 +135,6 @@
         })           
     </script>
     
-<!-- <?php
-    include_once 'footer.php'
-?> -->
+<?php
+    include_once '../footer.php'
+?>
