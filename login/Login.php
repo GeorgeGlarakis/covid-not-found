@@ -1,5 +1,5 @@
 <?php
-    // session_start();
+    session_start();
     if(isset($_SESSION['user_id'])) {
         // echo "User ID is set!";
         if (isset($_SESSION['is_admin']) &&  $_SESSION['is_admin'] == 1) {
@@ -7,7 +7,7 @@
             header('Location: '.$uri.'/covid-not-found/AdminPanel/admin.php');
         } else {
             // echo "Plain User";
-            header('Location: '.$uri.'/covid-not-found/displaypois/map.php');
+            header('Location: '.$uri.'/covid-not-found/UserPanel/user.php');
         }
     }
 ?>
@@ -68,22 +68,22 @@
                     }, 
                     success: function( response ) { 
                         $('#test').html(response)
-                        // if (response.includes("[DONE] Logged In Successfully!")){
-                        //     window.location.replace("/covid-not-found/displaypois/map.php")
-                        // }  
-                        <?php
-                            session_start();
-                            if(isset($_SESSION['user_id'])) {
-                                // echo "User ID is set!";
-                                if (isset($_SESSION["is_admin"]) && $_SESSION["is_admin"] == 1) {
-                                    // echo "IS ADMIN is set!";
-                                    header('Location: '.$uri.'/covid-not-found/AdminPanel/admin.php');
-                                } else {
-                                    // echo "Plain User";
-                                    header('Location: '.$uri.'/covid-not-found/displaypois/map.php');
-                                }
-                            }
-                        ?>                      
+                        if (response.includes("[DONE] Logged In Successfully!")){
+                            window.location.replace("/covid-not-found/UserPanel/user.php")
+                        }  
+                        // ?php
+                        //     session_start();
+                        //     if(isset($_SESSION['user_id'])) {
+                        //         echo "User ID is set!";
+                        //         if (isset($_SESSION["is_admin"]) && $_SESSION["is_admin"] == 1) {
+                        //             echo "IS ADMIN is set!";
+                        //             header('Location: '.$uri.'/covid-not-found/AdminPanel/admin.php');
+                        //         } else {
+                        //             echo "Plain User";
+                        //             header('Location: '.$uri.'/covid-not-found/UserPanel/user.php');
+                        //         }
+                        //     }
+                        // ?>                      
                     },
                     error: function( error ) { console.log(error) }
                 });

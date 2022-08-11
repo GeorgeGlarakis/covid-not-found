@@ -38,7 +38,7 @@
         <div class="col-12 col-md-5 col-lg-8 d-flex align-items-center justify-content-md-end mt-3 mt-md-0">
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-                  Hello, <!-- <i>?php echo $_SESSION["user_name"]; ?></i> -->
+                  Hello, <i><?php session_start(); echo $_SESSION["user_name"]; ?></i>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="user_menu">
                   <li><a class="dropdown-item" href="#">Settings</a></li>
@@ -140,6 +140,6 @@
     </div>
 
 	<?php include '../requirements.php'; ?>
-	
+
 </body>
 </html>
