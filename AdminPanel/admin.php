@@ -6,7 +6,6 @@
     <title>Admin Panel</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
     <link rel="stylesheet" href="style-sidebar.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
 </head>
 <body>
     <nav class="navbar navbar-light bg-light p-3">
@@ -24,12 +23,12 @@
         <div class="col-12 col-md-5 col-lg-8 d-flex align-items-center justify-content-md-end mt-3 mt-md-0">
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-                  Hello, John Doe
+                   Hello, <i><?php session_start(); echo $_SESSION["user_name"]; ?></i>
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="user_menu">
                   <li><a class="dropdown-item" href="#">Settings</a></li>
                   <li><a class="dropdown-item" href="#">Messages</a></li>
-                  <li><a class="dropdown-item" href="#">Sign out</a></li>
+                  <li><a class="dropdown-item" id="logout">Sign out</a></li>
                 </ul>
             </div>
         </div>
@@ -193,20 +192,20 @@
                   </div>
                 </div>
                 
-                  <div class="col-12 col-md-12 mb-4 mb-lg-0 col-lg-12">
-                    <div class="card">
-                      <h5 class="card-header">Daily Diagram</h5>
-                      <div class="card-body">
-                        <div class="chartCard">
-                          	<div class="chartBox">
-                              	<canvas id="myChart"></canvas>
+				<div class="col-12 col-md-12 mb-4 mb-lg-0 col-lg-12">
+					<div class="card">
+						<h5 class="card-header">Daily Diagram</h5>
+						<div class="card-body">
+						<div class="chartCard">
+							<div class="chartBox">
+								<canvas id="myChart"></canvas>
 							</div>
 							<div>
-                              	Start: <input id="start" type="date" min="2022-01-01" max="2022-12-31"> 
-                              	End: <input id="end" type="date" min="2022-01-01" max="2022-12-31">
-                              	<button onclick="filterDate()">Filter</button><br>
-                          	</div>
-                        </div>
+								Start: <input id="start" type="date" min="2022-01-01" max="2022-12-31"> 
+								End: <input id="end" type="date" min="2022-01-01" max="2022-12-31">
+								<button onclick="filterDate()">Filter</button><br>
+							</div>
+						</div>
 						<div class="row">
 							<div class="col-8 col-md-8 col-lg-8">
 								<p class="card-text text">Visitors or Confirmed Cases per day.</p>		
@@ -215,12 +214,12 @@
 								<button id="refresh-chart-6">Refresh</button>
 							</div>
 						</div>
-                      </div>
-                    </div>
-                  </div>
+						</div>
+					</div>
+				</div>
                 
                 
-                  <div class="col-12 col-md-12 mb-4 mb-lg-0 col-lg-12 my-4">
+                <div class="col-12 col-md-12 mb-4 mb-lg-0 col-lg-12 my-4">
                     <div class="card">
                       <h5 class="card-header">Hourly Diagram</h5>
                       <div class="card-body">
@@ -246,24 +245,9 @@
 						</div>
                       </div>
                     </div>
-                  </div>
-                
-
-
-                <footer class="pt-5 d-flex justify-content-between">
-                    <span>Copyright © 2019-2020 <a href="https://themesberg.com">Themesberg</a></span>
-                    <ul class="nav m-0">
-                        <li class="nav-item">
-                          <a class="nav-link text-secondary" aria-current="page" href="#">Privacy Policy</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link text-secondary" href="#">Terms and conditions</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link text-secondary" href="#">Contact</a>
-                        </li>
-                    </ul>
-                </footer>
+                </div>
+            
+				<?php include_once '../footer.php' ?>
             </main>
         </div>
     </div>
@@ -646,5 +630,8 @@
 			}
 		});
 	</script>
+
+	<script src="../login/logout.js"></script>
+
 </body>
 </html>

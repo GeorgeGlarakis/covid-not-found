@@ -1,8 +1,3 @@
-<?php session_start();
-$_SESSION["user_id"] = 1;
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,7 +9,7 @@ $_SESSION["user_id"] = 1;
     <!-- leaflet css  -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
-    <link rel="stylesheet" href="leaflet.awesome-markers.css">
+    <link rel="stylesheet" href="../static_css/leaflet.awesome-markers.css">
 
     <style>
         #map {
@@ -29,6 +24,9 @@ $_SESSION["user_id"] = 1;
     <div class="col-12 col-md-4 col-lg-2">
         <input class="form-control form-control-dark" type="text" placeholder="Search by Name" id="searchbyname">
         <input class="form-control form-control-dark" type="text" placeholder="Search by Type" id="searchbytype">
+        <button id="logout">Log out</button>
+        <!-- <i><?php session_start(); echo $_SESSION["user_name"] ?></i> -->
+        <p id="test"> </p>
     </div>
 
     <div id="map"></div>
@@ -42,7 +40,7 @@ $_SESSION["user_id"] = 1;
 
 <!-- leaflet.js  -->
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-<script src="leaflet.awesome-markers.js"></script>
+<script src="../static_javascript/leaflet.awesome-markers.js"></script>
 <script>
     var blueMarker = L.AwesomeMarkers.icon({
         markerColor: 'blue'
@@ -95,7 +93,7 @@ $_SESSION["user_id"] = 1;
 <!-- Search for POIs nearby -->
 <script>
     var pois;
-    var user_id ='<?php echo $_SESSION["user_id"];?>';
+    // var user_id ='?php echo $_SESSION["user_id"];?>';
 
     $(document).ready(function () {
 
@@ -270,3 +268,5 @@ $_SESSION["user_id"] = 1;
     }
 
 </script>
+
+<script src="../login/logout.js"></script>

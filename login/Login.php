@@ -1,6 +1,17 @@
-<!-- <?php
-    include_once 'header.php';
-?> -->
+<?php
+    session_start();
+    if(isset($_SESSION['user_id'])) {
+        // echo "User ID is set!";
+        if (isset($_SESSION['is_admin']) &&  $_SESSION['is_admin'] == 1) {
+            // echo "IS ADMIN is set!";
+            header('Location: '.$uri.'/covid-not-found/AdminPanel/admin.php');
+        } else {
+            // echo "Plain User";
+            header('Location: '.$uri.'/covid-not-found/UserPanel/user.php');
+        }
+    }
+?>
+
     
     <section class="login-form">
         <h2>Log In</h2>
@@ -27,9 +38,9 @@
         <br>
         <button id="logout">Log out</button>
         <br>
-        <p id="test"> </p>
-
     </section>
+
+    <p id="test"> </p>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"        
                 integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -53,9 +64,27 @@
                         login: JSON.stringify({ 
                             email: email,
                             password: password
-                        })
+                        }) 
                     }, 
-                    success: function( response ) { $('#test').html(response) },
+                    success: function( response ) { 
+                        $('#test').html(response)
+                        if (response.includes("[DONE] Logged In Successfully!")){
+                            window.location.replace("/covid-not-found/UserPanel/user.php")
+                        }  
+                        // ?php
+                        //     session_start();
+                        //     if(isset($_SESSION['user_id'])) {
+                        //         echo "User ID is set!";
+                        //         if (isset($_SESSION["is_admin"]) && $_SESSION["is_admin"] == 1) {
+                        //             echo "IS ADMIN is set!";
+                        //             header('Location: '.$uri.'/covid-not-found/AdminPanel/admin.php');
+                        //         } else {
+                        //             echo "Plain User";
+                        //             header('Location: '.$uri.'/covid-not-found/UserPanel/user.php');
+                        //         }
+                        //     }
+                        // ?>                      
+                    },
                     error: function( error ) { console.log(error) }
                 });
             });
@@ -68,7 +97,7 @@
                 var password_conf = document.getElementById("register-password-conf").value;
 
                 $.ajax( {
-                    url: "includes/login.inc.php",
+                    url: "login.inc.php",
                     dataType: "text",
                     type: "POST",
                     data: {
@@ -81,6 +110,22 @@
                         })
                     }, 
                     success: function( response ) { $('#test').html(response) },
+                    error: function( error ) { console.log(error) }
+                });
+            });
+
+            $('#logout').click(function () {
+                $.ajax( {
+                    url: "login.inc.php",
+                    dataType: "text",
+                    type: "POST",
+                    data: {
+                        logout: null
+                    }, 
+                    success: function( response ) { 
+                        $('#test').html(response) 
+                        window.location.replace('../login/login.php')
+                    },
                     error: function( error ) { console.log(error) }
                 });
             });

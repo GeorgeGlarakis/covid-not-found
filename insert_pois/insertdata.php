@@ -30,8 +30,7 @@
 
                     fileread.readAsText(file_to_read);
                     fileread.onload = function() {
-                        myJSON = JSON.parse(fileread.result);
-                        console.log(myJSON);                        
+                        myJSON = JSON.parse(fileread.result);                        
                     }
 
                     fileread.onloadend = function() {
