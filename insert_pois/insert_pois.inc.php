@@ -9,8 +9,10 @@
 		$data = json_decode($file);
 
 		foreach($data as $tmp_poi) {
-			insert_poi($tmp_poi, $conn);	
+			$status_return = insert_poi($tmp_poi, $conn);	
 		}
+
+		if ($status_return != 'ERROR') { echo "[Status: 200] Data Inserted Successfully!"; }
 	}
 
 	if (isset($_POST['delete'])) { delete_all($conn); }
@@ -45,6 +47,7 @@
 			} else{
 				mysqli_stmt_close($stmt);
 				echo "[SQL Failed]";
+				return 'ERROR';
 				die;
 			}
 		}    	
@@ -79,6 +82,7 @@
 			}
 			catch (Exception $err) {
 				echo $err;
+				return 'ERROR';
 				die;
 			} 				
 		}
@@ -99,9 +103,11 @@
 			mysqli_stmt_prepare($stmt, $insert_poi);
 			mysqli_stmt_execute($stmt);
 			mysqli_stmt_close($stmt);
+			
 		}
 		catch (Exception $err) {
 			echo $err;
+			return 'ERROR';
 			die;
 		} 	
 	}
