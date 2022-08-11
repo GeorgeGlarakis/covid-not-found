@@ -17,15 +17,15 @@
 
 
 	function insert_poi($tmp_poi, $conn) {
-		$tmp_id = $tmp_poi->id;
-		$tmp_name = $tmp_poi->name;
-		$tmp_address = $tmp_poi->address;
-		$tmp_populartimes = json_encode($tmp_poi->populartimes); 
-		$tmp_rating = $tmp_poi->rating;
-		$tmp_rating_n = $tmp_poi->rating_n;
-		$tmp_coordinates = $tmp_poi->coordinates;
-		$tmp_latitude = $tmp_coordinates->lat;
-		$tmp_longitude = $tmp_coordinates->lng;
+		if (isset($tmp_poi->id)) { $tmp_id = $tmp_poi->id; } else { $tmp_id = null; }
+		if (isset($tmp_poi->name)) { $tmp_name = $tmp_poi->name; } else { $tmp_name = null; } 
+		if (isset($tmp_poi->address)) { $tmp_address = $tmp_poi->address; } else { $tmp_address = null; } 
+		if (isset($tmp_poi->rating)) { $tmp_rating = $tmp_poi->rating; } else { $tmp_rating = null; } 
+		if (isset($tmp_poi->rating_n)) { $tmp_rating_n = $tmp_poi->rating_n; } else { $tmp_rating_n = null; } 
+		if (isset($tmp_poi->coordinates)) { $tmp_coordinates = $tmp_poi->coordinates; } else { $tmp_coordinates = null; } 
+		if (isset($tmp_coordinates->lat)) { $tmp_latitude = $tmp_coordinates->lat; } else { $tmp_latitude = null; } 
+		if (isset($tmp_coordinates->lng)) { $tmp_longitude = $tmp_coordinates->lng; } else { $tmp_longitude = null; } 
+		if (isset($tmp_poi->populartimes)) { $tmp_populartimes = json_encode($tmp_poi->populartimes); } else { $tmp_populartimes = null; }
 
 		$insert_poi = "INSERT INTO pois (poi_id, name, address, latitude, longitude, rating, rating_n, populartimes)
 						VALUES ('$tmp_id','$tmp_name','$tmp_address','$tmp_latitude','$tmp_longitude','$tmp_rating','$tmp_rating_n','$tmp_populartimes');";
@@ -51,8 +51,8 @@
 	}
 
 	function insert_types($tmp_poi, $conn) {
-		$tmp_id = $tmp_poi->id;
-		$tmp_types = $tmp_poi->types;
+		if (isset($tmp_poi->id)) { $tmp_id = $tmp_poi->id; } else { $tmp_id = null; } 
+		if (isset($tmp_poi->types)) { $tmp_types = $tmp_poi->types; } else { $tmp_types = null; }
 
 		foreach($tmp_types as $type) {
 			$select_type = "SELECT COUNT(*) FROM types WHERE name = '$type';";
@@ -85,10 +85,10 @@
 	}
 
 	function update_poi($tmp_poi, $conn) {
-		$tmp_id = $tmp_poi->id;
-		$tmp_populartimes = json_encode($tmp_poi->populartimes); 
-		$tmp_rating = $tmp_poi->rating;
-		$tmp_rating_n = $tmp_poi->rating_n;
+		if (isset($tmp_poi->id)) { $tmp_id = $tmp_poi->id; } else { $tmp_id = null; }
+		if (isset($tmp_poi->rating)) { $tmp_rating = $tmp_poi->rating; } else { $tmp_rating = null; } 
+		if (isset($tmp_poi->rating_n)) { $tmp_rating_n = $tmp_poi->rating_n; } else { $tmp_rating_n = null; } 
+		if (isset($tmp_poi->populartimes)) { $tmp_populartimes = json_encode($tmp_poi->populartimes); } else { $tmp_populartimes = null; }
 
 		$insert_poi = "UPDATE pois 
 						SET rating = '$tmp_rating', rating_n = '$tmp_rating_n', populartimes = '$tmp_populartimes'
