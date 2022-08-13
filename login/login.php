@@ -2,12 +2,12 @@
     session_start();
     if(isset($_SESSION['user_id'])) {
         // echo "User ID is set!";
-        if (isset($_SESSION['is_admin']) &&  $_SESSION['is_admin'] == 1) {
+        if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1) {
             // echo "IS ADMIN is set!";
-            header('Location: '.$uri.'/AdminPanel/admin.php');
+            header('Location: '.$_SERVER['HTTP_HOST'].'/AdminPanel/admin.php');
         } else {
             // echo "Plain User";
-            header('Location: '.$uri.'/UserPanel/user.php');
+            header('Location: '.$_SERVER['HTTP_HOST'].'/UserPanel/user.php');
         }
     }
 ?>
