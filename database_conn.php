@@ -1,9 +1,9 @@
 <?php
 
     //Connecting to the database
-    $servername = "localhost:3306";
-    $dbusername = "root";
-    $dbpassword = "";
+    $servername = "mysql.docker:3306";
+    $dbusername = "covid";
+    $dbpassword = "H9MKuNvX3ziTW3Vp2TeGmTxa6c8QfDM8WkeHEK2Bu3o8EmuKuqMeV4EB7ZrzKUEk";
     $dbname = "covid";
 
     //Create connection

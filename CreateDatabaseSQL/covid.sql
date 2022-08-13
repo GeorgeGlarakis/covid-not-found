@@ -1,8 +1,6 @@
 CREATE DATABASE covid;
 USE covid;
 
-START TRANSACTION;
-
 CREATE TABLE IF NOT EXISTS users
 (
     user_id INTEGER NOT NULL AUTO_INCREMENT,
@@ -63,19 +61,3 @@ CREATE TABLE IF NOT EXISTS covid_cases
     PRIMARY KEY (case_id),
     FOREIGN KEY (user_id)    REFERENCES users (user_id)
 );
-
-
-CREATE TRIGGER before_poi_insert
-BEFORE INSERT ON pois
-FOR EACH ROW
-BEGIN
-    IF (SELECT COUNT(*) FROM pois WHERE poi_id = new.poi_id) > 0 THEN 
-        UPDATE pois 
-            SET rating = new.rating, rating_n = new.rating_n, populartimes = new.populartimes
-            WHERE poi_id = new.poi_id;
-        SIGNAL SQLSTATE VALUE '45000';
-    END IF;
-END;
-
---  COMMIT
---  ROLLBACK
