@@ -4,10 +4,10 @@
         // echo "User ID is set!";
         if (isset($_SESSION['is_admin']) &&  $_SESSION['is_admin'] == 1) {
             // echo "IS ADMIN is set!";
-            header('Location: '.$uri.'/covid-not-found/AdminPanel/admin.php');
+            header('Location: '.$uri.'/AdminPanel/admin.php');
         } else {
             // echo "Plain User";
-            header('Location: '.$uri.'/covid-not-found/UserPanel/user.php');
+            header('Location: '.$uri.'/UserPanel/user.php');
         }
     }
 ?>
@@ -69,10 +69,10 @@
                     success: function( response ) { 
                         $('#test').html(response)
                         if (response.includes("[DONE] Logged In Successfully!")) {
-                            window.location.replace("/covid-not-found/UserPanel/user.php")
+                            window.location.replace("/UserPanel/user.php")
                         }  
                         else if (response.includes("[ADMIN] Logged In Successfully!")) {
-                            window.location.replace("/covid-not-found/AdminPanel/admin.php")
+                            window.location.replace("/AdminPanel/admin.php")
                         } 
                         // ?php
                         //     session_start();
@@ -80,10 +80,10 @@
                         //         echo "User ID is set!";
                         //         if (isset($_SESSION["is_admin"]) && $_SESSION["is_admin"] == 1) {
                         //             echo "IS ADMIN is set!";
-                        //             header('Location: '.$uri.'/covid-not-found/AdminPanel/admin.php');
+                        //             header('Location: '.$uri.'/AdminPanel/admin.php');
                         //         } else {
                         //             echo "Plain User";
-                        //             header('Location: '.$uri.'/covid-not-found/UserPanel/user.php');
+                        //             header('Location: '.$uri.'/UserPanel/user.php');
                         //         }
                         //     }
                         // ?>                      
