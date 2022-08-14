@@ -4,10 +4,10 @@
         // echo "User ID is set!";
         if (isset($_SESSION['is_admin']) &&  $_SESSION['is_admin'] == 1) {
             // echo "IS ADMIN is set!";
-            header('Location: '.$uri.'/AdminPanel/admin.php');
+            header('Location: '.$uri.'/covid-not-found/AdminPanel/admin.php');
         } else {
             // echo "Plain User";
-            header('Location: '.$uri.'/UserPanel/user.php');
+            header('Location: '.$uri.'/covid-not-found/UserPanel/user.php');
         }
     }
 ?>

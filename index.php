@@ -33,6 +33,6 @@
 		$uri = 'http://';
 	}
 	$uri .= $_SERVER['HTTP_HOST'];
-	header('Location: '.$uri.'/login/login.php');
+	header('Location: '.$uri.'/covid-not-found/login/login.php');
 	exit;
 ?>

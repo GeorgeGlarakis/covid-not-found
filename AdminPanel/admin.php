@@ -88,7 +88,7 @@
                     </ul>
                 </div>
             </nav>
-            <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
+            <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4" id="main_content">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                       <li class="breadcrumb-item"><a href="#">Home</a></li>
