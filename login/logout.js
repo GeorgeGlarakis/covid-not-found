@@ -1,5 +1,3 @@
-
-
 $(document).ready(function() {
     $('#user_menu').click(function (e) {
         if (e.target.id == "logout") {
