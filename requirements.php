@@ -17,5 +17,3 @@
 
 <!-- Custom Functions -->
 <script src="../login/logout.js"></script>
-<script src="../static_javascript/map_functions.js"></script>
-
