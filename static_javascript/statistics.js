@@ -62,7 +62,7 @@ $(document).change(function() {
 
 function update_chart_1() {
     $.ajax({
-        url:"admincharts.inc.php",
+        url:"../includes/admincharts.inc.php",
         method:"POST",
         data:{ chart1: null },
         dataType:"text",
@@ -87,7 +87,7 @@ function update_chart_1() {
 
 function update_chart_2() {
     $.ajax({
-        url:"admincharts.inc.php",
+        url:"../includes/admincharts.inc.php",
         method:"POST",
         data:{ chart2: null },
         dataType:"text",
@@ -112,7 +112,7 @@ function update_chart_2() {
 
 function update_chart_3() {
     $.ajax({
-        url:"admincharts.inc.php",
+        url:"../includes/admincharts.inc.php",
         method:"POST",
         data:{ chart3: null },
         dataType:"text",
@@ -137,7 +137,7 @@ function update_chart_3() {
 
 function update_chart_4() {
     $.ajax({
-        url:"admincharts.inc.php",
+        url:"../includes/admincharts.inc.php",
         method:"POST",
         data:{ chart4: null },
         dataType:"text",
@@ -161,7 +161,7 @@ function update_chart_4() {
 
 function update_chart_5() {
     $.ajax({
-        url:"admincharts.inc.php",
+        url:"../includes/admincharts.inc.php",
         method:"POST",
         data:{ chart5: null },
         dataType:"text",

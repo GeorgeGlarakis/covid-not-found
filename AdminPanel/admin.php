@@ -160,15 +160,14 @@
     </div>
 
     <?php include '../requirements.php'; ?>
-		
+
 	<script>
 		$(document).ready(function() {
 			$('#dashboard').addClass("active");
 		})
 	</script>
 
-	<script src="statistics.js"></script>
-	<script src="../login/logout.js"></script>
+	<script src="../static_javascript/statistics.js"></script>
 
 </body>
 </html>

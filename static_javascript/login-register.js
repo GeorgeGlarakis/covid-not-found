@@ -5,7 +5,7 @@ $(document).ready(function () {
         var password = document.getElementById("login-pwd").value;
 
         $.ajax( {
-            url: "login.inc.php",
+            url: "../includes/login.inc.php",
             dataType: "text",
             type: "POST",
             data: {
@@ -34,7 +34,7 @@ $(document).ready(function () {
         var password_conf = document.getElementById("register-password-conf").value;
 
         $.ajax( {
-            url: "login.inc.php",
+            url: "../includes/login.inc.php",
             dataType: "text",
             type: "POST",
             data: {
@@ -53,7 +53,7 @@ $(document).ready(function () {
 
     $('#logout').click(function () {
         $.ajax( {
-            url: "login.inc.php",
+            url: "../includes/login.inc.php",
             dataType: "text",
             type: "POST",
             data: {
