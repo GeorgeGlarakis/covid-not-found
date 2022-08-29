@@ -132,5 +132,7 @@
 
 	<?php include '../requirements.php'; ?>
 
+  <script src="../static_javascript/map_functions.js"></script>
+
 </body>
 </html>
