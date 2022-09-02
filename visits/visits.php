@@ -1,6 +1,4 @@
-<!-- <?php
-    include_once 'header.php';
-    ?> -->
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"        
                 integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
                 crossorigin="anonymous"></script>
@@ -24,7 +22,7 @@
     
                 $('#visits-submit').click(function () {
                     var estimation = document.getElementById("visits-estimation").value;
-                    var user_id = 1;
+                    var user_id ='<?php echo $_SESSION["user_id"];?>';
                     var poi_id = "ChIJ4e-5v05JXhMRDZp4UgNSSqg";
                     //visit_time apo db
                     
