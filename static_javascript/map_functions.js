@@ -13,7 +13,7 @@ var redMarker = L.AwesomeMarkers.icon({
 });
 
 // Map initialization 
-var map = L.map('map').setView([38.29037783868629, 21.79569292607424], 12);
+var map = L.map('map').setView([38.29037783868629, 21.79569292607424],          );
 var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
 osm.addTo(map);
 
@@ -85,7 +85,7 @@ function getPOIs( bounds, search_by, value ) {
     }
 
     $.ajax( {
-        url: "../includes/getPOIs.inc.php",
+        url: "../includes/map.inc.php",
         dataType: "text",
         type: "POST",
         data: {
@@ -174,7 +174,7 @@ function crowd_prediction( populartimes ) {
 // Get User's estimation
 function get_estimation( poi_id ) {
     $.ajax({
-        url:"../includes/getPOIs.inc.php",
+        url:"../includes/map.inc.php",
         method:"POST",
         data:{ estimation: poi_id },
         dataType:"text",

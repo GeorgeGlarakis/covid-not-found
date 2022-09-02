@@ -6,8 +6,8 @@ header('Content-Type: text/plain');
 
 if (isset($_POST['confcase'])) {
     
-	$recived = utf8_encode($_POST['confcase']);
-    $confcase = json_decode($recived);
+	$received = utf8_encode($_POST['confcase']);
+    $confcase = json_decode($received);
     $date = $confcase->date;
     $user_id = $confcase->user_id;
 

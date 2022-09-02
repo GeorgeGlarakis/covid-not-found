@@ -2,13 +2,15 @@
 
 include "../database_conn.php";
 
+session_start();
+
 header('Content-Type: text/plain');
 
 if (isset($_POST['visits'])) {
     
-	$recived = utf8_encode($_POST['visits']);
-    $visits = json_decode($recived);
-    $user_id = $visits->user_id;
+	$received = utf8_encode($_POST['visits']);
+    $visits = json_decode($received);
+    $user_id = $_SESSION["user_id"];
     $poi_id = $visits->poi_id;
     $estimation = $visits->estimation;
     date_default_timezone_set("Europe/Athens");
