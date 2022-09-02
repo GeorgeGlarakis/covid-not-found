@@ -3,24 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Panel</title>
-
-
+    <title>Admin Panel</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
     <link rel="stylesheet" href="../static_css/style-sidebar.css">
-
-	<!-- leaflet css  -->
-	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
-   		integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
-   		crossorigin=""/>
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
-    <link rel="stylesheet" href="../static_css/leaflet.awesome-markers.css">
-
-	<!-- Configure Map Height -->
-	<style>
-		#map { height: 80vh; }
-	</style>
-
 </head>
 <body>
     <nav class="navbar navbar-light bg-light p-3">
@@ -32,10 +17,13 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
         </div>
+        <div class="col-12 col-md-4 col-lg-2">
+            <input class="form-control form-control-dark" type="text" placeholder="Search" aria-label="Search">
+        </div>
         <div class="col-12 col-md-5 col-lg-8 d-flex align-items-center justify-content-md-end mt-3 mt-md-0">
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-                  Hello, <i><?php session_start(); echo $_SESSION["user_name"]; ?></i>
+                   Hello, <i><?php session_start(); echo $_SESSION["user_name"]; ?></i>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="user_menu">
                   <li><a class="dropdown-item" href="#">Settings</a></li>
@@ -44,15 +32,15 @@
                 </ul>
             </div>
         </div>
-    </nav>
+      </nav>
 
-    <div class="container-fluid">
+      <div class="container-fluid">
         <div class="row">
             <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
                 <div class="position-sticky pt-md-5">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                          <a class="nav-link active" aria-current="page" href="#">
+                          <a class="nav-link" id="dashboard" aria-current="page" href="admin.php">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
                                 <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                                 <polyline points="9 22 9 12 15 12 15 22"></polyline>
@@ -61,7 +49,7 @@
                           </a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" href="#">
+                          <a class="nav-link" id="orders" href="orders.php">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
                                 <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
                                 <polyline points="13 2 13 9 20 9"></polyline>
@@ -70,7 +58,7 @@
                           </a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" href="#">
+                          <a class="nav-link" id="products" href="#">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart">
                                 <circle cx="9" cy="21" r="1"></circle>
                                 <circle cx="20" cy="21" r="1"></circle>
@@ -100,39 +88,3 @@
                     </ul>
                 </div>
             </nav>
-            <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
-                <h1 class="h2">Dashboard</h1>
-                <p>Please Search by Name or Type the Point that you are intrestied in:</p>
-                
-                <div class="row">
-                  <div class="col-12 col-md-6 col-lg-4">
-                    <input class="form-control form-control-dark" type="text" placeholder="Search by Name" id="searchbyname">
-                  </div>
-                  <div class="col-12 col-md-6 col-lg-4 d-flex align-items-end justify-content-end">
-                    <input class="form-control form-control-dark" type="text" placeholder="Search by Type" id="searchbytype">
-                  </div>
-                    <p id="test"> </p>
-                </div>
-
-                <div class="col-12 col-md-12 col-lg-12 m-3">
-                  <div class="card">
-                    <h5 class="card-header">Daily Diagram</h5>
-                    <div class="card-body">
-                      <div class="chartCard">
-                        <div id="map"></div>								
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <?php include_once '../footer.php' ?>
-            </main>
-        </div>
-    </div>
-
-	<?php include '../requirements.php'; ?>
-
-  <script src="../static_javascript/map_functions.js"></script>
-
-</body>
-</html>

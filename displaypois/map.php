@@ -134,7 +134,7 @@
         }
 
         $.ajax( {
-            url: "getPOIs.inc.php",
+            url: "../includes/getPOIs.inc.php",
             dataType: "text",
             type: "POST",
             data: {
@@ -223,7 +223,7 @@
 
     function get_estimation( poi_id ) {
         $.ajax({
-            url:"getPOIs.inc.php",
+            url:"../includes/getPOIs.inc.php",
             method:"POST",
             data:{ estimation: poi_id },
             dataType:"text",

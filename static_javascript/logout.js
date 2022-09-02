@@ -1,10 +1,8 @@
-
-
 $(document).ready(function() {
     $('#user_menu').click(function (e) {
         if (e.target.id == "logout") {
             $.ajax( {
-                url: "../login/login.inc.php",
+                url: "../includes/login.inc.php",
                 dataType: "text",
                 type: "POST",
                 data: {
@@ -22,7 +20,7 @@ $(document).ready(function() {
     $('#logout').click(function () {
         console.log('Here!');
         $.ajax( {
-            url: "../login/login.inc.php",
+            url: "../includes/login.inc.php",
             dataType: "text",
             type: "POST",
             data: {

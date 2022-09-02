@@ -17,10 +17,6 @@ var map = L.map('map').setView([38.29037783868629, 21.79569292607424], 12);
 var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
 osm.addTo(map);
 
-
-window.addEventListener('resize', 
-	() => map.getViewPort().resize());
-
 // Request access to geolocation
 if(!navigator.geolocation) { console.log("Your browser doesn't support geolocation feature!")
 } else { navigator.geolocation.getCurrentPosition(getPosition); }
@@ -47,7 +43,6 @@ function getPosition( position ){
 // Search for POIs nearby
 
 var pois;
-var user_id ='<?php echo $_SESSION["user_id"];?>';
 
 $(document).ready(function () {
 
@@ -145,7 +140,7 @@ function display_pois( poi_res ) {
                             .on("popupopen", function() {
                                 $('.mybuttons').click(function () {
                                     var estimation = $('#estimation_' + this.id).val();
-                                    register_visit(user_id, this.id, estimation);
+                                    register_visit(this.id, estimation);
                                 });
                             });
     })
@@ -203,14 +198,13 @@ function get_estimation( poi_id ) {
 }
 
 // Register visit to the DB
-function register_visit( user_id, poi_id, estimation ) {
+function register_visit( poi_id, estimation ) {
     $.ajax( {
         url: "../visits/visits.inc.php",
         dataType: "text",
         type: "POST",
         data: {
             visits: JSON.stringify({ 
-                user_id: user_id,
                 poi_id: poi_id,
                 estimation: estimation
             })
