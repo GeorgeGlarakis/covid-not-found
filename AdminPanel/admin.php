@@ -121,7 +121,6 @@
 					</div>
 				</div>
                 
-                
                 <div class="col-12 col-md-12 mb-4 mb-lg-0 col-lg-12 my-4">
                     <div class="card">
                       <h5 class="card-header">Hourly Diagram</h5>
@@ -156,7 +155,7 @@
 
 	<script>
 		$(document).ready(function() {
-			$('#dashboard').addClass("active");
+			$('#statistics').addClass("active");
 		})
 	</script>
 
