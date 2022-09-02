@@ -6,8 +6,8 @@ header('Content-Type: text/plain');
 
 if (isset($_POST['login'])) {
     
-	$recived = utf8_encode($_POST['login']);
-    $login_crd = json_decode($recived);
+	$received = utf8_encode($_POST['login']);
+    $login_crd = json_decode($received);
     $email = $login_crd->email;
     $password = $login_crd->password;
 
@@ -17,9 +17,11 @@ if (isset($_POST['login'])) {
     }
     loginUser($conn, $email, $password);
 }
-elseif (isset($_POST['register'])) {  
-    $recived = utf8_encode($_POST['register']);
-    $register_crd = json_decode($recived);
+elseif (isset($_POST['register']) OR isset($_POST['admin'])) {  
+    $received = NULL;
+    if (isset($POST['admin'])) { $received = utf8_encode($_POST['admin']); }
+    else { $received = utf8_encode($_POST['register']); }
+    $register_crd = json_decode($received);
     $name = $register_crd->name;
     $surname = $register_crd->surname;
     $email = $register_crd->email;
@@ -46,7 +48,8 @@ elseif (isset($_POST['register'])) {
         exit();
     }
 
-    createUser($conn, $name, $surname, $email, $password);
+    if (isset($_POST['register'])) { createUser($conn, $name, $surname, $email, $password); }
+    elseif (isset($POST['admin'])) { createAdmin($conn, $name, $surname, $email, $password); }
 
 }
 elseif (isset($_POST['logout'])) {
@@ -126,6 +129,24 @@ function createUser($conn, $name, $surname, $email, $password) {
     echo "[DONE] Insert Completed!";
     exit();
 }
+
+function createAdmin($conn, $name, $surname, $email, $password) {
+    
+    $hashedpassword = password_hash($password, PASSWORD_DEFAULT);
+    $insert_user = "INSERT INTO users (name, surname, email, password, is_admin) 
+            VALUES ('$name', '$surname', '$email', '$hashedpassword', 1);";
+    $stmt = mysqli_stmt_init($conn);
+    if(!mysqli_stmt_prepare($stmt, $insert_user)) {
+        echo "[ERROR] stmt_failed";
+        exit();
+    } 
+
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    echo "[ADMIN] Insert Completed!";
+    exit();
+}
+
 function emptyInputLogin($email, $password) {
     if(empty($email) || empty($password)) {
         $result = true;

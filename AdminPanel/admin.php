@@ -26,7 +26,7 @@
                           	<h5 class="card-header">Confirmed Cases</h5>
 						  
                           	<div class="card-body">
-                        		<div class="chart-container">
+                        		<div class="chart-container d-flex align-items-center justify-content-center">
 									<h1 id="chart-2"></h1>
                             	</div>
 								<div class="row">
@@ -44,7 +44,7 @@
                         <div class="card">
                             <h5 class="card-header">Total Visits of Confirmed Cases</h5>
                             <div class="card-body">
-                              	<div class="chart-container">
+                              	<div class="chart-container d-flex align-items-center justify-content-center">
                                 	<h1 id="chart-3"></h1>
                               	</div>
 								<div class="row">
@@ -124,7 +124,6 @@
 					</div>
 				</div>
                 
-                
                 <div class="col-12 col-md-12 mb-4 mb-lg-0 col-lg-12 my-4">
                     <div class="card">
                       <h5 class="card-header">Hourly Diagram</h5>
@@ -163,7 +162,7 @@
 
 	<script>
 		$(document).ready(function() {
-			$('#dashboard').addClass("active");
+			$('#statistics').addClass("active");
 		})
 	</script>
 
