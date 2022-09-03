@@ -85,10 +85,10 @@ function update_chart_4() {
                 let error = JSON.parse(response);
                 console.log(error.error);
             }
-            else if (response.includes("type")) {
-                create_pie_chart('chart-4', JSON.parse(response));
+            else if (response.includes("visits")) {
+                create_pie_chart('#chart-4', JSON.parse(response));
             }
-            else { console.log("Wrong response!"); console.log(response) }
+            else { console.log("Wrong response!"); }
         },
         error: function( xhr, ajaxOptions, thrownError ) {
             console.log("AJAX Error:" + xhr.status)
@@ -123,7 +123,7 @@ function update_chart_5() {
 
 function update_chart_6() {
     $.ajax({
-        url:"../includes/chart6.inc.php",
+        url:"../includes/admincharts.inc.php",
         method:"POST",
         data:{ chart6: null },
         dataType:"text",
@@ -134,7 +134,6 @@ function update_chart_6() {
                 console.log(error.error);
             }
             else if (response.includes("dateArray")) {
-                console.log(JSON.parse(response))
                 create_board_chart('chart-6', JSON.parse(response));
             }
             else { console.log("Wrong response!"); }
@@ -196,27 +195,14 @@ function create_board_chart(chart_id, dataSets) {
 }
 
 function create_pie_chart(chart_id, data) {
-    var type = [];
-    var visits = [];
-    var color = [];
-
-    for(var count = 0; count < data.length; count++) {
-        type.push(data[count].type);
-        visits.push(data[count].visits);
-        color.push(data[count].color);
-    }
-
-    console.log(type)
-    console.log(visits)
-    console.log(color)
 
     var chart_data = {
-        labels:type,
+        labels: data.type,
         datasets:[{
             label:'Vote',
-            backgroundColor:color,
+            backgroundColor: data.color,
             color:'#fff',
-            data:vitits
+            data: data.visits
         }]
     };
 
@@ -411,7 +397,7 @@ $(document).ready(function(){
         // 	url:"data.php",
         // 	method:"POST",
         // 	data:{ action:'fetch' },
-        // 	dataType:"JSON",
+        // 	dataType:"text",
 
         // 	success:function(data) {
         // 		var language = [];

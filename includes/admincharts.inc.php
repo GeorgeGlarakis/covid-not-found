@@ -85,7 +85,7 @@
     
     if (isset($_POST['chart4'])) {
         // Fetch num of Visits to each POI type that have been registered in the DB
-        $fetch_visit_types = "SELECT types.name, COUNT(visits.visit_id) FROM visits
+        $fetch_visit_types = "SELECT types.name, COUNT(visits.visit_id) AS visits FROM visits
             INNER JOIN pois_type ON visits.poi_id = pois_type.poi_id
             INNER JOIN types ON pois_type.type_id = types.type_id
             GROUP BY types.name";
@@ -97,26 +97,27 @@
             mysqli_stmt_execute($stmt);
 
             $resultData = mysqli_stmt_get_result($stmt);
-            $row = mysqli_fetch_assoc($resultData);
             
-            while($row){
+            while($row = mysqli_fetch_assoc($resultData)){
                 // $visit_types[] = array(
                 //     'type' => $row['name'],
                 //     'visits' => $row['COUNT(visits.visit_id)'],
                 //     'color'	=> '#' . rand(100000, 999999) . ''
                 // );
                 $type[] = $row['name'];
-                $visits[] = $row['COUNT(visits.visit_id)'];
+                $visits[] = $row['visits'];
+                $color[] = 'rgb(' . rand(0, 255) . ', ' . rand(0, 255) . ', ' . rand(0, 255) . ')';
             }            
-            $visit_types = array(['type' => $type, 'visits' => $visits]);
+            $visit_types = array('type' => $type, 'visits' => $visits, 'color' => $color);
             echo json_encode($visit_types);
             mysqli_stmt_close($stmt);
         }
         catch (Exception $err) {
-            echo json_encode(['error' => '[SQL Failed]']);
+            echo $err;
+            // echo json_encode(['error' => '[SQL Failed]']);
             die;
         }
-    } 
+    }  
 
     if (isset($_POST['chart5'])) {
         // Fetch num of Covid Visits to each POI type that have been registered in the DB
@@ -139,13 +140,13 @@
             $resultData = mysqli_stmt_get_result($stmt);
             $row = mysqli_fetch_assoc($resultData);
     
-            while($row){
-                $covid_visit_types = array(
-                    'type' => $row['name'],
-                    'visits' => $row['COUNT(visits.visit_id)'],
-                    'color'	=> '#' . rand(100000, 999999) . ''
-                );
-            }
+            // while($row){
+            //     $covid_visit_types = array(
+            //         'type' => $row['name'],
+            //         'visits' => $row['COUNT(visits.visit_id)'],
+            //         'color'	=> '#' . rand(100000, 999999) . ''
+            //     );
+            // }
             echo json_encode($covid_visit_types);
             mysqli_stmt_close($stmt);
         }
@@ -155,8 +156,28 @@
         }
     } 
     
+    if (isset($_POST['chart6'])) {
+        //  $dateFilter = "SELECT date, COUNT(case_id) FROM covid.covid_cases WHERE date < '$maxDate' and date > '$minDate' GROUP BY date";
+        $dateFilter = "SELECT date, COUNT(case_id) FROM covid.covid_cases WHERE date < '2022-08-11' and date > '2022-07-01' GROUP BY date";
+           
+        try {
+            $stmt = mysqli_stmt_init($conn);
+            mysqli_stmt_prepare($stmt, $dateFilter);
+            mysqli_stmt_execute($stmt);
     
+            $resultData = mysqli_stmt_get_result($stmt);
     
-    
-    
+            while($row = mysqli_fetch_assoc($resultData)){
+                $dateArray[] = $row["date"];
+                $countCases[] = $row["COUNT(case_id)"];
+            }
+            $data = array("dateArray"=>$dateArray,"countCases"=>$countCases);
+            echo json_encode($data);
+        }
+        catch (Exception $err) {
+            echo json_encode(['error' => '[SQL Failed]']);
+            // echo $err;
+            die;
+        }    
+    }
 ?>
