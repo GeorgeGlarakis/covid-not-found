@@ -104,7 +104,7 @@
 						<div class="card-body">
 						<div class="chartCard">
 							<div class="chartBox">
-								<canvas id="myChart"></canvas>
+								<canvas id="chart-6"></canvas>
 							</div>
 							<div>
 								Start: <input id="start" type="date" min="2022-01-01" max="2022-12-31"> 

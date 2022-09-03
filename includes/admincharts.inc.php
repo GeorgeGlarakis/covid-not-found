@@ -100,12 +100,15 @@
             $row = mysqli_fetch_assoc($resultData);
             
             while($row){
-                $visit_types[] = array(
-                    'type' => $row['name'],
-                    'visits' => $row['COUNT(visits.visit_id)'],
-                    'color'	=> '#' . rand(100000, 999999) . ''
-                );
+                // $visit_types[] = array(
+                //     'type' => $row['name'],
+                //     'visits' => $row['COUNT(visits.visit_id)'],
+                //     'color'	=> '#' . rand(100000, 999999) . ''
+                // );
+                $type[] = $row['name'];
+                $visits[] = $row['COUNT(visits.visit_id)'];
             }            
+            $visit_types = array(['type' => $type, 'visits' => $visits]);
             echo json_encode($visit_types);
             mysqli_stmt_close($stmt);
         }

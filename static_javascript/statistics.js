@@ -1,67 +1,3 @@
-window.onload = function() {
-    // populate charts
-    update_statistics();
-}
-
-function update_statistics() {
-    update_chart_1();
-    update_chart_2();
-    update_chart_3();
-    update_chart_4();
-    update_chart_6();
-    
-}
-
-$(document).ready(function() {
-    // create resfresh buttons
-    $('#refresh-chart-1').click(function() {
-        update_chart_1();
-    });
-    $('#refresh-chart-2').click(function() {
-        update_chart_2();
-    });
-    $('#refresh-chart-3').click(function() {
-        update_chart_3();
-    });
-    $('#refresh-chart-4').click(function() {
-        update_chart_4();
-    });
-    $('#refresh-chart-5').click(function() {
-        update_chart_5();
-    });
-    $('#refresh-chart-6').click(function() {
-        update_chart_6();
-    });
-    $('#refresh-chart-7').click(function() {
-        update_chart_7();
-    });			
-})
-
-$(document).change(function() {
-    // create resfresh buttons
-    $('#refresh-chart-1').click(function() {
-        update_chart_1();
-    });
-    $('#refresh-chart-2').click(function() {
-        update_chart_2();
-    });
-    $('#refresh-chart-3').click(function() {
-        update_chart_3();
-    });
-    $('#refresh-chart-4').click(function() {
-        update_chart_4();
-    });
-    $('#refresh-chart-5').click(function() {
-        update_chart_5();
-    });
-    $('#refresh-chart-6').click(function() {
-        update_chart_6();
-    });
-    $('#refresh-chart-7').click(function() {
-        update_chart_7();
-    });			
-})
-
 function update_chart_1() {
     $.ajax({
         url:"../includes/admincharts.inc.php",
@@ -144,15 +80,15 @@ function update_chart_4() {
         data:{ chart4: null },
         dataType:"text",
         
-        success:function( response ) {
+        success: function( response ) {
             if (response.includes("error")) {
                 let error = JSON.parse(response);
                 console.log(error.error);
             }
-            else if (response.includes("visits")) {
-                create_pie_chart('#chart-4', JSON.parse(response));
+            else if (response.includes("type")) {
+                create_pie_chart('chart-4', JSON.parse(response));
             }
-            else { console.log("Wrong response!"); }
+            else { console.log("Wrong response!"); console.log(response) }
         },
         error: function( xhr, ajaxOptions, thrownError ) {
             console.log("AJAX Error:" + xhr.status)
@@ -197,12 +133,11 @@ function update_chart_6() {
                 let error = JSON.parse(response);
                 console.log(error.error);
             }
-             if (response.includes("dateArray")) {
+            else if (response.includes("dateArray")) {
                 console.log(JSON.parse(response))
-                create_board_chart('#chart-6', JSON.parse(response));
+                create_board_chart('chart-6', JSON.parse(response));
             }
-            else { console.log("Wrong response!");
-            console.log(JSON.parse(response)) }
+            else { console.log("Wrong response!"); }
         },
         error: function( xhr, ajaxOptions, thrownError ) {
             console.log("AJAX Error:" + xhr.status)
@@ -212,11 +147,12 @@ function update_chart_6() {
 }
 
 function create_board_chart(chart_id, dataSets) {
+
     const data = {
-        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        labels: dataSets.dateArray,
         datasets: [{
           label: 'Covid Cases',
-          data: [18, 12, 6, 9, 12, 3, 9],
+          data: dataSets.countCases,
           backgroundColor: [
             'rgba(255, 26, 104, 0.2)',
             'rgba(54, 162, 235, 0.2)',
@@ -270,6 +206,10 @@ function create_pie_chart(chart_id, data) {
         color.push(data[count].color);
     }
 
+    console.log(type)
+    console.log(visits)
+    console.log(color)
+
     var chart_data = {
         labels:type,
         datasets:[{
@@ -298,7 +238,72 @@ function create_pie_chart(chart_id, data) {
     });
 }
 
+function update_statistics() {
+    update_chart_1();
+    update_chart_2();
+    update_chart_3();
+    update_chart_4();
+    update_chart_6();
+    
+}
 
+window.onload = function() {
+    // populate charts
+    update_statistics();
+}
+
+$(document).ready(function() {
+    // create resfresh buttons
+    $('#refresh-chart-1').click(function() {
+        update_chart_1();
+    });
+    $('#refresh-chart-2').click(function() {
+        update_chart_2();
+    });
+    $('#refresh-chart-3').click(function() {
+        update_chart_3();
+    });
+    $('#refresh-chart-4').click(function() {
+        update_chart_4();
+    });
+    $('#refresh-chart-5').click(function() {
+        update_chart_5();
+    });
+    $('#refresh-chart-6').click(function() {
+        update_chart_6();
+    });
+    $('#refresh-chart-7').click(function() {
+        update_chart_7();
+    });			
+})
+
+$(document).change(function() {
+    // create resfresh buttons
+    $('#refresh-chart-1').click(function() {
+        update_chart_1();
+    });
+    $('#refresh-chart-2').click(function() {
+        update_chart_2();
+    });
+    $('#refresh-chart-3').click(function() {
+        update_chart_3();
+    });
+    $('#refresh-chart-4').click(function() {
+        update_chart_4();
+    });
+    $('#refresh-chart-5').click(function() {
+        update_chart_5();
+    });
+    $('#refresh-chart-6').click(function() {
+        update_chart_6();
+    });
+    $('#refresh-chart-7').click(function() {
+        update_chart_7();
+    });			
+})
+
+
+// ------------------------------------------------------------------------------------------------------------------------------------
 // Bar Chart Charts 6/7 
 
 const dates = ['2022-07-16','2022-07-17','2022-07-18','2022-07-19','2022-07-20','2022-07-21','2022-07-22'];
