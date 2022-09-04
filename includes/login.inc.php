@@ -17,9 +17,9 @@ if (isset($_POST['login'])) {
     }
     loginUser($conn, $email, $password);
 }
-elseif (isset($_POST['register']) OR isset($_POST['admin'])) {  
+elseif (isset($_POST['register']) || isset($_POST['admin'])) {  
     $received = NULL;
-    if (isset($POST['admin'])) { $received = utf8_encode($_POST['admin']); }
+    if (isset($_POST['admin'])) { $received = utf8_encode($_POST['admin']); }
     else { $received = utf8_encode($_POST['register']); }
     $register_crd = json_decode($received);
     $name = $register_crd->name;
@@ -49,7 +49,7 @@ elseif (isset($_POST['register']) OR isset($_POST['admin'])) {
     }
 
     if (isset($_POST['register'])) { createUser($conn, $name, $surname, $email, $password); }
-    elseif (isset($POST['admin'])) { createAdmin($conn, $name, $surname, $email, $password); }
+    elseif (isset($_POST['admin'])) { createAdmin($conn, $name, $surname, $email, $password); }
 
 }
 elseif (isset($_POST['logout'])) {
