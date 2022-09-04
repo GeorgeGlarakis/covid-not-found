@@ -150,31 +150,30 @@ function update_chart_6(minDate, maxDate) {
 }
 
 function update_chart_7(myDate) {
-    // $.ajax({
-    //     url:"../includes/admincharts.inc.php",
-    //     method:"POST",
-    //     data:{ chart7: JSON.stringify({
-    //             myDate
-    //         }) 
-    //     },
-    //     dataType:"text",
+    $.ajax({
+        url:"../includes/admincharts.inc.php",
+        method:"POST",
+        data:{ chart7: JSON.stringify({
+                myDate
+            }) 
+        },
+        dataType:"text",
         
-    //     success:function( response ) {
-    //         if (response.includes("error")) {
-    //             let error = JSON.parse(response);
-    //             console.log(error.error);
-    //         }
-    //         else if (response.includes("dateArray")) {
-    //             create_board_chart7('#chart-7', JSON.parse(response));
-    //         }
-    //         else { console.log("Wrong response!"); }
-    //     },
-    //     error: function( xhr, ajaxOptions, thrownError ) {
-    //         console.log("AJAX Error:" + xhr.status)
-    //         console.log("Thrown Error:" + thrownError)
-    //     }					
-    // })
-    create_board_chart7('#chart-7', 'NULL');
+        success:function( response ) {
+            if (response.includes("error")) {
+                let error = JSON.parse(response);
+                console.log(error.error);
+            }
+            else if (response.includes("date_visits")) {
+                create_board_chart7('#chart-7', JSON.parse(response));
+            }
+            else { console.log("Wrong response!"); }
+        },
+        error: function( xhr, ajaxOptions, thrownError ) {
+            console.log("AJAX Error:" + xhr.status)
+            console.log("Thrown Error:" + thrownError)
+        }					
+    })
 }
 
 function create_pie_chart(chart_id, data) {
@@ -207,24 +206,8 @@ function create_board_chart6(chart_id, dataSets) {
         datasets: [{
             label: 'Covid Cases',
             data: dataSets.countCases,
-            backgroundColor: [
-                'rgba(255, 26, 104, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                'rgba(0, 0, 0, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 26, 104, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(0, 0, 0, 1)'
-            ],
+            backgroundColor: dataSets.bg_color,
+            borderColor: dataSets.border_color,
             borderWidth: 1
         }]
     };
@@ -248,6 +231,23 @@ function create_board_chart6(chart_id, dataSets) {
 }
 
 function create_board_chart7(chart_id, dataSets) {
+
+    // Count the visits per hour
+    var hours = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    dataSets.date_visits.forEach( function(hour) {
+        let i = new Date(hour).getHours()
+        hours[i]++;
+    })
+
+    // Create random colors for the bars 
+    var bg_color = []
+    var border_color = []
+    for (var n=0; n<24; n++){
+        let color = 'rgba(' + Math.floor(Math.random() * 256) + ', ' + Math.floor(Math.random() * 256) + ', ' + Math.floor(Math.random() * 256) + ', '
+        bg_color[n] = color + '0.4)'
+        border_color[n] = color + '1)'
+    }
+
     const chart_data = {
         labels: ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00',
                  '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', 
@@ -255,59 +255,9 @@ function create_board_chart7(chart_id, dataSets) {
                  '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'],
         datasets: [{
             label: 'Covid Cases',
-            data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40, 56, 55, 40],
-            backgroundColor: [
-                'rgba(255, 26, 104, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                'rgba(0, 0, 0, 0.2)',
-                'rgba(255, 26, 104, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                'rgba(0, 0, 0, 0.2)',
-                'rgba(255, 26, 104, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                'rgba(0, 0, 0, 0.2)',
-                'rgba(255, 26, 104, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 26, 104, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                'rgba(0, 0, 0, 0.2)',
-                'rgba(255, 26, 104, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                'rgba(0, 0, 0, 0.2)',
-                'rgba(255, 26, 104, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                'rgba(0, 0, 0, 0.2)',
-                'rgba(255, 26, 104, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)'
-            ],
+            data: hours,
+            backgroundColor: bg_color,
+            borderColor: border_color,
             borderWidth: 1
         }]
     };
@@ -338,7 +288,7 @@ window.onload = function() {
     update_chart_4();
     update_chart_5();
     update_chart_6('2022-07-31', '2022-08-11');
-    update_chart_7('2022-07-31');
+    update_chart_7('2022-08-12');
 }
 
 $(document).ready(function() {
@@ -361,10 +311,9 @@ $(document).ready(function() {
     $('#filter-chart-6').click(function() {
         let minDate = $('#chart6-minDate').val()
         let maxDate = $('#chart6-maxDate').val()
-        console.log(minDate)
         update_chart_6(minDate, maxDate);
     });
     $('#filer-chart-7').click(function() {
-        update_chart_7('2022-07-31');
+        update_chart_7($('#chart7-myDate').val());
     });			
 })

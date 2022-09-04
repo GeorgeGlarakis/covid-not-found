@@ -131,7 +131,7 @@
                             	<canvas id="chart-7"></canvas>
 							</div>
 							<div>
-                            	Choose a date: <input id="chart7-minDate" type="date" min="2022-01-01" max="2022-12-31"> 
+                            	Choose a date: <input id="chart7-myDate" type="date" min="2022-01-01" max="2022-12-31"> 
                             	<button id="filter-chart-7">Filter</button><br>
                             
                           </div>
