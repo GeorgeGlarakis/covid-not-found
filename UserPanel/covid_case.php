@@ -2,13 +2,13 @@
 
             <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
                 <h1 class="h2">Covid Case</h1>
-                <p class="col-6 bg-warning text-white text-center rounded p-2">Please fill the details bellow ONLY ONCE you have a positive Rapid Antigen test!</p>
+                <p class="col-12 col-md-6 bg-warning text-white text-center rounded p-2">Please fill the details bellow ONLY ONCE you have a positive Rapid Antigen test!</p>
                 
-                <div class="col-6 col-md-6 col-lg-6 my-3">
+                <div class="col-12 col-md-6 col-lg-6 my-3">
                   <div class="card">
                     <h5 class="card-header text-center text-lg-left">Confirm Covid Case</h5>
                     <div class="card-body">
-                        <div class"" id="recent_case"></div>
+                        <div class="d-flex align-items-center justify-content-center align-items-lg-start justify-content-lg-start" id="recent_case"></div>
                         <div class="row">
                             <div class="col-12 col-lg-6 d-flex align-items-center justify-content-center align-items-lg-start justify-content-lg-start m-2 m-lg-0">
                                 <input type="date" id="confcase-date">
@@ -21,7 +21,7 @@
                   </div>
                 </div>
 
-                <div class="col-6 col-md-6 col-lg-6 my-3">
+                <div class="col-12 col-md-6 my-3">
                   <div class="card">
                     <h5 class="card-header text-center text-lg-left">My Previous Covid Cases</h5>
                     <div class="card-body">
