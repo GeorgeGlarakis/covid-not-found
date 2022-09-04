@@ -13,7 +13,7 @@ var redMarker = L.AwesomeMarkers.icon({
 });
 
 // Map initialization 
-var map = L.map('map').setView([38.29037783868629, 21.79569292607424],          );
+var map = L.map('map').setView([38.29037783868629, 21.79569292607424], 12);
 var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
 osm.addTo(map);
 

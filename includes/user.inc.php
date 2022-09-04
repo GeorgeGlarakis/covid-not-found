@@ -53,4 +53,19 @@ if (isset($_POST['confcase'])) {
     }
 }
 
+if (isset($_POST['is_admin'])) {
+    session_start();
+
+    if (isset($_SESSION['user_id'])) {
+        $data = array('user_id' => $_SESSION['user_id'], 'user_name' => $_SESSION["user_name"], 'is_admin' => $_SESSION['is_admin']);
+        echo json_encode($data);
+    }
+    else {
+        echo "[No session running!]";
+    }
+    
+
+
+}
+
 ?>
