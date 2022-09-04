@@ -57,8 +57,8 @@ function get_pois_array($pois) {
 
 if (isset($_POST['search'])) {
     
-	$recived = utf8_encode($_POST['search']);
-    $search = json_decode($recived)->search;
+	$received = utf8_encode($_POST['search']);
+    $search = json_decode($received)->search;
 
     $northEast = $search->northEast;
     $southWest = $search->southWest;
