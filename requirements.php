@@ -18,4 +18,4 @@
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 
 <!-- Custom Functions -->
-<script src="../static_javascript/logout.js"></script>
+<script src="../static_javascript/login_functions.js"></script>
