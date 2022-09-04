@@ -28,4 +28,28 @@ $(document).ready(function () {
             error: function( error ) { console.log(error) }
         });
     });
+
+    $.ajax( {
+        url: "../includes/user.inc.php",
+        dataType: "text",
+        type: "POST",
+        data: {
+            is_admin: "NULL"
+        }, 
+        success: function( response ) { 
+            if (response.includes("user_id")) {
+                if (JSON.parse(response).is_admin == 1) {
+                    $('#log_admin').css("display","block")
+                }
+                else if (JSON.parse(response).is_admin == 0) {
+                    $('#log_admin').css("display","none")
+                }
+            }
+            else if (response.includes("No session running!")) {
+                $('#log_admin').css("display","none")
+                console.log(response)
+            }
+        },
+        error: function( error ) { console.log(error) }
+    });
 });
