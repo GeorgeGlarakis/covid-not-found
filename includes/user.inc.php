@@ -3,6 +3,7 @@
 include "../database_conn.php";
 
 header('Content-Type: text/plain');
+session_start();
 
 // Confirm Covid Case Button
 if (isset($_POST['confcase'])) {
@@ -16,8 +17,8 @@ if (isset($_POST['confcase'])) {
     $current_time =  date_create()->format('Y-m-d');
 
     // Check for recent covid case
-    $recent_case = "SELECT * FROM covid_case 
-                        WHERE date > date_sub('$current_time', INTERVAL 14 DAY)
+    $recent_case = "SELECT * FROM covid_cases 
+                        WHERE date > date_sub('$date', INTERVAL 14 DAY)
                         AND user_id = '$user_id'; ";
 
     try {
@@ -54,7 +55,6 @@ if (isset($_POST['confcase'])) {
 }
 
 if (isset($_POST['is_admin'])) {
-    session_start();
 
     if (isset($_SESSION['user_id'])) {
         $data = array('user_id' => $_SESSION['user_id'], 'user_name' => $_SESSION["user_name"], 'is_admin' => $_SESSION['is_admin']);
@@ -62,10 +62,7 @@ if (isset($_POST['is_admin'])) {
     }
     else {
         echo "[No session running!]";
-    }
-    
-
-
+    }  
 }
 
 ?>
