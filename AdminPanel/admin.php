@@ -107,17 +107,14 @@
 								<canvas id="chart-6"></canvas>
 							</div>
 							<div>
-								Start: <input id="start" type="date" min="2022-01-01" max="2022-12-31"> 
-								End: <input id="end" type="date" min="2022-01-01" max="2022-12-31">
-								<button onclick="filterDate()">Filter</button><br>
+								Start: <input id="chart6-minDate" type="date" min="2022-01-01" max="2022-12-31"> 
+								End: <input id="chart6-maxDate" type="date" min="2022-01-01" max="2022-12-31">
+								<button id="filter-chart-6">Filter</button><br>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-8 col-md-8 col-lg-8">
 								<p class="card-text text">Visitors or Confirmed Cases per day.</p>		
-							</div>
-							<div class="col-4 col-md-4 col-lg-4 d-flex align-items-end justify-content-end">
-								<button id="refresh-chart-6">Refresh</button>
 							</div>
 						</div>
 						</div>
@@ -131,12 +128,11 @@
                       <div class="card-body">
                         <div class="chartCard">
                           <div class="chartBox">
-                              <canvas id="myChart"></canvas>
+                            	<canvas id="chart-7"></canvas>
 							</div>
 							<div>
-                              Start: <input id="start" type="date" min="2022-01-01" max="2022-12-31"> 
-                              End: <input id="end" type="date" min="2022-01-01" max="2022-12-31">
-                              <button onclick="filterDate()">Filter</button><br>
+                            	Choose a date: <input id="chart7-minDate" type="date" min="2022-01-01" max="2022-12-31"> 
+                            	<button id="filter-chart-7">Filter</button><br>
                             
                           </div>
                           
@@ -144,9 +140,6 @@
 						<div class="row">
 							<div class="col-8 col-md-8 col-lg-8">
 								<p class="card-text text">Visitors or Confirmed Cases per hour.</p>		
-							</div>
-							<div class="col-4 col-md-4 col-lg-4 d-flex align-items-end justify-content-end">
-								<button id="refresh-chart-7">Refresh</button>
 							</div>
 						</div>
                       </div>

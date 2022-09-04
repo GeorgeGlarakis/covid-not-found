@@ -121,11 +121,15 @@ function update_chart_5() {
     })
 }
 
-function update_chart_6() {
+function update_chart_6(minDate, maxDate) {
     $.ajax({
         url:"../includes/admincharts.inc.php",
         method:"POST",
-        data:{ chart6: null },
+        data:{ chart6: JSON.stringify({
+                minDate, 
+                maxDate
+            }) 
+        },
         dataType:"text",
         
         success:function( response ) {
@@ -134,7 +138,7 @@ function update_chart_6() {
                 console.log(error.error);
             }
             else if (response.includes("dateArray")) {
-                create_board_chart('chart-6', JSON.parse(response));
+                create_board_chart6('#chart-6', JSON.parse(response));
             }
             else { console.log("Wrong response!"); }
         },
@@ -145,53 +149,32 @@ function update_chart_6() {
     })
 }
 
-function create_board_chart(chart_id, dataSets) {
-
-    const data = {
-        labels: dataSets.dateArray,
-        datasets: [{
-          label: 'Covid Cases',
-          data: dataSets.countCases,
-          backgroundColor: [
-            'rgba(255, 26, 104, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(0, 0, 0, 0.2)'
-          ],
-          borderColor: [
-            'rgba(255, 26, 104, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)',
-            'rgba(0, 0, 0, 1)'
-          ],
-          borderWidth: 1
-        }]
-      };
-  
-      // config 
-      const config = {
-        type: 'bar',
-        data,
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true
-            }
-          }
-        }
-      };
-  
-      // render init block
-      const myChart = new Chart(
-        document.getElementById(chart_id),
-        config
-      );
+function update_chart_7(myDate) {
+    // $.ajax({
+    //     url:"../includes/admincharts.inc.php",
+    //     method:"POST",
+    //     data:{ chart7: JSON.stringify({
+    //             myDate
+    //         }) 
+    //     },
+    //     dataType:"text",
+        
+    //     success:function( response ) {
+    //         if (response.includes("error")) {
+    //             let error = JSON.parse(response);
+    //             console.log(error.error);
+    //         }
+    //         else if (response.includes("dateArray")) {
+    //             create_board_chart7('#chart-7', JSON.parse(response));
+    //         }
+    //         else { console.log("Wrong response!"); }
+    //     },
+    //     error: function( xhr, ajaxOptions, thrownError ) {
+    //         console.log("AJAX Error:" + xhr.status)
+    //         console.log("Thrown Error:" + thrownError)
+    //     }					
+    // })
+    create_board_chart7('#chart-7', 'NULL');
 }
 
 function create_pie_chart(chart_id, data) {
@@ -206,36 +189,156 @@ function create_pie_chart(chart_id, data) {
         }]
     };
 
-    var options = {
-        responsive:true,
-        scales:{
-            yAxes:[{
-                ticks:{
-                    min:0
-                }
-            }]
-        }
-    };
-
-    var group_chart1 = $(chart_id);
-    var graph1 = new Chart(group_chart1, {
-        type:"pie",
-        data:chart_data
+    new Chart( $(chart_id), {
+        type: "pie",
+        data: chart_data
     });
 }
 
-function update_statistics() {
-    update_chart_1();
-    update_chart_2();
-    update_chart_3();
-    update_chart_4();
-    update_chart_6();
+function create_board_chart6(chart_id, dataSets) {
+
+    var label_dates = [];
+    dataSets.dateArray.forEach(function(date) {
+        label_dates.push(new Date(date).toDateString());
+    })         
     
+    const chart_data = {
+        labels: label_dates,
+        datasets: [{
+            label: 'Covid Cases',
+            data: dataSets.countCases,
+            backgroundColor: [
+                'rgba(255, 26, 104, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(0, 0, 0, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 26, 104, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(0, 0, 0, 1)'
+            ],
+            borderWidth: 1
+        }]
+    };
+  
+    new Chart( $(chart_id),
+        {
+            type: 'bar',
+            data: chart_data,
+            options: {
+                scales: {
+                    yAxes: [{
+                        display: true,
+                        ticks: {
+                            beginAtZero: true,
+                        }
+                    }]
+                }
+            }
+        }
+    );
+}
+
+function create_board_chart7(chart_id, dataSets) {
+    const chart_data = {
+        labels: ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00',
+                 '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', 
+                 '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', 
+                 '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'],
+        datasets: [{
+            label: 'Covid Cases',
+            data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40, 56, 55, 40],
+            backgroundColor: [
+                'rgba(255, 26, 104, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(0, 0, 0, 0.2)',
+                'rgba(255, 26, 104, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(0, 0, 0, 0.2)',
+                'rgba(255, 26, 104, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(0, 0, 0, 0.2)',
+                'rgba(255, 26, 104, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 26, 104, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(0, 0, 0, 0.2)',
+                'rgba(255, 26, 104, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(0, 0, 0, 0.2)',
+                'rgba(255, 26, 104, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(0, 0, 0, 0.2)',
+                'rgba(255, 26, 104, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)'
+            ],
+            borderWidth: 1
+        }]
+    };
+
+    new Chart( $(chart_id),
+        {
+            type: 'bar',
+            data: chart_data,
+            options: {
+                scales: {
+                    yAxes: [{
+                        display: true,
+                        ticks: {
+                            beginAtZero: true,
+                        }
+                    }]
+                }
+            }
+        }
+    );
 }
 
 window.onload = function() {
     // populate charts
-    update_statistics();
+    update_chart_1();
+    update_chart_2();
+    update_chart_3();
+    update_chart_4();
+    update_chart_5();
+    update_chart_6('2022-07-31', '2022-08-11');
+    update_chart_7('2022-07-31');
 }
 
 $(document).ready(function() {
@@ -255,188 +358,13 @@ $(document).ready(function() {
     $('#refresh-chart-5').click(function() {
         update_chart_5();
     });
-    $('#refresh-chart-6').click(function() {
-        update_chart_6();
+    $('#filter-chart-6').click(function() {
+        let minDate = $('#chart6-minDate').val()
+        let maxDate = $('#chart6-maxDate').val()
+        console.log(minDate)
+        update_chart_6(minDate, maxDate);
     });
-    $('#refresh-chart-7').click(function() {
-        update_chart_7();
+    $('#filer-chart-7').click(function() {
+        update_chart_7('2022-07-31');
     });			
 })
-
-$(document).change(function() {
-    // create resfresh buttons
-    $('#refresh-chart-1').click(function() {
-        update_chart_1();
-    });
-    $('#refresh-chart-2').click(function() {
-        update_chart_2();
-    });
-    $('#refresh-chart-3').click(function() {
-        update_chart_3();
-    });
-    $('#refresh-chart-4').click(function() {
-        update_chart_4();
-    });
-    $('#refresh-chart-5').click(function() {
-        update_chart_5();
-    });
-    $('#refresh-chart-6').click(function() {
-        update_chart_6();
-    });
-    $('#refresh-chart-7').click(function() {
-        update_chart_7();
-    });			
-})
-
-
-// ------------------------------------------------------------------------------------------------------------------------------------
-// Bar Chart Charts 6/7 
-
-const dates = ['2022-07-16','2022-07-17','2022-07-18','2022-07-19','2022-07-20','2022-07-21','2022-07-22'];
-
-const datapoints = [18, 12, 6, 9, 12, 3, 9];
-
-const convertedDates = dates.map(date => new Date(date).setHours(0,0,0,0));
-
-const data = {
-    labels: dates,
-    datasets: [{
-        label: 'Proved Cases',
-        data: datapoints,
-        backgroundColor: [
-            'rgba(255, 26, 104, 0.2)'          
-        ],
-        borderColor: [
-            'rgba(255, 26, 104, 1)'          
-        ],
-        borderWidth: 1
-    }]
-};
-
-// config 
-const config = {
-    type: 'bar',
-    data,
-    options: {
-        scales: {
-            x: {
-                type:'time',
-                time:{
-                    unit:'day'
-                }            
-            },
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
-};
-
-// render init block
-const myChart = new Chart(
-    document.getElementById('myChart'),
-    config
-);
-
-function filterDate(){
-
-    const start1 = new Date(document.getElementById('start').value);
-    const start = start1.setHours(0,0,0,0);
-    console.log(start)
-    const end1 = new Date(document.getElementById('end').value);
-    const end = end1.setHours(0,0,0,0);
-    console.log(end)
-
-    const filterDates = convertedDates.filter(date => date >=start && date <= end)
-    myChart.config.data.labels = filterDates;
-
-    const startArray = convertedDates.indexOf(filterDates[0])
-    const endArray = convertedDates.indexOf(filterDates[filterDates.length-1])
-    const copydatapoints = [...datapoints];
-    copydatapoints.splice(endArray + 1, filterDates.length);
-    copydatapoints.splice(0,startArray);
-    console.log(copydatapoints)
-    myChart.config.data.datasets[0].data = copydatapoints;
-    myChart.update();
-}
-
-
-
-// Pie Chart
-
-$(document).ready(function(){
-
-
-    $('#submit_data').click(function(){
-
-        var language = $('input[name=programming_language]:checked').val();
-
-        // $.ajax({
-        // 	url:"data.php",
-        // 	method:"POST",
-        // 	data:{action:'insert', language:language},
-        // 	beforeSend:function() {
-        // 		$('#submit_data').attr('disabled', 'disabled');
-        // 	},
-        // 	success:function(data) {
-        // 		$('#submit_data').attr('disabled', false);
-        // 		$('#programming_language_1').prop('checked', 'checked');
-        // 		$('#programming_language_2').prop('checked', false);
-        // 		$('#programming_language_3').prop('checked', false);
-        // 		alert("Your Feedback has been send...");
-        // 		makechart();
-        // 	}
-        // })
-
-    });
-
-    makechart();
-
-    function makechart() {
-        // $.ajax({
-        // 	url:"data.php",
-        // 	method:"POST",
-        // 	data:{ action:'fetch' },
-        // 	dataType:"text",
-
-        // 	success:function(data) {
-        // 		var language = [];
-        // 		var total = [];
-        // 		var color = [];
-
-        // 		for(var count = 0; count < data.length; count++) {
-        // 			language.push(data[count].language);
-        // 			total.push(data[count].total);
-        // 			color.push(data[count].color);
-        // 		}
-
-        // 		var chart_data = {
-        // 			labels:language,
-        // 			datasets:[{
-        // 				label:'Vote',
-        // 				backgroundColor:color,
-        // 				color:'#fff',
-        // 				data:total
-        // 			}]
-        // 		};
-
-        // 		var options = {
-        // 			responsive:true,
-        // 			scales:{
-        // 				yAxes:[{
-        // 					ticks:{
-        // 						min:0
-        // 					}
-        // 				}]
-        // 			}
-        // 		};
-
-        // 		var group_chart1 = $('#pie_chart');
-        // 		var graph1 = new Chart(group_chart1, {
-        // 			type:"pie",
-        // 			data:chart_data
-        // 		});
-        // 	}
-        // })
-    }
-});
