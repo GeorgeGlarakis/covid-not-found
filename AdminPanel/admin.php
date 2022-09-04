@@ -155,7 +155,7 @@
 
 	<script>
 		$(document).ready(function() {
-			$('#dashboard').addClass("active");
+			$('#statistics').addClass("active");
 		})
 	</script>
 

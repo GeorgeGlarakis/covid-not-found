@@ -43,7 +43,10 @@ $(document).ready(function () {
                     $('#confcase-submit').addClass("btn-dark disabled");
                 }
                 else if (response.includes("[Recent case exists]")) {
-                    $('#recent_case').html("<p>There is already a recent case!</p>")
+                    $('#recent_case').html("<p id='recent_alert'>There is already a recent case!</p>")
+                    $('#recent_alert').addClass("bg-danger text-white text-center font-weight-bold rounded d-flex align-middle mb-1 py-2 px-3")
+                    $('#confcase-submit').removeClass("btn-danger");
+                    $('#confcase-submit').addClass("btn-dark disabled");
                 }
                 else if (response.includes("[SQL Failed]")) {
                     alert("Database error!");

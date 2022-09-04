@@ -200,7 +200,7 @@ function get_estimation( poi_id ) {
 // Register visit to the DB
 function register_visit( poi_id, estimation ) {
     $.ajax( {
-        url: "../visits/visits.inc.php",
+        url: "../includes/map.inc.php",
         dataType: "text",
         type: "POST",
         data: {
@@ -210,7 +210,7 @@ function register_visit( poi_id, estimation ) {
             })
         }, 
         success: function( response ) {
-            alert(response);
+            alert("Your visit has been registered successfully!");
         },
         error: function( error ) {
             console.log(error)

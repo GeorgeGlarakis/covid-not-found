@@ -13,7 +13,7 @@ $(document).ready(function () {
             var sendfile = JSON.stringify(myJSON);
 
             $.ajax( {
-                url: "insert_pois.inc.php",
+                url: "../includes/insert_pois.inc.php",
                 dataType: "text",
                 type: "POST",
                 data: {
@@ -32,7 +32,7 @@ $(document).ready(function () {
     $('#delete').click(function () {
             
         $.ajax( {
-            url: "insert_pois.php",
+            url: "../includes/insert_pois.php",
             dataType: "text",
             type: "POST",
             data: { delete: null }, 
