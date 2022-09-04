@@ -10,11 +10,11 @@
                         <div class="card">
 							<h5 class="card-header">Total Visits</h5>
                             <div class="card-body">
-                            	<div class="chart-containe d-flex align-items-center justify-content-center">
+                            	<div class="d-flex align-items-center justify-content-center">
                                 	<h1 id="chart-1"></h1>                                	
                               	</div>
 								
-								<div class="col-12 col-md-12 col-lg-12 d-flex align-items-end justify-content-end">
+								<div class="col-12 col-md-12 col-lg-4 d-flex align-items-center justify-content-center align-items-lg-end justify-content-lg-end">
 									<button id="refresh-chart-1">Refresh</button>
 								</div>
 							  								  
@@ -26,14 +26,14 @@
                           	<h5 class="card-header">Confirmed Cases</h5>
 						  
                           	<div class="card-body">
-                        		<div class="chart-container">
+							  <div class="d-flex align-items-center justify-content-center">
 									<h1 id="chart-2"></h1>
                             	</div>
 								<div class="row">
-									<div class="col-8 col-md-8 col-lg-8">
+								<div class="col-12 col-md-12 col-lg-8 my-2">
 										<p class="card-text text">These are the total Confirmed Cases.</p>		
 									</div>
-									<div class="col-4 col-md-4 col-lg-4 d-flex align-items-end justify-content-end">
+									<div class="col-12 col-md-12 col-lg-4 d-flex align-items-center justify-content-center align-items-lg-end justify-content-lg-end">
 										<button id="refresh-chart-2">Refresh</button>
 									</div>
 							  	</div>                            
@@ -44,14 +44,14 @@
                         <div class="card">
                             <h5 class="card-header">Total Visits of Confirmed Cases</h5>
                             <div class="card-body">
-                              	<div class="chart-container">
+							<div class="d-flex align-items-center justify-content-center">
                                 	<h1 id="chart-3"></h1>
                               	</div>
 								<div class="row">
-									<div class="col-8 col-md-8 col-lg-8">
+									<div class="col-12 col-md-12 col-lg-8 my-2">
 										<p class="card-text text">Total visitors found covid positive.</p>		
 									</div>
-									<div class="col-4 col-md-4 col-lg-4 d-flex align-items-end justify-content-end">
+									<div class="col-12 col-md-12 col-lg-4 d-flex align-items-center justify-content-center align-items-lg-end justify-content-lg-end">
 										<button id="refresh-chart-3">Refresh</button>
 									</div>
 							  	</div>
@@ -60,7 +60,7 @@
                     </div>
                 </div>
                 <div class="row my-4">
-                  <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-6">
+                  <div class="col-12 col-md-12 col-lg-6 mb-4 mb-lg-0">
                     <div class="card">
                         <h5 class="card-header">POIs' Categories</h5>
                         <div class="card-body">
@@ -78,7 +78,7 @@
                         </div>
                     </div>
                   </div>   
-                  <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-6">
+                  <div class="col-12 col-md-12 col-lg-6 mb-4 mb-lg-0">
                     <div class="card">
                         <h5 class="card-header">POIs' Categories</h5>
                         <div class="card-body">
@@ -104,20 +104,17 @@
 						<div class="card-body">
 						<div class="chartCard">
 							<div class="chartBox">
-								<canvas id="myChart"></canvas>
+								<canvas id="chart-6"></canvas>
 							</div>
 							<div>
-								Start: <input id="start" type="date" min="2022-01-01" max="2022-12-31"> 
-								End: <input id="end" type="date" min="2022-01-01" max="2022-12-31">
-								<button onclick="filterDate()">Filter</button><br>
+								Start: <input id="chart6-minDate" type="date" min="2022-01-01" max="2022-12-31"> 
+								End: <input id="chart6-maxDate" type="date" min="2022-01-01" max="2022-12-31">
+								<button id="filter-chart-6">Filter</button><br>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-8 col-md-8 col-lg-8">
 								<p class="card-text text">Visitors or Confirmed Cases per day.</p>		
-							</div>
-							<div class="col-4 col-md-4 col-lg-4 d-flex align-items-end justify-content-end">
-								<button id="refresh-chart-6">Refresh</button>
 							</div>
 						</div>
 						</div>
@@ -131,12 +128,11 @@
                       <div class="card-body">
                         <div class="chartCard">
                           <div class="chartBox">
-                              <canvas id="myChart"></canvas>
+                            	<canvas id="chart-7"></canvas>
 							</div>
 							<div>
-                              Start: <input id="start" type="date" min="2022-01-01" max="2022-12-31"> 
-                              End: <input id="end" type="date" min="2022-01-01" max="2022-12-31">
-                              <button onclick="filterDate()">Filter</button><br>
+                            	Choose a date: <input id="chart7-myDate" type="date" min="2022-01-01" max="2022-12-31"> 
+                            	<button id="filter-chart-7">Filter</button><br>
                             
                           </div>
                           
@@ -144,9 +140,6 @@
 						<div class="row">
 							<div class="col-8 col-md-8 col-lg-8">
 								<p class="card-text text">Visitors or Confirmed Cases per hour.</p>		
-							</div>
-							<div class="col-4 col-md-4 col-lg-4 d-flex align-items-end justify-content-end">
-								<button id="refresh-chart-7">Refresh</button>
 							</div>
 						</div>
                       </div>

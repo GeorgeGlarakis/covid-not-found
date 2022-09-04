@@ -1,65 +1,3 @@
-window.onload = function() {
-    // populate charts
-    update_statistics();
-}
-
-function update_statistics() {
-    update_chart_1();
-    update_chart_2();
-    update_chart_3();
-    update_chart_4();
-}
-
-$(document).ready(function() {
-    // create resfresh buttons
-    $('#refresh-chart-1').click(function() {
-        update_chart_1();
-    });
-    $('#refresh-chart-2').click(function() {
-        update_chart_2();
-    });
-    $('#refresh-chart-3').click(function() {
-        update_chart_3();
-    });
-    $('#refresh-chart-4').click(function() {
-        update_chart_4();
-    });
-    $('#refresh-chart-5').click(function() {
-        update_chart_5();
-    });
-    $('#refresh-chart-6').click(function() {
-        update_chart_6();
-    });
-    $('#refresh-chart-7').click(function() {
-        update_chart_7();
-    });			
-})
-
-$(document).change(function() {
-    // create resfresh buttons
-    $('#refresh-chart-1').click(function() {
-        update_chart_1();
-    });
-    $('#refresh-chart-2').click(function() {
-        update_chart_2();
-    });
-    $('#refresh-chart-3').click(function() {
-        update_chart_3();
-    });
-    $('#refresh-chart-4').click(function() {
-        update_chart_4();
-    });
-    $('#refresh-chart-5').click(function() {
-        update_chart_5();
-    });
-    $('#refresh-chart-6').click(function() {
-        update_chart_6();
-    });
-    $('#refresh-chart-7').click(function() {
-        update_chart_7();
-    });			
-})
-
 function update_chart_1() {
     $.ajax({
         url:"../includes/admincharts.inc.php",
@@ -142,7 +80,7 @@ function update_chart_4() {
         data:{ chart4: null },
         dataType:"text",
         
-        function( response ) {
+        success: function( response ) {
             if (response.includes("error")) {
                 let error = JSON.parse(response);
                 console.log(error.error);
@@ -166,7 +104,7 @@ function update_chart_5() {
         data:{ chart5: null },
         dataType:"text",
         
-        function( response ) {
+        success:function( response ) {
             if (response.includes("error")) {
                 let error = JSON.parse(response);
                 console.log(error.error);
@@ -183,193 +121,199 @@ function update_chart_5() {
     })
 }
 
-function create_pie_chart(chart_id, data) {
-    var type = [];
-    var visits = [];
-    var color = [];
+function update_chart_6(minDate, maxDate) {
+    $.ajax({
+        url:"../includes/admincharts.inc.php",
+        method:"POST",
+        data:{ chart6: JSON.stringify({
+                minDate, 
+                maxDate
+            }) 
+        },
+        dataType:"text",
+        
+        success:function( response ) {
+            if (response.includes("error")) {
+                let error = JSON.parse(response);
+                console.log(error.error);
+            }
+            else if (response.includes("dateArray")) {
+                create_board_chart6('#chart-6', JSON.parse(response));
+            }
+            else { console.log("Wrong response!"); }
+        },
+        error: function( xhr, ajaxOptions, thrownError ) {
+            console.log("AJAX Error:" + xhr.status)
+            console.log("Thrown Error:" + thrownError)
+        }					
+    })
+}
 
-    for(var count = 0; count < data.length; count++) {
-        type.push(data[count].type);
-        visits.push(data[count].visits);
-        color.push(data[count].color);
-    }
+function update_chart_7(myDate) {
+    $.ajax({
+        url:"../includes/admincharts.inc.php",
+        method:"POST",
+        data:{ chart7: JSON.stringify({
+                myDate
+            }) 
+        },
+        dataType:"text",
+        
+        success:function( response ) {
+            if (response.includes("error")) {
+                let error = JSON.parse(response);
+                console.log(error.error);
+            }
+            else if (response.includes("date_visits")) {
+                create_board_chart7('#chart-7', JSON.parse(response));
+            }
+            else { console.log("Wrong response!"); }
+        },
+        error: function( xhr, ajaxOptions, thrownError ) {
+            console.log("AJAX Error:" + xhr.status)
+            console.log("Thrown Error:" + thrownError)
+        }					
+    })
+}
+
+function create_pie_chart(chart_id, data) {
 
     var chart_data = {
-        labels:type,
+        labels: data.type,
         datasets:[{
             label:'Vote',
-            backgroundColor:color,
+            backgroundColor: data.color,
             color:'#fff',
-            data:vitits
+            data: data.visits
         }]
     };
 
-    var options = {
-        responsive:true,
-        scales:{
-            yAxes:[{
-                ticks:{
-                    min:0
-                }
-            }]
-        }
-    };
-
-    var group_chart1 = $(chart_id);
-    var graph1 = new Chart(group_chart1, {
-        type:"pie",
-        data:chart_data
+    new Chart( $(chart_id), {
+        type: "pie",
+        data: chart_data
     });
 }
 
+function create_board_chart6(chart_id, dataSets) {
 
-// Bar Chart Charts 6/7 
-
-const dates = ['2022-07-16','2022-07-17','2022-07-18','2022-07-19','2022-07-20','2022-07-21','2022-07-22'];
-
-const datapoints = [18, 12, 6, 9, 12, 3, 9];
-
-const convertedDates = dates.map(date => new Date(date).setHours(0,0,0,0));
-
-const data = {
-    labels: dates,
-    datasets: [{
-        label: 'Proved Cases',
-        data: datapoints,
-        backgroundColor: [
-            'rgba(255, 26, 104, 0.2)'          
-        ],
-        borderColor: [
-            'rgba(255, 26, 104, 1)'          
-        ],
-        borderWidth: 1
-    }]
-};
-
-// config 
-const config = {
-    type: 'bar',
-    data,
-    options: {
-        scales: {
-            x: {
-                type:'time',
-                time:{
-                    unit:'day'
-                }            
-            },
-            y: {
-                beginAtZero: true
+    var label_dates = [];
+    dataSets.dateArray.forEach(function(date) {
+        label_dates.push(new Date(date).toDateString());
+    })         
+    
+    const chart_data = {
+        labels: label_dates,
+        datasets: [{
+            label: 'Covid Cases',
+            data: dataSets.countCases,
+            backgroundColor: dataSets.bg_color,
+            borderColor: dataSets.border_color,
+            borderWidth: 1
+        }]
+    };
+  
+    new Chart( $(chart_id),
+        {
+            type: 'bar',
+            data: chart_data,
+            options: {
+                scales: {
+                    yAxes: [{
+                        display: true,
+                        ticks: {
+                            beginAtZero: true,
+                        }
+                    }]
+                }
             }
         }
-    }
-};
-
-// render init block
-const myChart = new Chart(
-    document.getElementById('myChart'),
-    config
-);
-
-function filterDate(){
-
-    const start1 = new Date(document.getElementById('start').value);
-    const start = start1.setHours(0,0,0,0);
-    console.log(start)
-    const end1 = new Date(document.getElementById('end').value);
-    const end = end1.setHours(0,0,0,0);
-    console.log(end)
-
-    const filterDates = convertedDates.filter(date => date >=start && date <= end)
-    myChart.config.data.labels = filterDates;
-
-    const startArray = convertedDates.indexOf(filterDates[0])
-    const endArray = convertedDates.indexOf(filterDates[filterDates.length-1])
-    const copydatapoints = [...datapoints];
-    copydatapoints.splice(endArray + 1, filterDates.length);
-    copydatapoints.splice(0,startArray);
-    console.log(copydatapoints)
-    myChart.config.data.datasets[0].data = copydatapoints;
-    myChart.update();
+    );
 }
 
+function create_board_chart7(chart_id, dataSets) {
 
+    // Count the visits per hour
+    var hours = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    dataSets.date_visits.forEach( function(hour) {
+        let i = new Date(hour).getHours()
+        hours[i]++;
+    })
 
-// Pie Chart
-
-$(document).ready(function(){
-
-
-    $('#submit_data').click(function(){
-
-        var language = $('input[name=programming_language]:checked').val();
-
-        // $.ajax({
-        // 	url:"data.php",
-        // 	method:"POST",
-        // 	data:{action:'insert', language:language},
-        // 	beforeSend:function() {
-        // 		$('#submit_data').attr('disabled', 'disabled');
-        // 	},
-        // 	success:function(data) {
-        // 		$('#submit_data').attr('disabled', false);
-        // 		$('#programming_language_1').prop('checked', 'checked');
-        // 		$('#programming_language_2').prop('checked', false);
-        // 		$('#programming_language_3').prop('checked', false);
-        // 		alert("Your Feedback has been send...");
-        // 		makechart();
-        // 	}
-        // })
-
-    });
-
-    makechart();
-
-    function makechart() {
-        // $.ajax({
-        // 	url:"data.php",
-        // 	method:"POST",
-        // 	data:{ action:'fetch' },
-        // 	dataType:"JSON",
-
-        // 	success:function(data) {
-        // 		var language = [];
-        // 		var total = [];
-        // 		var color = [];
-
-        // 		for(var count = 0; count < data.length; count++) {
-        // 			language.push(data[count].language);
-        // 			total.push(data[count].total);
-        // 			color.push(data[count].color);
-        // 		}
-
-        // 		var chart_data = {
-        // 			labels:language,
-        // 			datasets:[{
-        // 				label:'Vote',
-        // 				backgroundColor:color,
-        // 				color:'#fff',
-        // 				data:total
-        // 			}]
-        // 		};
-
-        // 		var options = {
-        // 			responsive:true,
-        // 			scales:{
-        // 				yAxes:[{
-        // 					ticks:{
-        // 						min:0
-        // 					}
-        // 				}]
-        // 			}
-        // 		};
-
-        // 		var group_chart1 = $('#pie_chart');
-        // 		var graph1 = new Chart(group_chart1, {
-        // 			type:"pie",
-        // 			data:chart_data
-        // 		});
-        // 	}
-        // })
+    // Create random colors for the bars 
+    var bg_color = []
+    var border_color = []
+    for (var n=0; n<24; n++){
+        let color = 'rgba(' + Math.floor(Math.random() * 256) + ', ' + Math.floor(Math.random() * 256) + ', ' + Math.floor(Math.random() * 256) + ', '
+        bg_color[n] = color + '0.4)'
+        border_color[n] = color + '1)'
     }
-});
+
+    const chart_data = {
+        labels: ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00',
+                 '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', 
+                 '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', 
+                 '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'],
+        datasets: [{
+            label: 'Covid Cases',
+            data: hours,
+            backgroundColor: bg_color,
+            borderColor: border_color,
+            borderWidth: 1
+        }]
+    };
+
+    new Chart( $(chart_id),
+        {
+            type: 'bar',
+            data: chart_data,
+            options: {
+                scales: {
+                    yAxes: [{
+                        display: true,
+                        ticks: {
+                            beginAtZero: true,
+                        }
+                    }]
+                }
+            }
+        }
+    );
+}
+
+window.onload = function() {
+    // populate charts
+    update_chart_1();
+    update_chart_2();
+    update_chart_3();
+    update_chart_4();
+    update_chart_5();
+    update_chart_6('2022-07-31', '2022-08-11');
+    update_chart_7('2022-08-12');
+}
+
+$(document).ready(function() {
+    // create resfresh buttons
+    $('#refresh-chart-1').click(function() {
+        update_chart_1();
+    });
+    $('#refresh-chart-2').click(function() {
+        update_chart_2();
+    });
+    $('#refresh-chart-3').click(function() {
+        update_chart_3();
+    });
+    $('#refresh-chart-4').click(function() {
+        update_chart_4();
+    });
+    $('#refresh-chart-5').click(function() {
+        update_chart_5();
+    });
+    $('#filter-chart-6').click(function() {
+        let minDate = $('#chart6-minDate').val()
+        let maxDate = $('#chart6-maxDate').val()
+        update_chart_6(minDate, maxDate);
+    });
+    $('#filer-chart-7').click(function() {
+        update_chart_7($('#chart7-myDate').val());
+    });			
+})
