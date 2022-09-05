@@ -32,12 +32,16 @@ function getPosition( position ){
     if(mylocation) { map.removeLayer(mylocation) }
 
     mycoords = L.marker([lat, lng], {icon: blueMarker}).bindPopup("My Location")
-    mycircle = L.circle([lat, lng], {radius: accuracy})
+    bigcircle = L.circle([lat, lng], { radius: 5000 });
+    smallcircle = L.circle([lat, lng], { radius: 20 });
 
-    var mylocation = L.featureGroup([mycoords, mycircle]).addTo(map)
+    var mylocation = L.featureGroup([mycoords]).addTo(map)
+    var circles = L.featureGroup([bigcircle, smallcircle]).addTo(map)
 
-    map.fitBounds(mylocation.getBounds())
+    console.log(bigcircle.getBounds())
+    map.fitBounds(bigcircle.getBounds())
 }
+
 
 
 // Search for POIs nearby
@@ -54,7 +58,7 @@ $(document).ready(function () {
 
             type.value = '';
             if (pois) { map.removeLayer(pois); }
-            var bounds = map.getBounds(); 
+            var bounds = bigcircle.getBounds(); 
             getPOIs(bounds, "name", name.value);
         }
     });
@@ -63,7 +67,7 @@ $(document).ready(function () {
         if (event.key === "Enter") {
             name.value = '';
             if (pois) { map.removeLayer(pois); }
-            var bounds = map.getBounds(); 
+            var bounds = bigcircle.getBounds(); 
             getPOIs(bounds, "type", type.value);
         }
     });
@@ -131,9 +135,18 @@ function display_pois( poi_res ) {
 
         let popupText = name + "<br>" + address + "<br>Rating: " + rating + 
                     "<br>Crowd Prediction: " + pred.first_hour + " " + pred.second_hour +
-                    "<br>Crowd Estimation: " + estim +
-                    '<br>Your crowd estimation: <input type="number" id="estimation_'+ poi_id +'">' +
-                    '<br><input type="button" id="'+ poi_id +'" class="mybuttons" value="Register Visit"></input>';
+                    "<br>Crowd Estimation: " + estim ;
+        
+        var bounds = smallcircle.getBounds()
+        if  (  lat > bounds._southWest.lat
+            && lat < bounds._northEast.lat
+            && lng > bounds._southWest.lng
+            && lng < bounds._northEast.lng
+        ){
+             popupText +=  '<br>Your crowd estimation: <input type="number" id="estimation_'+ poi_id +'">' +
+            '<br><input type="button" id="'+ poi_id +'" class="mybuttons" value="Register Visit"></input>';
+
+        }
         
         markers[key] = new L.marker([lat, lng], {icon: marker_color})
                             .bindPopup(popupText)
@@ -143,6 +156,7 @@ function display_pois( poi_res ) {
                                     register_visit(this.id, estimation);
                                 });
                             });
+
     })
 
     pois = L.layerGroup(markers);
