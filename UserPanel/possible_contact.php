@@ -19,6 +19,12 @@
 
 	<?php include '../requirements.php'; ?>
 
+  <script>
+		  $(document).ready(function() {
+			    $('#contact').addClass("active");
+		  })
+	</script>
+
   <script src="../static_javascript/user_functions.js"></script>
 
 </body>

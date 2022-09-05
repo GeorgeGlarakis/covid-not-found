@@ -109,4 +109,29 @@ $(document).ready(function () {
             });
         }
     });
+
+    $('#submit-changes').click(function () {
+        var name = document.getElementById("change-name").value;
+        var surname = document.getElementById("change-surname").value;
+        var email = document.getElementById("change-email").value;
+        var password = document.getElementById("change-password").value;
+        var password_conf = document.getElementById("change-password-conf").value;
+
+        $.ajax( {
+            url: "../includes/login.inc.php",
+            dataType: "text",
+            type: "POST",
+            data: {
+                change_user: JSON.stringify({ 
+                    name: name,
+                    surname: surname,
+                    email: email,
+                    password: password,
+                    password_conf: password_conf
+                })
+            }, 
+            success: function( response ) { alert(response) },
+            error: function( error ) { console.log(error) }
+        });
+    });
 })       
