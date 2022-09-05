@@ -154,8 +154,8 @@
         $recived = utf8_encode($_POST['chart6']);
         $minDate = json_decode($recived)->minDate;
         $maxDate = json_decode($recived)->maxDate;
-        $dateFilter = "SELECT date, COUNT(case_id) FROM covid_cases WHERE date < '$maxDate' and date > '$minDate' GROUP BY date";
-        // $dateFilter = "SELECT date, COUNT(case_id) FROM covid.covid_cases WHERE date < '2022-08-11' and date > '2022-07-01' GROUP BY date";
+        // $dateFilter = "SELECT date, COUNT(case_id) FROM covid_cases WHERE date < '$maxDate' and date > '$minDate' GROUP BY date";
+        $dateFilter = "SELECT visit_time FROM visits WHERE visit_time <= '$maxDate' and visit_time >= '$minDate' GROUP BY visit_time ORDER BY visit_time ASC;";
            
         try {
             $stmt = mysqli_stmt_init($conn);
@@ -165,13 +165,9 @@
             $resultData = mysqli_stmt_get_result($stmt);
     
             while($row = mysqli_fetch_assoc($resultData)){
-                $dateArray[] = $row["date"];
-                $countCases[] = $row["COUNT(case_id)"];
-                $color = 'rgba(' . rand(0, 255) . ', ' . rand(0, 255) . ', ' . rand(0, 255) . ', ';
-                $bg_color[] = $color . '0.4)';
-                $border_color[] = $color . '1)';
+                $dateArray[] = $row["visit_time"];
             }
-            $data = array('dateArray' => $dateArray, 'countCases' => $countCases, 'bg_color' => $bg_color, 'border_color' => $border_color);
+            $data = array('dateArray' => $dateArray);
             echo json_encode($data);
             mysqli_stmt_close($stmt);
         }
