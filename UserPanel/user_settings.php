@@ -27,7 +27,7 @@
                         <p class="col-6 col-lg-3 form-text"></p>
                         <div class="col-6 col-lg-9 form-text"><input type="password" id="change-password-conf" placeholder="Password Confirmation..."></div>
                       </div>
-                      <div class="m-2 d-flex align-items-center justify-content-center"><button class="btn-primary rounded border-primary" id="submit-changes">Save</button></div>  
+                      <div class="m-2 d-flex align-items-center justify-content-center align-items-lg-start justify-content-lg-start mt-4"><button class="btn-primary rounded border-primary" id="submit-changes">Save</button></div>  
                     </div>
                   </div>
                 </div>
@@ -54,6 +54,12 @@
     </div>
 
 	<?php include '../requirements.php'; ?>
+
+  <script>
+		  $(document).ready(function() {
+			    $('#settings').addClass("active");
+		  })
+	</script>
 
   <script src="../static_javascript/user_functions.js"></script>
   <script src="../static_javascript/my_profile_functions.js"></script>
