@@ -84,11 +84,11 @@ elseif (isset($_POST['change_user'])) {
                 $changes = $changes . "password = '$hashedpassword' ";
                 $change_flag = true;
             } else { 
-                echo "[ERROR] password_dont_match";
+                echo "[ERROR] Passwords do not match!";
                 exit(); 
             }
         } else {
-            echo "[ERROR] Empty password_conf";
+            echo "[ERROR] The Password Confirmation filed is EMPTY.";
             exit();
         }
     }
