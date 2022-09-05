@@ -38,6 +38,7 @@ function getPosition( position ){
     var circles = L.featureGroup([bigcircle, smallcircle]).addTo(map)
     circles.setStyle({color: 'rgba(0,0,0,0)'})
 
+    // console.log(bigcircle.getBounds())
     map.fitBounds(bigcircle.getBounds())
 }
 
