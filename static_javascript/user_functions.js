@@ -1,5 +1,7 @@
 // Confirm Covid Case Button
 $(document).ready(function () {
+
+    // Show / Hide the option to log in as Admin
     $.ajax( {
         url: "../includes/user.inc.php",
         dataType: "text",

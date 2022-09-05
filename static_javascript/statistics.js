@@ -197,7 +197,7 @@ function create_pie_chart(chart_id, data) {
 function create_board_chart6(chart_id, dataSets) {
 
     var label_dates = [];
-    dataSets.dateArray.forEach(function(date) {
+    dataSets.dateArray.forEach( date => {
         label_dates.push(new Date(date).toDateString());
     })         
     
@@ -234,7 +234,7 @@ function create_board_chart7(chart_id, dataSets) {
 
     // Count the visits per hour
     var hours = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    dataSets.date_visits.forEach( function(hour) {
+    dataSets.date_visits.forEach( hour => {
         let i = new Date(hour).getHours()
         hours[i]++;
     })

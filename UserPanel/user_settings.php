@@ -35,8 +35,7 @@
                 <div class="col-12 my-3">
                   <div class="card">
                     <h5 class="card-header text-center text-lg-left">My Visits</h5>
-                    <div class="card-body">
-                        
+                    <div class="card-body" id="my_visits">                                             
                     </div>
                   </div>
                 </div>
@@ -44,8 +43,7 @@
                 <div class="col-12 my-3">
                   <div class="card">
                     <h5 class="card-header text-center text-lg-left">My Covid Cases</h5>
-                    <div class="card-body">
-                        
+                    <div class="card-body" id="my_cases">                   
                     </div>
                   </div>
                 </div>
@@ -58,6 +56,7 @@
 	<?php include '../requirements.php'; ?>
 
   <script src="../static_javascript/user_functions.js"></script>
+  <script src="../static_javascript/my_profile_functions.js"></script>
 
 </body>
 </html>

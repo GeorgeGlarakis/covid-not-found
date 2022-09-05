@@ -108,7 +108,7 @@ elseif (isset($_POST['change_user'])) {
 			return 'ERROR';
 			die;
 		} 
-    }	
+    } else { echo "No changes have been performed!"; }
 
 }
 
