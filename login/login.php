@@ -1,6 +1,12 @@
 <?php
     session_start();
     if(isset($_SESSION['user_id'])) {
+        if (!empty($_SERVER['HTTPS']) && ('on' == $_SERVER['HTTPS'])) {
+            $uri = 'https://';
+        } else {
+            $uri = 'http://';
+        }
+        $uri .= $_SERVER['HTTP_HOST'];
         // echo "User ID is set!";
         if (isset($_SESSION['is_admin']) &&  $_SESSION['is_admin'] == 1) {
             // echo "IS ADMIN is set!";
