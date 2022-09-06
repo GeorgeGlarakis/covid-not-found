@@ -8,19 +8,19 @@
 					<div class="card">
 						<h5 class="card-header">Fill Admin credentials</h5>
 						<div class="card-body">
-							<div class="register-form">
+							<div class="form-outline mb-4" id="register_alert"></div>
+							
 								<h2>Register</h2>
 								<div class="row">
-									<div class="col-12 col-md-6 col-lg-6 form-text"><input type="text" id="register-name" placeholder="Name..."></div>
-									<div class="col-12 col-md-6 col-lg-6 form-text d-flex align-items-center justify-content-md-end"><input type="text" id="register-surname" placeholder="Surname..."></div>
+									<div class="col-12 col-md-6 col-lg-6 form-text"><input class="register" type="text" id="register-name" placeholder="Name..."></div>
+									<div class="col-12 col-md-6 col-lg-6 form-text d-flex align-items-center justify-content-md-end"><input class="register" type="text" id="register-surname" placeholder="Surname..."></div>
 								</div>
-								<div class="form-text"><input type="text" id="register-email" placeholder="Email..."></div>
+								<div class="form-text"><input class="register" type="text" id="register-email" placeholder="Email..."></div>
 								<div class="row">
-									<div class="col-12 col-md-6 col-lg-6 form-text"><input type="password" id="register-password" placeholder="Password..."></div>
-									<div class="col-12 col-md-6 col-lg-6 form-text d-flex align-items-center justify-content-md-end"><input type="password" id="register-password-conf" placeholder="Password Confirmation..."></div>
+									<div class="col-12 col-md-6 col-lg-6 form-text"><input class="register" type="password" id="register-password" placeholder="Password..."></div>
+									<div class="col-12 col-md-6 col-lg-6 form-text d-flex align-items-center justify-content-md-end"><input class="register" type="password" id="register-password-conf" placeholder="Password Confirmation..."></div>
 								</div>
-								<div class="m-2 d-flex align-items-center justify-content-center"><button class="btn-primary rounded border-primary" id="register-admin">Register</button></div>
-							</div>			
+								<div class="m-2 d-flex align-items-center justify-content-center"><button class="btn-primary rounded border-primary" id="register-admin">Register</button></div>			
 						</div>
 					</div>
 				</div>
