@@ -19,21 +19,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Panel</title>
 
-
+    <link rel="shortcut icon" href="#">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
     <link rel="stylesheet" href="../static_css/style-sidebar.css">
 
-	<!-- leaflet css  -->
-	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+	  <!-- leaflet css  -->
+	  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
    		integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
    		crossorigin=""/>
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
     <link rel="stylesheet" href="../static_css/leaflet.awesome-markers.css">
 
-	<!-- Configure Map Height -->
-	<style>
-		#map { height: 80vh; }
-	</style>
+    <!-- Configure Map Height -->
+    <style>
+      #map { height: 80vh; }
+    </style>
 
 </head>
 <body>
