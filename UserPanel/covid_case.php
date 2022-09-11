@@ -25,7 +25,7 @@
                   <div class="card">
                     <h5 class="card-header text-center text-lg-left">My Previous Covid Cases</h5>
                     <div class="card-body">
-                        <div id="case_list"></div>
+                        <div id="my_cases"></div>
                     </div>
                   </div>
                 </div>
@@ -38,6 +38,7 @@
 	<?php include '../requirements.php'; ?>
 
   <script src="../static_javascript/user_functions.js"></script>
+  <script src="../static_javascript/my_profile_functions.js"></script>
 
 </body>
 </html>

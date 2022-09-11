@@ -212,7 +212,7 @@ function  loginUser($conn, $email, $password) {
     $emailExists = emailExists($conn, $email);
 
     if ($emailExists === false){
-        echo "[ERROR] wrong login";
+        echo "[ERROR] Wrong Email";
         exit();
     }
 
@@ -220,7 +220,7 @@ function  loginUser($conn, $email, $password) {
     $chcekpassword = password_verify($password, $passwordHashed);
 
     if($chcekpassword === false){
-        echo "[ERROR] Wrong Login";
+        echo "[ERROR] Wrong Password";
         exit();
     }
 

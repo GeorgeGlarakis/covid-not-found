@@ -9,7 +9,10 @@ $(document).ready(function () {
         }, 
         success: function( response ) { 
             if (response.includes("poi_name")) {
-                create_visits_table(JSON.parse(response))
+                let element =  document.getElementById('my_visits')
+                if(typeof(element) != 'undefined' && element != null){
+                    create_visits_table(JSON.parse(response))
+                }
             } else if (response.includes("error")) {
                 console.log(JSON.parse(response).error)
             } else {
@@ -30,7 +33,10 @@ $(document).ready(function () {
         }, 
         success: function( response ) { 
             if (response.includes("covid_case")) {
-                create_cases_table(JSON.parse(response))
+                let element =  document.getElementById('my_cases')
+                if(typeof(element) != 'undefined' && element != null){
+                    create_cases_table(JSON.parse(response))
+                }
             } else if (response.includes("error")) {
                 console.log(JSON.parse(response).error)
             } else {

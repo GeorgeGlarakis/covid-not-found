@@ -19,21 +19,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Panel</title>
 
-
+    <link rel="shortcut icon" href="#">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
     <link rel="stylesheet" href="../static_css/style-sidebar.css">
 
-	<!-- leaflet css  -->
-	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+	  <!-- leaflet css  -->
+	  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
    		integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
    		crossorigin=""/>
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
     <link rel="stylesheet" href="../static_css/leaflet.awesome-markers.css">
 
-	<!-- Configure Map Height -->
-	<style>
-		#map { height: 80vh; }
-	</style>
+    <!-- Configure Map Height -->
+    <style>
+      #map { height: 80vh; }
+    </style>
 
 </head>
 <body>
@@ -46,9 +46,10 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
         </div>
-        <div class="col-12 col-md-5 col-lg-8 d-flex align-items-center justify-content-md-end mt-3 mt-md-0">
+        <div class="col-12 col-md-4 col-lg-4 d-flex align-items-lg-center justify-content-lg-end" id="covid_alert"></div>
+        <div class="col-12 col-md-5 col-lg-4 d-flex align-items-center justify-content-md-end mt-3 mt-md-0">
             <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
                   Hello, <i><?php echo isset($_SESSION["user_name"]) ? $_SESSION["user_name"] : 'Noname'; ?></i>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="user_menu">
@@ -66,10 +67,8 @@
                     <ul class="nav flex-column">                        
                         <li class="nav-item m-3">
                           <button class="btn-danger p-2 rounded" type="button" onclick=" document.location = 'covid_case.php'">
-                            <!-- <a class="nav-link btn-danger p-2 rounded" href="covid_case.php"> -->
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12a7 7 0 0 1 7-7m-7 7H2m3 0c0 1.933.784 3.683 2.05 4.95L4.5 19.5M12 5V2m0 3c1.933 0 3.683.784 4.95 2.05L19.5 4.5M12 2h2m-2 0h-2M2 12v-2m0 2v2m17.5-9.5L18 3m1.5 1.5L21 6M4.5 4.5 6 3M4.5 4.5 3 6m1.5-1.5L7 7M4.5 19.5 6 21m-1.5-1.5L3 18m13 1h.001M9 10.5A1.5 1.5 0 0 1 10.5 9m5.501 7L16 13m6 3a6 6 0 1 1-12 0 6 6 0 0 1 12 0z"/></svg>
-                                <span class="ml-2">Covid Case</span>
-                            <!-- </a> -->
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12a7 7 0 0 1 7-7m-7 7H2m3 0c0 1.933.784 3.683 2.05 4.95L4.5 19.5M12 5V2m0 3c1.933 0 3.683.784 4.95 2.05L19.5 4.5M12 2h2m-2 0h-2M2 12v-2m0 2v2m17.5-9.5L18 3m1.5 1.5L21 6M4.5 4.5 6 3M4.5 4.5 3 6m1.5-1.5L7 7M4.5 19.5 6 21m-1.5-1.5L3 18m13 1h.001M9 10.5A1.5 1.5 0 0 1 10.5 9m5.501 7L16 13m6 3a6 6 0 1 1-12 0 6 6 0 0 1 12 0z"/></svg>
+                              <span class="ml-2">Covid Case</span>
                           </button>
                         </li>
                         <li class="nav-item">

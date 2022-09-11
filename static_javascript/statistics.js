@@ -197,17 +197,31 @@ function create_pie_chart(chart_id, data) {
 function create_board_chart6(chart_id, dataSets) {
 
     var label_dates = [];
-    dataSets.dateArray.forEach( date => {
-        label_dates.push(new Date(date).toDateString());
+    var dates = []
+    var countVisits = [];
+    var bg_color = [];
+    var border_color = [];
+    var index = -1;
+    dataSets.dateArray.forEach(date => {
+        this_date = new Date(date).getDate();
+        if (this_date == dates[index]) { countVisits[index]++; }
+        else { index++; 
+            dates[index] = this_date;
+            label_dates[index] = new Date(date).toDateString(); 
+            countVisits[index] = 1; 
+            let color = 'rgba(' + Math.floor(Math.random() * 256) + ', ' + Math.floor(Math.random() * 256) + ', ' + Math.floor(Math.random() * 256) + ', '
+            bg_color[index] = color + '0.4)'
+            border_color[index] = color + '1)'
+        }
     })         
     
     const chart_data = {
         labels: label_dates,
         datasets: [{
             label: 'Covid Cases',
-            data: dataSets.countCases,
-            backgroundColor: dataSets.bg_color,
-            borderColor: dataSets.border_color,
+            data: countVisits,
+            backgroundColor: bg_color,
+            borderColor: border_color,
             borderWidth: 1
         }]
     };
@@ -280,18 +294,27 @@ function create_board_chart7(chart_id, dataSets) {
     );
 }
 
-window.onload = function() {
+// window.onload = function() {
+//     // populate charts
+//     update_chart_1();
+//     update_chart_2();
+//     update_chart_3();
+//     update_chart_4();
+//     update_chart_5();
+//     update_chart_6('2022-07-31', '2022-09-30');
+//     update_chart_7('2022-08-12');
+// }
+
+$(document).ready(function() {
     // populate charts
     update_chart_1();
     update_chart_2();
     update_chart_3();
     update_chart_4();
     update_chart_5();
-    update_chart_6('2022-07-31', '2022-08-11');
-    update_chart_7('2022-08-12');
-}
+    update_chart_6('2022-07-31', '2022-09-30');
+    // update_chart_7('2022-08-12');
 
-$(document).ready(function() {
     // create resfresh buttons
     $('#refresh-chart-1').click(function() {
         update_chart_1();
@@ -313,7 +336,8 @@ $(document).ready(function() {
         let maxDate = $('#chart6-maxDate').val()
         update_chart_6(minDate, maxDate);
     });
-    $('#filer-chart-7').click(function() {
-        update_chart_7($('#chart7-myDate').val());
+    $('#filter-chart-7').click(function() {
+        let myDate = $('#chart7-myDate').val()
+        update_chart_7(myDate);
     });			
 })
