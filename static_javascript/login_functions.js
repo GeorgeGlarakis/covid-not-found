@@ -32,7 +32,7 @@ $(document).ready(function () {
                     $('#log_alert').addClass("bg-danger text-white text-center font-weight-bold rounded d-flex align-middle mb-1 py-2 px-3")
                     $('#login-email').addClass("border-danger") 
                 } else if (response.includes("[ERROR] Wrong Password")) {
-                    $('#login_alert').html("<p id='log_alert'>Wrong Email!</p>")
+                    $('#login_alert').html("<p id='log_alert'>Wrong Password!</p>")
                     $('#log_alert').addClass("bg-danger text-white text-center font-weight-bold rounded d-flex align-middle mb-1 py-2 px-3")
                     $('#login-pwd').addClass("border-danger") 
                 }                    
