@@ -3,6 +3,8 @@
 include "../database_conn.php";
 
 header('Content-Type: text/plain');
+session_start();
+$user_id = (isset($_SESSION["user_id"]) ? $_SESSION["user_id"] : -1 );
 
 class Poi {
     private $poi_id;
@@ -164,12 +166,10 @@ if (isset($_POST['visits'])) {
     
 	$received = utf8_encode($_POST['visits']);
     $visits = json_decode($received);
-    $user_id = $_SESSION["user_id"];
     $poi_id = $visits->poi_id;
     $estimation = $visits->estimation;
     date_default_timezone_set("Europe/Athens");
     $visit_time =  date_create()->format('Y-m-d H:i:s');
-
 
     $insert_visits = "INSERT INTO visits (user_id, poi_id, visit_time, estimation)
                     VALUES ('$user_id', '$poi_id', '$visit_time', '$estimation');";

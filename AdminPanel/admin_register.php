@@ -25,16 +25,13 @@
 					</div>
 				</div>
 
-				<div class="col-12 col-md-12 col-lg-12 mb-4 mb-lg-0 my-2">
+				<!-- <div class="col-12 col-md-12 col-lg-12 mb-4 mb-lg-0 my-2">
 					<div class="card">
 						<h5 class="card-header">System Admins</h5>
-						<div class="card-body">
-						
-						
-						
+						<div class="card-body">						
 						</div>
 					</div>
-				</div>
+				</div> -->
             
 				<?php include_once '../footer.php' ?>
 			</main>

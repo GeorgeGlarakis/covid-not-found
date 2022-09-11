@@ -215,7 +215,9 @@ function register_visit( poi_id, estimation ) {
             })
         }, 
         success: function( response ) {
-            alert("Your visit has been registered successfully!");
+            if (response.includes("[SQL Success]")) {
+                console.log("Your visit has been registered successfully!");
+            } else { console.log(response) }
         },
         error: function( error ) {
             console.log(error)
