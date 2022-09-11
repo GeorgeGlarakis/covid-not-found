@@ -27,21 +27,22 @@ var coords, marker, circle;
 function getPosition( position ){
     var lat = position.coords.latitude
     var lng = position.coords.longitude
-    var accuracy = position.coords.accuracy
 
     if(mylocation) { map.removeLayer(mylocation) }
 
     mycoords = L.marker([lat, lng], {icon: blueMarker}).bindPopup("My Location")
-    mycircle = L.circle([lat, lng], {radius: accuracy})
+    bigcircle = L.circle([lat, lng], { radius: 5000 });
+    smallcircle = L.circle([lat, lng], { radius: 300 });
 
-    var mylocation = L.featureGroup([mycoords, mycircle]).addTo(map)
+    var mylocation = L.featureGroup([mycoords]).addTo(map)
+    var circles = L.featureGroup([bigcircle, smallcircle]).addTo(map)
+    circles.setStyle({color: 'rgba(0,0,0,0)'})
 
-    map.fitBounds(mylocation.getBounds())
+    // console.log(bigcircle.getBounds())
+    map.fitBounds(bigcircle.getBounds())
 }
 
-
 // Search for POIs nearby
-
 var pois;
 
 $(document).ready(function () {
@@ -54,7 +55,7 @@ $(document).ready(function () {
 
             type.value = '';
             if (pois) { map.removeLayer(pois); }
-            var bounds = map.getBounds(); 
+            var bounds = bigcircle.getBounds(); 
             getPOIs(bounds, "name", name.value);
         }
     });
@@ -63,7 +64,7 @@ $(document).ready(function () {
         if (event.key === "Enter") {
             name.value = '';
             if (pois) { map.removeLayer(pois); }
-            var bounds = map.getBounds(); 
+            var bounds = bigcircle.getBounds(); 
             getPOIs(bounds, "type", type.value);
         }
     });
@@ -119,7 +120,6 @@ function display_pois( poi_res ) {
         let lat = value.lat;
         let lng = value.lng;
         let rating = value.rating;
-        let rating_n = value.rating_n;
         let populartimes = value.populartimes;
 
         let pred = crowd_prediction(JSON.parse(populartimes));
@@ -131,9 +131,14 @@ function display_pois( poi_res ) {
 
         let popupText = name + "<br>" + address + "<br>Rating: " + rating + 
                     "<br>Crowd Prediction: " + pred.first_hour + " " + pred.second_hour +
-                    "<br>Crowd Estimation: " + estim +
-                    '<br>Your crowd estimation: <input type="number" id="estimation_'+ poi_id +'">' +
-                    '<br><input type="button" id="'+ poi_id +'" class="mybuttons" value="Register Visit"></input>';
+                    "<br>Crowd Estimation: " + estim ;
+        
+        var bounds = smallcircle.getBounds()
+        if  (  lat > bounds._southWest.lat && lat < bounds._northEast.lat
+            && lng > bounds._southWest.lng && lng < bounds._northEast.lng ) {
+            popupText +=  '<br>Your crowd estimation: <input type="number" id="estimation_'+ poi_id +'">' +
+            '<br><input type="button" id="'+ poi_id +'" class="mybuttons" value="Register Visit"></input>'
+        }
         
         markers[key] = new L.marker([lat, lng], {icon: marker_color})
                             .bindPopup(popupText)
@@ -210,7 +215,9 @@ function register_visit( poi_id, estimation ) {
             })
         }, 
         success: function( response ) {
-            alert("Your visit has been registered successfully!");
+            if (response.includes("[SQL Success]")) {
+                console.log("Your visit has been registered successfully!");
+            } else { console.log(response) }
         },
         error: function( error ) {
             console.log(error)

@@ -15,12 +15,27 @@ $(document).ready(function () {
                 }) 
             }, 
             success: function( response ) { 
+                $('.login').removeClass("border-danger")
                 if (response.includes("[DONE] Logged In Successfully!")) {
                     window.location.replace("/covid-not-found/UserPanel/user.php")
-                }  
-                else if (response.includes("[ADMIN] Logged In Successfully!")) {
+                } else if (response.includes("[ADMIN] Logged In Successfully!")) {
                     window.location.replace("/covid-not-found/AdminPanel/admin.php")
-                }                      
+                } else if (response.includes("[ERROR] stmt_failed")) {
+                    $('#login_alert').html("<p id='log_alert'>Registration Failed!</p>")
+                    $('#log_alert').addClass("bg-danger text-white text-center font-weight-bold rounded d-flex align-middle mb-1 py-2 px-3")
+                } else if (response.includes("[ERROR] empty_input")) {
+                    $('#login_alert').html("<p id='log_alert'>Empty input!</p>")
+                    $('#log_alert').addClass("bg-danger text-white text-center font-weight-bold rounded d-flex align-middle mb-1 py-2 px-3")
+                    $('.login').addClass("border-danger") 
+                } else if (response.includes("[ERROR] Wrong Email")) {
+                    $('#login_alert').html("<p id='log_alert'>Wrong Email!</p>")
+                    $('#log_alert').addClass("bg-danger text-white text-center font-weight-bold rounded d-flex align-middle mb-1 py-2 px-3")
+                    $('#login-email').addClass("border-danger") 
+                } else if (response.includes("[ERROR] Wrong Password")) {
+                    $('#login_alert').html("<p id='log_alert'>Wrong Password!</p>")
+                    $('#log_alert').addClass("bg-danger text-white text-center font-weight-bold rounded d-flex align-middle mb-1 py-2 px-3")
+                    $('#login-pwd').addClass("border-danger") 
+                }                    
             },
             error: function( error ) { console.log(error) }
         });
@@ -46,7 +61,34 @@ $(document).ready(function () {
                     password_conf: password_conf
                 })
             }, 
-            success: function( response ) { console.log(response) },
+            success: function( response ) { 
+                $('.register').removeClass("border-danger")
+                if (response.includes("[DONE] Insert Completed!")) {
+                    $('#register_alert').html("<p id='reg_alert'>Registered Successfully! Log in with your credentials!</p>")
+                    $('#reg_alert').addClass("bg-success text-white text-center font-weight-bold rounded d-flex align-middle mb-1 py-2 px-3")
+                } else if (response.includes("[ERROR] stmt_failed")) {
+                    $('#register_alert').html("<p id='reg_alert'>Registration Failed!</p>")
+                    $('#reg_alert').addClass("bg-danger text-white text-center font-weight-bold rounded d-flex align-middle mb-1 py-2 px-3")
+                } else if (response.includes("[ERROR] empty_input")) {
+                    $('#register_alert').html("<p id='reg_alert'>Empty input!</p>")
+                    $('#reg_alert').addClass("bg-danger text-white text-center font-weight-bold rounded d-flex align-middle mb-1 py-2 px-3")
+                    $('.register').addClass("border-danger")
+                } else if (response.includes("[ERROR] invalid_email")) {
+                    $('#register_alert').html("<p id='reg_alert'>Invalid Email!</p>")
+                    $('#reg_alert').addClass("bg-danger text-white text-center font-weight-bold rounded d-flex align-middle mb-1 py-2 px-3")
+                    $('#register-email').addClass("border-danger")
+                } else if (response.includes("[ERROR] password_dont_match")) {
+                    $('#register_alert').html("<p id='reg_alert'>Passwords do not match!</p>")
+                    $('#reg_alert').addClass("bg-danger text-white text-center font-weight-bold rounded d-flex align-middle mb-1 py-2 px-3")
+                    $('#register-password').addClass("border-danger")
+                    $('#register-password-conf').addClass("border-danger")
+                } else if (response.includes("[ERROR] email_already_exists")) {
+                    $('#register_alert').html("<p id='reg_alert'>Email already exists!</p>")
+                    $('#reg_alert').addClass("bg-danger text-white text-center font-weight-bold rounded d-flex align-middle mb-1 py-2 px-3")
+                    $('#register-email').addClass("border-danger")
+                }
+
+            },
             error: function( error ) { console.log(error) }
         });
     });
@@ -71,7 +113,33 @@ $(document).ready(function () {
                     password_conf: password_conf
                 })
             }, 
-            success: function( response ) { console.log(response) },
+            success: function( response ) { 
+                $('.register').removeClass("border-danger")
+                if (response.includes("[DONE] Insert Completed!")) {
+                    $('#register_alert').html("<p id='reg_alert'>Registered Successfully! Log in with your credentials!</p>")
+                    $('#reg_alert').addClass("bg-success text-white text-center font-weight-bold rounded d-flex align-middle mb-1 py-2 px-3")
+                } else if (response.includes("[ERROR] stmt_failed")) {
+                    $('#register_alert').html("<p id='reg_alert'>Registration Failed!</p>")
+                    $('#reg_alert').addClass("bg-danger text-white text-center font-weight-bold rounded d-flex align-middle mb-1 py-2 px-3")
+                } else if (response.includes("[ERROR] empty_input")) {
+                    $('#register_alert').html("<p id='reg_alert'>Empty input!</p>")
+                    $('#reg_alert').addClass("bg-danger text-white text-center font-weight-bold rounded d-flex align-middle mb-1 py-2 px-3")
+                    $('.register').addClass("border-danger")
+                } else if (response.includes("[ERROR] invalid_email")) {
+                    $('#register_alert').html("<p id='reg_alert'>Invalid Email!</p>")
+                    $('#reg_alert').addClass("bg-danger text-white text-center font-weight-bold rounded d-flex align-middle mb-1 py-2 px-3")
+                    $('#register-email').addClass("border-danger")
+                } else if (response.includes("[ERROR] password_dont_match")) {
+                    $('#register_alert').html("<p id='reg_alert'>Passwords do not match!</p>")
+                    $('#reg_alert').addClass("bg-danger text-white text-center font-weight-bold rounded d-flex align-middle mb-1 py-2 px-3")
+                    $('#register-password').addClass("border-danger")
+                    $('#register-password-conf').addClass("border-danger")
+                } else if (response.includes("[ERROR] email_already_exists")) {
+                    $('#register_alert').html("<p id='reg_alert'>Email already exists!</p>")
+                    $('#reg_alert').addClass("bg-danger text-white text-center font-weight-bold rounded d-flex align-middle mb-1 py-2 px-3")
+                    $('#register-email').addClass("border-danger")
+                }
+             },
             error: function( error ) { console.log(error) }
         });
     });
@@ -108,5 +176,30 @@ $(document).ready(function () {
                 error: function( error ) { console.log(error) }
             });
         }
+    });
+
+    $('#submit-changes').click(function () {
+        var name = document.getElementById("change-name").value;
+        var surname = document.getElementById("change-surname").value;
+        var email = document.getElementById("change-email").value;
+        var password = document.getElementById("change-password").value;
+        var password_conf = document.getElementById("change-password-conf").value;
+
+        $.ajax( {
+            url: "../includes/login.inc.php",
+            dataType: "text",
+            type: "POST",
+            data: {
+                change_user: JSON.stringify({ 
+                    name: name,
+                    surname: surname,
+                    email: email,
+                    password: password,
+                    password_conf: password_conf
+                })
+            }, 
+            success: function( response ) { alert(response) },
+            error: function( error ) { console.log(error) }
+        });
     });
 })       

@@ -1,8 +1,8 @@
 <?php
 
 include "../database_conn.php";
-
 header('Content-Type: text/plain');
+session_start();
 
 if (isset($_POST['login'])) {
     
@@ -12,13 +12,12 @@ if (isset($_POST['login'])) {
     $password = $login_crd->password;
 
     if (emptyInputLogin($email, $password) !== false) {
-            echo '[ERROR] emptyinput';
+            echo '[ERROR] empty_input';
             exit();
     }
     loginUser($conn, $email, $password);
 }
 elseif (isset($_POST['register']) || isset($_POST['admin'])) {  
-    $received = NULL;
     if (isset($_POST['admin'])) { $received = utf8_encode($_POST['admin']); }
     else { $received = utf8_encode($_POST['register']); }
     $register_crd = json_decode($received);
@@ -38,7 +37,7 @@ elseif (isset($_POST['register']) || isset($_POST['admin'])) {
         exit();
     }
 
-    if (passwordMatch($password, $password_conf) !== false) {
+    if (passwordMatch($password, $password_conf) !== true) {
         echo "[ERROR] password_dont_match";
         exit();
     }
@@ -53,12 +52,64 @@ elseif (isset($_POST['register']) || isset($_POST['admin'])) {
 
 }
 elseif (isset($_POST['logout'])) {
-    session_start();
-    echo $_SESSION["user_name"];
     session_unset();
     session_destroy();
     echo "[Status: 3] Logout";
     exit();
+}
+elseif (isset($_POST['change_user'])) {
+    $received = utf8_encode($_POST['change_user']);
+    $change_info = json_decode($received);
+    $changes = '';
+    $change_flag = false;
+    if (!empty($change_info->name)) {
+        $changes = $changes . "name = '$change_info->name' ";
+        $change_flag = true;
+    }
+    if (!empty($change_info->surname)) {
+        $changes = ($change_flag == true ? $changes . " , " : "");
+        $changes = $changes . "surname = '$change_info->surname' ";
+        $change_flag = true;
+    }
+    if (!empty($change_info->email)) {
+        $changes = ($change_flag == true ? $changes . " , " : "");
+        $changes = $changes . "email = '$change_info->email' ";
+        $change_flag = true;
+    }
+    if (!empty($change_info->password)) {
+        if (!empty($change_info->password_conf)) {
+            if (passwordMatch($change_info->password, $change_info->password_conf) == true) {
+                $hashedpassword = password_hash($change_info->password, PASSWORD_DEFAULT);
+                $changes = ($change_flag == true ? $changes . " , " : "");
+                $changes = $changes . "password = '$hashedpassword' ";
+                $change_flag = true;
+            } else { 
+                echo "[ERROR] Passwords do not match!";
+                exit(); 
+            }
+        } else {
+            echo "[ERROR] The Password Confirmation filed is EMPTY.";
+            exit();
+        }
+    }
+
+    if ($change_flag == true) {
+        $update_name = "UPDATE users SET " . $changes . " WHERE user_id = " . $_SESSION["user_id"] . ";";
+        try {
+			$stmt = mysqli_stmt_init($conn);
+			mysqli_stmt_prepare($stmt, $update_name);
+			mysqli_stmt_execute($stmt);
+			mysqli_stmt_close($stmt);
+            
+            echo "[Successful Change!]";
+		}
+		catch (Exception $err) {
+			echo $err;
+			return 'ERROR';
+			die;
+		} 
+    } else { echo "No changes have been performed!"; }
+
 }
 
 function emptyInput($name, $surname, $email, $password, $password_conf) {
@@ -83,10 +134,10 @@ function invalidEmail($email) {
 
 function passwordMatch($password, $password_conf) {
     if($password !== $password_conf) {
-        $result = true;
+        $result = false;
     }
     else {
-        $result = false;
+        $result = true;
     }
     return $result;
 }
@@ -161,7 +212,7 @@ function  loginUser($conn, $email, $password) {
     $emailExists = emailExists($conn, $email);
 
     if ($emailExists === false){
-        echo "[ERROR] wrong login";
+        echo "[ERROR] Wrong Email";
         exit();
     }
 
@@ -169,12 +220,11 @@ function  loginUser($conn, $email, $password) {
     $chcekpassword = password_verify($password, $passwordHashed);
 
     if($chcekpassword === false){
-        echo "[ERROR] Wrong Login";
+        echo "[ERROR] Wrong Password";
         exit();
     }
 
     else if ($chcekpassword === true ){
-        session_start();
         $_SESSION["user_id"] = $emailExists["user_id"];
         $_SESSION["user_name"] = $emailExists["name"];
         $_SESSION["is_admin"] = $emailExists["is_admin"];
