@@ -1,92 +1,106 @@
-<!-- <?php
-    include_once 'header.php';
-?> -->
-    
-    <section class="login-form">
-        <h2>Log In</h2>
-        <div class="singup-form-form">
-            <input type="text" id="login-email" placeholder="Email...">
-            <input type="password" id="login-pwd" placeholder="Password...">
-            <button id="login-submit">Log In</button>
-        </div> 
-    </section>
+<?php
+    session_start();
+    if(isset($_SESSION['user_id'])) {
+        if (!empty($_SERVER['HTTPS']) && ('on' == $_SERVER['HTTPS'])) {
+            $uri = 'https://';
+        } else {
+            $uri = 'http://';
+        }
+        $uri .= $_SERVER['HTTP_HOST'];
+        // echo "User ID is set!";
+        if (isset($_SESSION['is_admin']) &&  $_SESSION['is_admin'] == 1) {
+            // echo "IS ADMIN is set!";
+            header('Location: '.$uri.'/covid-not-found/AdminPanel/admin.php');
+        } else {
+            // echo "Plain User";
+            header('Location: '.$uri.'/covid-not-found/UserPanel/user.php');
+        }
+    }
+?>
 
-    <section class="register-form">
-        <div class="register-form">
-            <h2>Register</h2>
-            <input type="text" id="register-name" placeholder="Name...">
-            <input type="text" id="register-surname" placeholder="Surname...">
-            <input type="text" id="register-email" placeholder="Email...">
-            <input type="password" id="register-password" placeholder="Password...">
-            <input type="password" id="register-password-conf" placeholder="Password Confirmation...">
-            <button id="register-submit">Register</button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Covid Not Found - Log In</title>
+    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+<body class="w-50 m-auto">
+
+<!-- Pills navs -->
+<ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+    <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="tab-login" data-bs-toggle="pill" href="#pills-login" role="tab"
+            aria-controls="pills-login" aria-selected="true">Login</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="tab-register" data-bs-toggle="pill" href="#pills-register" role="tab"
+            aria-controls="pills-register" aria-selected="false">Register</a>
+    </li>
+</ul>
+
+  
+    <!-- Pills content -->
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
+            <div class="form-outline mb-4" id="login_alert"></div>
+            <!-- Email input -->
+            <div class="form-outline mb-4">
+                <label class="form-label" for="login-email">Email</label>
+                <input type="email" id="login-email" class="form-control login" placeholder="name@example.com"/>          
+            </div>
+
+            <!-- Password input -->
+            <div class="form-outline mb-4">
+                <label class="form-label" for="login-pwd">Password</label>
+                <input type="password" id="login-pwd" class="form-control login" placeholder="***************"/>          
+            </div>
+
+            <!-- Submit button -->
+            <button id="login-submit" class="btn btn-primary btn-block mb-4">Sign in</button>
         </div>
-    </section>
+        <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="active">
+            <div class="form-outline mb-4" id="register_alert"></div>
+            <!-- Name input -->
+            <div class="form-outline mb-4">
+                <label class="form-label" for="register-name">Name</label>
+                <input type="text" id="register-name" placeholder="John" class="form-control register" />
+            </div>
 
-    <section class="logout">
-        <br>
-        <button id="logout">Log out</button>
-        <br>
-        <p id="test"> </p>
+            <!-- Username input -->
+            <div class="form-outline mb-4">
+                <label class="form-label" for="register-surname">Username</label>
+                <input type="text" id="register-surname" placeholder="Doe" class="form-control register" />
+            </div>
 
-    </section>
+            <!-- Email input -->
+            <div class="form-outline mb-4">
+                <label class="form-label" for="register-email">Email</label>
+                <input type="email" id="register-email" placeholder="name@example.com" class="form-control register" />
+            </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"        
-                integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-                crossorigin="anonymous"></script>
-	<script	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
-		
+            <!-- Password input -->
+            <div class="form-outline mb-4">
+                <label class="form-label" for="register-password">Password</label>
+                <input type="password" id="register-password" placeholder="***************" class="form-control register" /> 
+            </div>
 
-    <script defer type="text/javascript">
-                
-        $(document).ready(function () {
+            <!-- Repeat Password input -->
+            <div class="form-outline mb-4">
+                <label class="form-label" for="register-password-conf">Repeat password</label>
+                <input type="password" id="register-password-conf" placeholder="***************" class="form-control register" />
+            </div>
 
-            $('#login-submit').click(function () {
-                var email = document.getElementById("login-email").value;
-                var password = document.getElementById("login-pwd").value;
+            <!-- Submit button -->
+            <button id="register-submit" class="btn btn-primary btn-block mb-3">Sign in</button>
+        </div>
+    </div>
 
-                $.ajax( {
-                    url: "login.inc.php",
-                    dataType: "text",
-                    type: "POST",
-                    data: {
-                        login: JSON.stringify({ 
-                            email: email,
-                            password: password
-                        })
-                    }, 
-                    success: function( response ) { $('#test').html(response) },
-                    error: function( error ) { console.log(error) }
-                });
-            });
+    <?php include '../requirements.php'; ?>
 
-            $('#register-submit').click(function () {
-                var name = document.getElementById("register-name").value;
-                var surname = document.getElementById("register-surname").value;
-                var email = document.getElementById("register-email").value;
-                var password = document.getElementById("register-password").value;
-                var password_conf = document.getElementById("register-password-conf").value;
-
-                $.ajax( {
-                    url: "includes/login.inc.php",
-                    dataType: "text",
-                    type: "POST",
-                    data: {
-                        register: JSON.stringify({ 
-                            name: name,
-                            surname: surname,
-                            email: email,
-                            password: password,
-                            password_conf: password_conf
-                        })
-                    }, 
-                    success: function( response ) { $('#test').html(response) },
-                    error: function( error ) { console.log(error) }
-                });
-            });
-        })           
-    </script>
-    
-<!-- <?php
-    include_once 'footer.php'
-?> -->
+</body>
+</html>
