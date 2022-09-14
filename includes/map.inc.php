@@ -34,7 +34,7 @@ class Poi {
 
     function get_poi() {
         return [ "poi_id"=>$this->poi_id,
-            "name"=>$this->name,
+            "name"=>$this->name, 
             "address"=>$this->address,
             "lat"=>$this->lat,
             "lng"=>$this->lng,
@@ -149,6 +149,7 @@ if (isset($_POST['estimation'])) {
             while($row){
                 $i++;
                 $estim += $row["estimation"];
+                $row = mysqli_fetch_assoc($resultData);               
             } 
             $estim = $estim / $i;
             echo json_encode(['estimation' => $estim]);
