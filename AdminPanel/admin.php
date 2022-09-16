@@ -118,7 +118,7 @@
 								</div>
 							</div>
 							<div>
-							<input type="checkbox" id="chart-6-visits" name="chart-6-visits" checked>
+								<input type="checkbox" id="chart-6-visits" name="chart-6-visits" checked>
 								<label for="chart-6-visits">Visits</label>
 							</div>
 
@@ -135,22 +135,30 @@
                       <h5 class="card-header">Hourly Diagram</h5>
                       <div class="card-body">
                         <div class="chartCard">
-                          <div class="chartBox">
+                          	<div class="chartBox">
                             	<canvas id="chart-7"></canvas>
 							</div>
 							<div>
                             	Choose a date: <input id="chart7-myDate" type="date" min="2022-01-01" max="2022-12-31"> 
                             	<button id="filter-chart-7">Filter</button><br>
-                            
-                          </div>
+                          	</div>
                           
-                        </div>
-						<div class="row">
-							<div class="col-8 col-md-8 col-lg-8">
-								<p class="card-text text">Visitors or Confirmed Cases per hour.</p>		
-							</div>
 						</div>
-                      </div>
+							<div class="row">
+								<div class="col-8 col-md-8 col-lg-8">
+									<p class="card-text text">Visitors or Confirmed Cases per hour.</p>		
+								</div>
+							</div>
+							<div>
+								<input type="checkbox" id="chart-7-visits" name="chart-7-visits" checked>
+								<label for="chart-7-visits">Visits</label>
+							</div>
+
+							<div>
+								<input type="checkbox" id="chart-7-confcases" name="chart-7-confcases">
+								<label for="chart-6-confcases">Confirmed Cases</label>
+							</div>
+                      	</div>
                     </div>
                 </div>
             
