@@ -102,21 +102,30 @@
 					<div class="card">
 						<h5 class="card-header">Daily Diagram</h5>
 						<div class="card-body">
-						<div class="chartCard">
-							<div class="chartBox">
-								<canvas id="chart-6"></canvas>
+							<div class="chartCard">
+								<div class="chartBox">
+									<canvas id="chart-6"></canvas>
+								</div>
+								<div>
+									Start: <input id="chart6-minDate" type="date" min="2022-01-01" max="2022-12-31"> 
+									End: <input id="chart6-maxDate" type="date" min="2022-01-01" max="2022-12-31">
+									<button id="filter-chart-6">Filter</button><br>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-8 col-md-8 col-lg-8">
+									<p class="card-text text">Visitors or Confirmed Cases per day.</p>		
+								</div>
 							</div>
 							<div>
-								Start: <input id="chart6-minDate" type="date" min="2022-01-01" max="2022-12-31"> 
-								End: <input id="chart6-maxDate" type="date" min="2022-01-01" max="2022-12-31">
-								<button id="filter-chart-6">Filter</button><br>
+							<input type="checkbox" id="chart-6-visits" name="chart-6-visits" checked>
+								<label for="chart-6-visits">Visits</label>
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-8 col-md-8 col-lg-8">
-								<p class="card-text text">Visitors or Confirmed Cases per day.</p>		
+
+							<div>
+								<input type="checkbox" id="chart-6-confcases" name="chart-6-confcases">
+								<label for="chart-6-confcases">Confirmed Cases</label>
 							</div>
-						</div>
 						</div>
 					</div>
 				</div>

@@ -121,13 +121,15 @@ function update_chart_5() {
     })
 }
 
-function update_chart_6(minDate, maxDate) {
+function update_chart_6(minDate, maxDate, visits, confcases) {
     $.ajax({
         url:"../includes/admincharts.inc.php",
         method:"POST",
         data:{ chart6: JSON.stringify({
                 minDate, 
-                maxDate
+                maxDate,
+                visits,
+                confcases
             }) 
         },
         dataType:"text",
@@ -199,6 +201,7 @@ function create_board_chart6(chart_id, dataSets) {
     var label_dates = [];
     var dates = []
     var countVisits = [];
+    var countCaseVisits = [];
     var bg_color = [];
     var border_color = [];
     var index = -1;
@@ -213,17 +216,40 @@ function create_board_chart6(chart_id, dataSets) {
             bg_color[index] = color + '0.4)'
             border_color[index] = color + '1)'
         }
-    })         
-    
-    const chart_data = {
-        labels: label_dates,
-        datasets: [{
-            label: 'Covid Cases',
+    })  
+
+    let chart_datasets = [{
+            label: 'Visits',
             data: countVisits,
             backgroundColor: bg_color,
             borderColor: border_color,
             borderWidth: 1
-        }]
+        }];
+
+    if (dataSets.hasOwnProperty('caseArray')) {
+        var index = -1;
+        dataSets.caseArray.forEach(date => {
+            this_date = new Date(date).getDate();
+            if (this_date == dates[index]) { countCaseVisits[index]++; }
+            else { index++; 
+                if (this_date == dates[index]) {
+                    countCaseVisits[index] = 1;
+                }                 
+            }
+        })  
+
+        chart_datasets.push({
+            label: 'Covid Cases',
+            data: countCaseVisits,
+            backgroundColor: bg_color,
+            borderColor: border_color,
+            borderWidth: 1
+        })        
+    }
+    
+    const chart_data = {
+        labels: label_dates,
+        datasets: chart_datasets
     };
   
     new Chart( $(chart_id),
@@ -334,7 +360,9 @@ $(document).ready(function() {
     $('#filter-chart-6').click(function() {
         let minDate = $('#chart6-minDate').val()
         let maxDate = $('#chart6-maxDate').val()
-        update_chart_6(minDate, maxDate);
+        let visits = $('#chart-6-visits').val()
+        let confcases = $('#chart-6-confcases').val()
+        update_chart_6(minDate, maxDate, visits, confcases);
     });
     $('#filter-chart-7').click(function() {
         let myDate = $('#chart7-myDate').val()
