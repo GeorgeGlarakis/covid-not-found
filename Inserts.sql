@@ -20,3 +20,7 @@ INSERT INTO covid.visits (user_id, poi_id, visit_time, estimation)
     , ('1', 'ChIJLWNTMuhJXhMRc0uCYczaWys', '2022-9-2 19:00:00', '50')
     , ('2', 'ChIJLWNTMuhJXhMRc0uCYczaWys', '2022-9-2 17:00:00', '50')
     , ('3', 'ChIJLWNTMuhJXhMRc0uCYczaWys', '2022-9-2 18:00:00', '50')
+    , ('3', 'ChIJLWNTMuhJXhMRc0uCYczaWys', '2022-9-2 18:00:00', '50')
+
+INSERT INTO covid_cases (user_id, date)
+    VALUES (2, '2022-9-2')
