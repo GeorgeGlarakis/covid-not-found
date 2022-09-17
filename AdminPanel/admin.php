@@ -13,11 +13,15 @@
                             	<div class="d-flex align-items-center justify-content-center">
                                 	<h1 id="chart-1"></h1>                                	
                               	</div>
+								<div class = "row">
+								<div class = "clot-12 col-md-12 col-lg-8 my-2">	
+									<p class ="card-text text">Count of Total Visits.</p>
+								</div>
 								
 								<div class="col-12 col-md-12 col-lg-4 d-flex align-items-center justify-content-center align-items-lg-end justify-content-lg-end">
 									<button id="refresh-chart-1">Refresh</button>
 								</div>
-							  								  
+								</div>							  
                             </div>
                         </div>
                     </div>
@@ -31,7 +35,7 @@
                             	</div>
 								<div class="row">
 								<div class="col-12 col-md-12 col-lg-8 my-2">
-										<p class="card-text text">These are the total Confirmed Cases.</p>		
+										<p class="card-text text">Count of Confirmed Cases.</p>		
 									</div>
 									<div class="col-12 col-md-12 col-lg-4 d-flex align-items-center justify-content-center align-items-lg-end justify-content-lg-end">
 										<button id="refresh-chart-2">Refresh</button>
@@ -49,7 +53,7 @@
                               	</div>
 								<div class="row">
 									<div class="col-12 col-md-12 col-lg-8 my-2">
-										<p class="card-text text">Total visitors found covid positive.</p>		
+										<p class="card-text text">Count of Covid Visits.</p>		
 									</div>
 									<div class="col-12 col-md-12 col-lg-4 d-flex align-items-center justify-content-center align-items-lg-end justify-content-lg-end">
 										<button id="refresh-chart-3">Refresh</button>
