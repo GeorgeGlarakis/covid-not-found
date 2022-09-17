@@ -25,14 +25,18 @@ if(!navigator.geolocation) { console.log("Your browser doesn't support geolocati
 var coords, marker, circle;
 
 function getPosition( position ){
-    var lat = position.coords.latitude
-    var lng = position.coords.longitude
+    // var lat = position.coords.latitude
+    // var lng = position.coords.longitudevar 
+    var lat = 38.2475
+    var lng = 21.7311
+
+    // 38.2475       21.7311
 
     if(mylocation) { map.removeLayer(mylocation) }
 
     mycoords = L.marker([lat, lng], {icon: blueMarker}).bindPopup("My Location")
     bigcircle = L.circle([lat, lng], { radius: 5000 });
-    smallcircle = L.circle([lat, lng], { radius: 300 });
+    smallcircle = L.circle([lat, lng], { radius: 5000 });
 
     var mylocation = L.featureGroup([mycoords]).addTo(map)
     var circles = L.featureGroup([bigcircle, smallcircle]).addTo(map)
@@ -215,7 +219,10 @@ function register_visit( poi_id, estimation ) {
             })
         }, 
         success: function( response ) {
-            alert("Your visit has been registered successfully!");
+            if (response.includes("[SQL Success]")) {
+                console.log("Your visit has been registered successfully!");
+                $('#' + poi_id).addClass("btn-success disabled");
+            } else { console.log(response) }
         },
         error: function( error ) {
             console.log(error)

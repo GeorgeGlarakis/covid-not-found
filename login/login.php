@@ -1,6 +1,12 @@
 <?php
     session_start();
     if(isset($_SESSION['user_id'])) {
+        if (!empty($_SERVER['HTTPS']) && ('on' == $_SERVER['HTTPS'])) {
+            $uri = 'https://';
+        } else {
+            $uri = 'http://';
+        }
+        $uri .= $_SERVER['HTTP_HOST'];
         // echo "User ID is set!";
         if (isset($_SESSION['is_admin']) &&  $_SESSION['is_admin'] == 1) {
             // echo "IS ADMIN is set!";
@@ -18,6 +24,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Covid Not Found - Log In</title>
+    <link rel="shortcut icon" href="#">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
@@ -89,7 +96,7 @@
             </div>
 
             <!-- Submit button -->
-            <button id="register-submit" class="btn btn-primary btn-block mb-3">Sign in</button>
+            <button id="register-submit" class="btn btn-primary btn-block mb-3">Register</button>
         </div>
     </div>
 

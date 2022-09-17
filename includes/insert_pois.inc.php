@@ -113,13 +113,21 @@
 	}
 
 	function delete_all($conn) {
-		$delete_all = "DELETE * FROM poi_types;
-						DELETE * FROM visits;
-						DELETE * FROM pois;";
+		$delete_poi_types = "DELETE FROM poi_types;";
+		$delete_visits = "DELETE FROM visits;";			
+		$delete_pois = "DELETE FROM pois;";
+		$delete_covid_cases = "DELETE FROM covid_cases;";
+
 
 		try {
 			$stmt = mysqli_stmt_init($conn);
-			mysqli_stmt_prepare($stmt, $delete_all);
+			mysqli_stmt_prepare($stmt, $delete_poi_types);
+			mysqli_stmt_execute($stmt);
+			mysqli_stmt_prepare($stmt, $delete_pois);
+			mysqli_stmt_execute($stmt);
+			mysqli_stmt_prepare($stmt, $delete_visits);
+			mysqli_stmt_execute($stmt);
+			mysqli_stmt_prepare($stmt, $delete_covid_cases);
 			mysqli_stmt_execute($stmt);
 			mysqli_stmt_close($stmt);
 			echo "Deleted Successfully!";

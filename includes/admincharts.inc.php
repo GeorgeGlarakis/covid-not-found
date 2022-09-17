@@ -154,52 +154,150 @@
         $recived = utf8_encode($_POST['chart6']);
         $minDate = json_decode($recived)->minDate;
         $maxDate = json_decode($recived)->maxDate;
-        // $dateFilter = "SELECT date, COUNT(case_id) FROM covid_cases WHERE date < '$maxDate' and date > '$minDate' GROUP BY date";
-        $dateFilter = "SELECT visit_time FROM visits WHERE visit_time <= '$maxDate' and visit_time >= '$minDate' GROUP BY visit_time ORDER BY visit_time ASC;";
+        $if_visits = json_decode($recived)->visits;
+        $if_confcases = json_decode($recived)->confcases;
+
+        $visitFilter = "SELECT visit_time FROM visits 
+                            WHERE visit_time <= '$maxDate' 
+                                AND visit_time >= '$minDate' 
+                                GROUP BY visit_time 
+                                ORDER BY visit_time ASC;";
+        $confcaseFilter = "SELECT visit_time FROM visits 
+                            INNER JOIN covid_cases ON visits.user_id = covid_cases.user_id
+                            WHERE ( visits.visit_time >= covid_cases.date 
+                                    AND date_sub(visits.visit_time, INTERVAL 7 DAY) <= covid_cases.date )
+                                OR ( visits.visit_time < covid_cases.date 
+                                    AND date_add(visits.visit_time, INTERVAL 14 DAY) >= covid_cases.date )
+                                AND visit_time <= '$maxDate' 
+                                AND visit_time >= '$minDate' 
+                                GROUP BY visit_time 
+                                ORDER BY visit_time ASC;";
+        
+        if (!($if_visits && $if_confcases)) {
+            if ($if_visits && !$if_confcases) { $dateFilter = $visitFilter; } 
+            elseif (!$if_visits && $if_confcases) { $dateFilter = $confcaseFilter; }
            
-        try {
-            $stmt = mysqli_stmt_init($conn);
-            mysqli_stmt_prepare($stmt, $dateFilter);
-            mysqli_stmt_execute($stmt);
-    
-            $resultData = mysqli_stmt_get_result($stmt);
-    
-            while($row = mysqli_fetch_assoc($resultData)){
-                $dateArray[] = $row["visit_time"];
+            try {
+                $stmt = mysqli_stmt_init($conn);
+                mysqli_stmt_prepare($stmt, $dateFilter);
+                mysqli_stmt_execute($stmt);
+        
+                $resultData = mysqli_stmt_get_result($stmt);
+        
+                while($row = mysqli_fetch_assoc($resultData)){
+                    $dateArray[] = $row["visit_time"];
+                }
+                $data = array('dateArray' => $dateArray);
+                echo json_encode($data);
+                mysqli_stmt_close($stmt);
             }
-            $data = array('dateArray' => $dateArray);
-            echo json_encode($data);
-            mysqli_stmt_close($stmt);
+            catch (Exception $err) {
+                echo json_encode(['error' => '[SQL Failed]']);
+                die;
+            }  
+        }  else {
+            try {
+                $stmt = mysqli_stmt_init($conn);
+                mysqli_stmt_prepare($stmt, $visitFilter);
+                mysqli_stmt_execute($stmt);
+        
+                $resultData = mysqli_stmt_get_result($stmt);
+        
+                while($row = mysqli_fetch_assoc($resultData)){
+                    $dateArray[] = $row["visit_time"];
+                }
+                mysqli_stmt_close($stmt);
+
+                $stmt = mysqli_stmt_init($conn);
+                mysqli_stmt_prepare($stmt, $confcaseFilter);
+                mysqli_stmt_execute($stmt);
+        
+                $resultData = mysqli_stmt_get_result($stmt);
+        
+                while($row = mysqli_fetch_assoc($resultData)){
+                    $caseArray[] = $row["visit_time"];
+                }
+                mysqli_stmt_close($stmt);
+
+                $data = array('dateArray' => $dateArray, 'caseArray' => $caseArray);
+                echo json_encode($data);
+            }
+            catch (Exception $err) {
+                echo json_encode(['error' => '[SQL Failed]']);
+                die;
+            }
         }
-        catch (Exception $err) {
-            echo json_encode(['error' => '[SQL Failed]']);
-            die;
-        }    
     }
 
     if (isset($_POST['chart7'])) {
 
         $recived = utf8_encode($_POST['chart7']);
         $myDate = json_decode($recived)->myDate;
-        $dateFilter = "SELECT visit_time FROM visits WHERE visit_time LIKE '$myDate %'";
-           
-        try {
-            $stmt = mysqli_stmt_init($conn);
-            mysqli_stmt_prepare($stmt, $dateFilter);
-            mysqli_stmt_execute($stmt);
-    
-            $resultData = mysqli_stmt_get_result($stmt);
-    
-            while($row = mysqli_fetch_assoc($resultData)){
-                $date_visits[] = $row["visit_time"];
+        $if_visits = json_decode($recived)->visits;
+        $if_confcases = json_decode($recived)->confcases;
+
+        $visitFilter = "SELECT visit_time FROM visits WHERE visit_time LIKE '$myDate %'";
+        $confcaseFilter = "SELECT visit_time FROM visits 
+                            INNER JOIN covid_cases ON visits.user_id = covid_cases.user_id
+                            WHERE ( visits.visit_time >= covid_cases.date 
+                                    AND date_sub(visits.visit_time, INTERVAL 7 DAY) <= covid_cases.date )
+                                OR ( visits.visit_time < covid_cases.date 
+                                    AND date_add(visits.visit_time, INTERVAL 14 DAY) >= covid_cases.date )
+                                AND visit_time LIKE '$myDate %'";
+
+        if (!($if_visits && $if_confcases)) {
+            if ($if_visits && !$if_confcases) { $dateFilter = $visitFilter; } 
+            elseif (!$if_visits && $if_confcases) { $dateFilter = $confcaseFilter; }
+
+            try {
+                $stmt = mysqli_stmt_init($conn);
+                mysqli_stmt_prepare($stmt, $dateFilter);
+                mysqli_stmt_execute($stmt);
+        
+                $resultData = mysqli_stmt_get_result($stmt);
+        
+                while($row = mysqli_fetch_assoc($resultData)){
+                    $date_visits[] = $row["visit_time"];
+                }
+                $data = array('date_visits' => $date_visits);
+                echo json_encode($data);
+                mysqli_stmt_close($stmt);
             }
-            $data = array('date_visits' => $date_visits);
-            echo json_encode($data);
-            mysqli_stmt_close($stmt);
-        }
-        catch (Exception $err) {
-            echo json_encode(['error' => '[SQL Failed]']);
-            die;
-        }    
+            catch (Exception $err) {
+                echo json_encode(['error' => '[SQL Failed]']);
+                die;
+            } 
+        } else {
+            try {
+                $stmt = mysqli_stmt_init($conn);
+                mysqli_stmt_prepare($stmt, $visitFilter);
+                mysqli_stmt_execute($stmt);
+        
+                $resultData = mysqli_stmt_get_result($stmt);
+        
+                while($row = mysqli_fetch_assoc($resultData)){
+                    $dateArray[] = $row["visit_time"];
+                }
+                mysqli_stmt_close($stmt);
+
+                $stmt = mysqli_stmt_init($conn);
+                mysqli_stmt_prepare($stmt, $confcaseFilter);
+                mysqli_stmt_execute($stmt);
+        
+                $resultData = mysqli_stmt_get_result($stmt);
+        
+                while($row = mysqli_fetch_assoc($resultData)){
+                    $caseArray[] = $row["visit_time"];
+                }
+                mysqli_stmt_close($stmt);
+
+                $data = array('date_visits' => $dateArray, 'caseArray' => $caseArray);
+                echo json_encode($data);
+            }
+            catch (Exception $err) {
+                echo json_encode(['error' => '[SQL Failed]']);
+                die;
+            }
+        }   
     }
 ?>

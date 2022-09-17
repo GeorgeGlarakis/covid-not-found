@@ -3,6 +3,8 @@
 include "../database_conn.php";
 
 header('Content-Type: text/plain');
+session_start();
+$user_id = (isset($_SESSION["user_id"]) ? $_SESSION["user_id"] : -1 );
 
 class Poi {
     private $poi_id;
@@ -32,7 +34,7 @@ class Poi {
 
     function get_poi() {
         return [ "poi_id"=>$this->poi_id,
-            "name"=>$this->name,
+            "name"=>$this->name, 
             "address"=>$this->address,
             "lat"=>$this->lat,
             "lng"=>$this->lng,
@@ -147,6 +149,7 @@ if (isset($_POST['estimation'])) {
             while($row){
                 $i++;
                 $estim += $row["estimation"];
+                $row = mysqli_fetch_assoc($resultData);               
             } 
             $estim = $estim / $i;
             echo json_encode(['estimation' => $estim]);
@@ -164,12 +167,10 @@ if (isset($_POST['visits'])) {
     
 	$received = utf8_encode($_POST['visits']);
     $visits = json_decode($received);
-    $user_id = $_SESSION["user_id"];
     $poi_id = $visits->poi_id;
     $estimation = $visits->estimation;
     date_default_timezone_set("Europe/Athens");
     $visit_time =  date_create()->format('Y-m-d H:i:s');
-
 
     $insert_visits = "INSERT INTO visits (user_id, poi_id, visit_time, estimation)
                     VALUES ('$user_id', '$poi_id', '$visit_time', '$estimation');";
