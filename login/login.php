@@ -96,7 +96,7 @@
             </div>
 
             <!-- Submit button -->
-            <button id="register-submit" class="btn btn-primary btn-block mb-3">Sign in</button>
+            <button id="register-submit" class="btn btn-primary btn-block mb-3">Register</button>
         </div>
     </div>
 

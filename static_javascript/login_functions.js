@@ -86,6 +86,11 @@ $(document).ready(function () {
                     $('#register_alert').html("<p id='reg_alert'>Email already exists!</p>")
                     $('#reg_alert').addClass("bg-danger text-white text-center font-weight-bold rounded d-flex align-middle mb-1 py-2 px-3")
                     $('#register-email').addClass("border-danger")
+                } else if (response.includes("[ERROR] password_strength")) {
+                    $('#register_alert').html("<p id='reg_alert'>Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character!</p>")
+                    $('#reg_alert').addClass("bg-danger text-white text-center font-weight-bold rounded d-flex align-middle mb-1 py-2 px-3")
+                    $('#register-password').addClass("border-danger")
+                    $('#register-password-conf').addClass("border-danger")
                 }
 
             },
@@ -138,6 +143,11 @@ $(document).ready(function () {
                     $('#register_alert').html("<p id='reg_alert'>Email already exists!</p>")
                     $('#reg_alert').addClass("bg-danger text-white text-center font-weight-bold rounded d-flex align-middle mb-1 py-2 px-3")
                     $('#register-email').addClass("border-danger")
+                } else if (response.includes("[ERROR] password_strength")) {
+                    $('#register_alert').html("<p id='reg_alert'>Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character!</p>")
+                    $('#reg_alert').addClass("bg-danger text-white text-center font-weight-bold rounded d-flex align-middle mb-1 py-2 px-3")
+                    $('#register-password').addClass("border-danger")
+                    $('#register-password-conf').addClass("border-danger")
                 }
              },
             error: function( error ) { console.log(error) }
