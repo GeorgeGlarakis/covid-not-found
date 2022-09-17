@@ -32,7 +32,7 @@ $(document).ready(function () {
     $('#delete').click(function () {
             
         $.ajax( {
-            url: "../includes/insert_pois.php",
+            url: "../includes/insert_pois.inc.php",
             dataType: "text",
             type: "POST",
             data: { delete: null }, 
