@@ -47,6 +47,11 @@ elseif (isset($_POST['register']) || isset($_POST['admin'])) {
         exit();
     }
 
+    if (passwordStrength($password) == false) {
+        echo "[ERROR] password_strength";
+        exit();
+    }
+
     if (isset($_POST['register'])) { createUser($conn, $name, $surname, $email, $password); }
     elseif (isset($_POST['admin'])) { createAdmin($conn, $name, $surname, $email, $password); }
 
@@ -78,6 +83,10 @@ elseif (isset($_POST['change_user'])) {
     }
     if (!empty($change_info->password)) {
         if (!empty($change_info->password_conf)) {
+            if (passwordStrength($change_info->password) == false) {
+                echo "[ERROR] password_strength";
+                exit();
+            }
             if (passwordMatch($change_info->password, $change_info->password_conf) == true) {
                 $hashedpassword = password_hash($change_info->password, PASSWORD_DEFAULT);
                 $changes = ($change_flag == true ? $changes . " , " : "");
@@ -140,6 +149,20 @@ function passwordMatch($password, $password_conf) {
         $result = true;
     }
     return $result;
+}
+
+function passwordStrength($password) {
+    $uppercase = preg_match('@[A-Z]@', $password);
+    $lowercase = preg_match('@[a-z]@', $password);
+    $number    = preg_match('@[0-9]@', $password);
+    $specialChars = preg_match('@[^\w]@', $password);
+
+    if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
+        return false;
+    } 
+    else { 
+        return true; 
+    }
 }
 
 function emailExists($conn, $email) {
