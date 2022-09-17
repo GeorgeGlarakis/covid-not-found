@@ -156,32 +156,36 @@ function update_chart_6(minDate, maxDate, visits, confcases) {
 }
 
 function update_chart_7(myDate, visits, confcases) {
-    $.ajax({
-        url:"../includes/admincharts.inc.php",
-        method:"POST",
-        data:{ chart7: JSON.stringify({
-                myDate,
-                visits, 
-                confcases
-            }) 
-        },
-        dataType:"text",
-        
-        success:function( response ) {
-            if (response.includes("error")) {
-                let error = JSON.parse(response);
-                console.log(error.error);
-            }
-            else if (response.includes("date_visits")) {
-                create_board_chart7(chart_7, JSON.parse(response));
-            }
-            else { console.log("Wrong response!"); }
-        },
-        error: function( xhr, ajaxOptions, thrownError ) {
-            console.log("AJAX Error:" + xhr.status)
-            console.log("Thrown Error:" + thrownError)
-        }					
-    })
+    if (visits || confcases) {
+        $.ajax({
+            url:"../includes/admincharts.inc.php",
+            method:"POST",
+            data:{ chart7: JSON.stringify({
+                    myDate,
+                    visits, 
+                    confcases
+                }) 
+            },
+            dataType:"text",
+            
+            success:function( response ) {
+                if (response.includes("error")) {
+                    let error = JSON.parse(response);
+                    console.log(error.error);
+                }
+                else if (response.includes("date_visits")) {
+                    create_board_chart7(chart_7, JSON.parse(response));
+                }
+                else { console.log("Wrong response!"); }
+            },
+            error: function( xhr, ajaxOptions, thrownError ) {
+                console.log("AJAX Error:" + xhr.status)
+                console.log("Thrown Error:" + thrownError)
+            }					
+        })
+    } else {
+        console.log("Choose a filter!");
+    }    
 }
 
 function create_pie_chart(chart_id, data) {
