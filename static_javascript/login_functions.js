@@ -115,7 +115,7 @@ $(document).ready(function () {
             }, 
             success: function( response ) { 
                 $('.register').removeClass("border-danger")
-                if (response.includes("[DONE] Insert Completed!")) {
+                if (response.includes("[ADMIN] Insert Completed!")) {
                     $('#register_alert').html("<p id='reg_alert'>Registered Successfully! Log in with your credentials!</p>")
                     $('#reg_alert').addClass("bg-success text-white text-center font-weight-bold rounded d-flex align-middle mb-1 py-2 px-3")
                 } else if (response.includes("[ERROR] stmt_failed")) {
