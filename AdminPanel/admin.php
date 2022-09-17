@@ -105,7 +105,6 @@
 							<div class="card-body">
 								<div class="row">
 									<div class="col-3">
-									<div>
 										<input type="checkbox" id="chart-6-visits" name="chart-6-visits" checked>
 										<label for="chart-6-visits">Visits</label>
 									</div>
