@@ -1,15 +1,18 @@
 <?php
     session_start();
-    // if(isset($_SESSION['user_id'])) {
-    //     // echo "User ID is set!";
-    //     if (isset($_SESSION['is_admin']) &&  $_SESSION['is_admin'] == 1) {
-    //         // echo "IS ADMIN is set!";
-    //         header('Location: '.$uri.'/covid-not-found/AdminPanel/admin.php');
-    //     } else {
-    //         // echo "Plain User";
-    //         header('Location: '.$uri.'/covid-not-found/UserPanel/user.php');
-    //     }
-    // }
+    if (!empty($_SERVER['HTTPS']) && ('on' == $_SERVER['HTTPS'])) {
+        $uri = 'https://';
+    } else {
+        $uri = 'http://';
+    }
+    $uri .= $_SERVER['HTTP_HOST'];
+    if(isset($_SESSION['user_id'])) {
+      if (isset($_SESSION['is_admin']) &&  $_SESSION['is_admin'] == 0) {
+          header('Location: '.$uri.'/covid-not-found/UserPanel/user.php');
+      }
+    } else {
+        header('Location: '.$uri.'/covid-not-found/login/login.php');
+    }
 ?>
 
 <!DOCTYPE html>
