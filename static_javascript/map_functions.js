@@ -25,24 +25,21 @@ if(!navigator.geolocation) { console.log("Your browser doesn't support geolocati
 var coords, marker, circle;
 
 function getPosition( position ){
-    // var lat = position.coords.latitude
-    // var lng = position.coords.longitudevar 
-    var lat = 38.2475
-    var lng = 21.7311
-
-    // 38.2475       21.7311
+    var lat = position.coords.latitude
+    var lng = position.coords.longitudevar 
+    // var lat = 38.2475
+    // var lng = 21.7311
 
     if(mylocation) { map.removeLayer(mylocation) }
 
     mycoords = L.marker([lat, lng], {icon: blueMarker}).bindPopup("My Location")
     bigcircle = L.circle([lat, lng], { radius: 5000 });
-    smallcircle = L.circle([lat, lng], { radius: 5000 });
+    smallcircle = L.circle([lat, lng], { radius: 300 });
 
     var mylocation = L.featureGroup([mycoords]).addTo(map)
     var circles = L.featureGroup([bigcircle, smallcircle]).addTo(map)
     circles.setStyle({color: 'rgba(0,0,0,0)'})
 
-    // console.log(bigcircle.getBounds())
     map.fitBounds(bigcircle.getBounds())
 }
 

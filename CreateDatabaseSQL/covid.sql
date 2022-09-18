@@ -1,8 +1,6 @@
 CREATE DATABASE covid;
 USE covid;
 
-START TRANSACTION;
-
 CREATE TABLE IF NOT EXISTS users
 (
     user_id INTEGER NOT NULL AUTO_INCREMENT,
@@ -63,6 +61,3 @@ CREATE TABLE IF NOT EXISTS covid_cases
     PRIMARY KEY (case_id),
     FOREIGN KEY (user_id)    REFERENCES users (user_id)
 );
-
---  COMMIT
---  ROLLBACK

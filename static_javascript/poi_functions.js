@@ -19,7 +19,7 @@ $(document).ready(function () {
                 data: {
                     pois: sendfile 
                 }, 
-                success: function( response ) { console.log(response) },
+                success: function( response ) { alert(response) },
                 error: function( error ) { console.log(error) }
             });
         }
@@ -36,7 +36,7 @@ $(document).ready(function () {
             dataType: "text",
             type: "POST",
             data: { delete: null }, 
-            success: function( response ) { console.log(response) },
+            success: function( response ) { alert(response) },
             error: function( error ) { console.log(error) }
         });
           

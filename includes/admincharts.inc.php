@@ -159,8 +159,7 @@
 
         $visitFilter = "SELECT visit_time FROM visits 
                             WHERE visit_time <= '$maxDate' 
-                                AND visit_time >= '$minDate' 
-                                GROUP BY visit_time 
+                                AND visit_time >= '$minDate'  
                                 ORDER BY visit_time ASC;";
         $confcaseFilter = "SELECT visit_time FROM visits 
                             INNER JOIN covid_cases ON visits.user_id = covid_cases.user_id
@@ -169,8 +168,7 @@
                                 OR ( visits.visit_time < covid_cases.date 
                                     AND date_add(visits.visit_time, INTERVAL 14 DAY) >= covid_cases.date )
                                 AND visit_time <= '$maxDate' 
-                                AND visit_time >= '$minDate' 
-                                GROUP BY visit_time 
+                                AND visit_time >= '$minDate'  
                                 ORDER BY visit_time ASC;";
         
         if (!($if_visits && $if_confcases)) {
